@@ -1,15 +1,9 @@
 #ifndef __FAARAY_TRACETHREAD_H__
 #define __FAARAY_TRACETHREAD_H__
 
-#include "Utils/FaaRay.hpp"
-#include <memory>
+#include "Shared.hpp"
 #include "GFA.hpp"
-#include "Point2D.hpp"
-#include "Point3D.hpp"
-#include "Vector3D.hpp"
-#include "Normal.hpp"
-#include "RGBColor.hpp"
-
+#include <memory>
 
 class ViewPlane;
 class Scene;
@@ -79,8 +73,8 @@ public:
     Vector3D   lDirection;
     
 private:
-    uint32_t    seedValue_;
-    MyRNG       rng_;
+    uint32_t        seedValue_;
+    MyRNG           rng_;
     std::uniform_real_distribution<Scalar> distribution;  
 };
 

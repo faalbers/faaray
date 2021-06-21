@@ -1,11 +1,9 @@
 #ifndef __FAARAY_MATTEMATERIAL_H__
 #define __FAARAY_MATTEMATERIAL_H__
 
+#include "Shared.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
 #include "Materials/Material.hpp"
-#include "GFA.hpp"
-
 
 class TraceThread;
 class LambertianBRDF;

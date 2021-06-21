@@ -1,4 +1,4 @@
-#include "Render/TraceThread.hpp"
+#include "TraceThread.hpp"
 #include "Scene/ViewPlane.hpp"
 #include "Scene/Scene.hpp"
 #include "Samplers/Sampler.hpp"
@@ -6,7 +6,7 @@
 #include "Tracers/Tracer.hpp"
 #include "Lights/Light.hpp"
 #include "Materials/Material.hpp"
-#include "RGBcolor.hpp"
+
 
 TraceThread::TraceThread()
 {

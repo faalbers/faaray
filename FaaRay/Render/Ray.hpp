@@ -1,9 +1,8 @@
 #ifndef __FAARAY_RAY_H__
 #define __FAARAY_RAY_H__
 
-#include "Point3D.hpp"
-#include "Vector3D.hpp"
-
+#include "Shared.hpp"
+#include "GFA.hpp"
 
 class Ray
 {

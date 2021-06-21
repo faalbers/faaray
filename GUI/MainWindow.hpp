@@ -5,16 +5,20 @@
 #include <QGraphicsScene>
 #include <QImage>
 #include <QTimer>
+#include "Bose.hpp"
 #include "RenderThread.hpp"
 #include "RenderWidget.hpp"
-#include "Render/RenderJob.hpp"
-//#include "Scene/Scene.h"
+
+#ifdef FAARAY_CLASS_DEBUG
+    test();
+#endif
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, public Bose
 {
     Q_OBJECT
 
@@ -30,12 +34,11 @@ protected slots:
     void renderDone();
 
 private:
-    Ui::MainWindow      *ui_;
-    RenderThread        *renderThreadPtr_;
-    RenderWidget        *renderWidgetPtr_;
-    RenderJob   *renderJobPtr_;
-    //Scene       *scenePtr_;
-    //ViewPlane   *viewPlanePtr_;
+    Ui::MainWindow                  *ui_;
+    std::shared_ptr<RenderThread>   renderThreadSPtr_;
+    std::shared_ptr<RenderWidget>   renderWidgetSPtr_;
+
+
     QTimer              *timer_;
 
     void viewPlaneSetup_() const;

@@ -1,7 +1,8 @@
 #ifndef _FAARAY_UTILS_H__
 #define _FAARAY_UTILS_H__
 
-#include <iostream>
+#include "Shared.hpp"
+#include "GFA.hpp"
 #include <random>
 
 // Random setup

@@ -1,12 +1,10 @@
 #ifndef __FAARAY_POINTLIGHT_H__
 #define __FAARAY_POINTLIGHT_H__
 
+#include "Shared.hpp"
+#include "GFA.hpp"
 #include "Lights/Light.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "GFA.hpp"
-#include "RGBColor.hpp"
-#include "Point3D.hpp"
 
 class PointLight : public Light
 {

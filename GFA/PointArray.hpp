@@ -1,7 +1,7 @@
 #ifndef __GFA_POINTARRAY_H__
 #define __GFA_POINTARRAY_H__
 
-#include "GFA.hpp"
+#include "Shared.hpp"
 
 class PointArray
 {

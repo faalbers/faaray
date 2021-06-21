@@ -1,14 +1,16 @@
-#include "GeometricObjects/Sphere.hpp"
+#include "Sphere.hpp"
 #include "Render/TraceThread.hpp"
 
 Sphere::Sphere()
-    :   radius_(1.0),
-        radiusQuad_(1.0)
+    : radius_(1.0)
+    , radiusQuad_(1.0)
 {
+    constructDebug("Sphere");
 }
 
 Sphere::~Sphere(void)
 {
+    deconstructDebug("Sphere");
 }
 
 bool Sphere::hit(TraceThread &ttRef, Scalar& tmin) const

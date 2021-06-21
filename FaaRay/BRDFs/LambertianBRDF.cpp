@@ -1,10 +1,10 @@
 #include "BRDFs/LambertianBRDF.hpp"
-#include "GFA.hpp"
-#include "Utils/FaaRay.hpp"
+
 #include "Render/TraceThread.hpp"
 
 LambertianBRDF::LambertianBRDF()
-    :   kd_(1.0)
+    : kd_(1.0)
+    , cd_(RGBColor(1.0, 1.0, 1.0))
 {
 }
 
@@ -37,5 +37,5 @@ void LambertianBRDF::rho(TraceThread &ttRef) const
 
 void LambertianBRDF::f(TraceThread &ttRef) const
 {
-    ttRef.srFColor = cd_*kd_ * invPI;
+    ttRef.srFColor = cd_ * kd_ * invPI;
 }

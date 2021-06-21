@@ -1,9 +1,10 @@
 #include "Point.hpp"
 
 Point::Point()
-    :   dataPtr_(0),
-        dim_(0)
+    : dataPtr_(0)
+    , dim_(0)
 {
+    
 }
 
 Point::Point(const Point &pointRef)

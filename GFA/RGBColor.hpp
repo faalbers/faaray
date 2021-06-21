@@ -1,7 +1,7 @@
 #ifndef __GFA_RGBCOLOR_H__
 #define __GFA_RGBCOLOR_H__
 
-#include "GFA.hpp"
+#include "Shared.hpp"
 #include <iostream>
 
 class RGBColor

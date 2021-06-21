@@ -2,18 +2,17 @@
 #define __GUIVIEWPLANE_H__
 
 #include <memory>
-#include "Render/RenderJob.hpp"
-#include "RGBColor.hpp"
+#include "FaaRay.hpp"
 #include "RenderWidget.hpp"
-#include "Scene/ViewPlane.hpp"
 
 class GUIViewPlane : public ViewPlane
 {
 public:
-    GUIViewPlane(RenderWidget *renderWidgetPtr_);
+    GUIViewPlane(std::shared_ptr<RenderWidget> renderWidgetSPtr);
+    ~GUIViewPlane();
 
 private:
-    RenderWidget  *renderWidgetPtr_;
+    std::shared_ptr<RenderWidget>  renderWidgetSPtr_;
 
     virtual void setGUIPixel_(const Index &x, const Index &y,
         const RGBColor &c) const; 

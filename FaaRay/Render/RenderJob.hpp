@@ -1,17 +1,15 @@
 #ifndef __FAARAY_RENDERJOB_H__
 #define __FAARAY_RENDERJOB_H__
 
-#include <memory>
-#include "Utils/FaaRay.hpp"
-//#include "tbb/parallel_for.hpp"
-//#include "tbb/blocked_range.hpp"
+#include "Shared.hpp"
 
+#include <memory>
 
 class Scene;
 class ViewPlane;
 class TraceThread;
 
-class RenderJob
+class RenderJob : public Base
 {
 public:
     RenderJob();
@@ -26,9 +24,8 @@ public:
     
     void render() const;
 
-    //void operator() (const tbb::blocked_range<std::size_t> &r) const;
-
 private:
+    // NeedFix: create typedefs for these
     std::shared_ptr<ViewPlane>  viewPlaneSPtr_;
     std::shared_ptr<Scene>      sceneSPtr_;
     bool                        multiThread_;

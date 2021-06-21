@@ -1,5 +1,5 @@
 
-#include "Tracers/Tracer.hpp"
+#include "Tracer.hpp"
 #include "Render/TraceThread.hpp"
 
 Tracer::Tracer()

@@ -2,14 +2,17 @@
 #ifndef __GFA_GFA_H__
 #define __GFA_GFA_H__
 
-typedef double          Scalar;
-typedef unsigned int    Index;
-typedef unsigned int    Size;
-
-const Scalar EPSILON        = 0.0001; // very small
-const Scalar HUGE_SCALAR    = 1.0E10; // very large
-const Scalar PI = 3.14159265359;
-const Scalar invPI = 1.0 / PI;
+#include "Matrix.hpp"
+#include "Normal.hpp"
+#include "Point.hpp"
+#include "Point2D.hpp"
+#include "Point3D.hpp"
+#include "PointArray.hpp"
+#include "RGBColor.hpp"
+#include "RGBColorBuffer.hpp"
+#include "Vector.hpp"
+#include "Vector3D.hpp"
+#include "VectorArray.hpp"
 
 #endif
 

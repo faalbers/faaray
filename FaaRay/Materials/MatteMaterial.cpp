@@ -3,16 +3,17 @@
 #include "BRDFs/LambertianBRDF.hpp"
 #include "Lights/Light.hpp"
 #include "Scene/Scene.hpp"
-#include "Normal.hpp"
 
 MatteMaterial::MatteMaterial()
     :   ambientBrdfPtr_(new LambertianBRDF),
         diffuseBrdfPtr_(new LambertianBRDF)
 {
+    constructDebug("MatteMaterial");
 }
 
 MatteMaterial::~MatteMaterial()
 {
+    deconstructDebug("MatteMaterial");
     delete ambientBrdfPtr_;
     delete diffuseBrdfPtr_;
 }

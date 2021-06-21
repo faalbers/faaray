@@ -1,14 +1,15 @@
 #ifndef __FAARAY_RAYCASTTRACER_H__
 #define __FAARAY_RAYCASTTRACER_H__
 
+#include "Shared.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "Tracers/Tracer.hpp"
+#include "Tracer.hpp"
 
 class RayCastTracer : public Tracer
 {
     public:
-        virtual ~RayCastTracer(void);
+        RayCastTracer();
+        ~RayCastTracer();
 
         virtual void traceRay(TraceThread &ttRef) const;
 };

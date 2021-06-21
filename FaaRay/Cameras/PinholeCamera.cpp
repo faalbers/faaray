@@ -1,11 +1,16 @@
 #include "PinholeCamera.hpp"
-#include "Point2D.hpp"
 #include "Samplers/Sampler.hpp"
 #include "Tracers/Tracer.hpp"
 #include "Render/TraceThread.hpp"
 
+PinholeCamera::PinholeCamera()
+{
+    constructDebug("PinholeCamera");
+}
+
 PinholeCamera::~PinholeCamera()
 {
+    deconstructDebug("PinholeCamera");
 }
 
 void PinholeCamera::setViewPlaneDistance(

@@ -2,13 +2,10 @@
 #ifndef __FAARAY_SCENE_H__
 #define __FAARAY_SCENE_H__
 
+#include "Shared.hpp"
+
 #include <vector>
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "GFA.hpp"
-#include "Point3D.hpp"
-#include "RGBColor.hpp"
-
 
 class Camera;
 class Tracer;
@@ -16,13 +13,14 @@ class Light;
 class TraceThread;
 class GeometricObject;
 
-class Scene
+class Scene : public Base
 {
     public:
         Scene();
-        ~Scene(void);
+        ~Scene();
 
         // Setup methods
+        // NeedFix: change shared ptr declarators
         void setCamera(std::shared_ptr<Camera> cameraSPtr);
         void setTracer(std::shared_ptr<Tracer> tracerSPtr);
         void setAmbientLight(std::shared_ptr<Light> ambientLightSPtr);
@@ -37,6 +35,9 @@ class Scene
         std::shared_ptr<Tracer> getTracerSPtr() const;
         std::shared_ptr<const Tracer> getConstTracerSPtr() const;
         std::shared_ptr<const Light> getConstAmbientLightSPtr() const;
+
+        // SPtr test function
+        void printSPtrUseCounts();
         
         // ray trace methods
         void hitObjects(TraceThread &ttRef) const;
@@ -44,6 +45,7 @@ class Scene
         void applyLights(TraceThread &ttRef) const;
     
     private:
+        // NeedFix: change std::shared_ptr<Camera> to CameraSPtr
         std::shared_ptr<Camera>                         cameraSPtr_;
         std::shared_ptr<Tracer>                         tracerSPtr_;
         std::shared_ptr<Light>                          ambientLightSPtr_;

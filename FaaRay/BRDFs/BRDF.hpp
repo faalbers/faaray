@@ -1,8 +1,8 @@
 #ifndef __FAARAY_BRDF_H__
 #define __FAARAY_BRDF_H__
 
-#include "GFA.hpp"
-#include "RGBColor.hpp"
+
+
 
 class TraceThread;
 

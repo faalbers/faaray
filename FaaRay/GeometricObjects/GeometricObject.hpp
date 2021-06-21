@@ -1,15 +1,15 @@
 #ifndef __FAARAY_GEOMETRICOBJECT_H__
 #define __FAARAY_GEOMETRICOBJECT_H__
 
-#include <memory>
-#include "GFA.hpp"
-#include "Utils/FaaRay.hpp"
+#include "Shared.hpp"
 
+#include "GFA.hpp"
+#include <memory>
 
 class TraceThread;
 class Material;
 
-class GeometricObject
+class GeometricObject : public Base
 {
 public:
     GeometricObject();      // default constructor

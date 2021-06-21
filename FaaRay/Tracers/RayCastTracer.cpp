@@ -4,8 +4,14 @@
 #include "Scene/Scene.hpp"
 #include "Materials/Material.hpp"
 
+RayCastTracer::RayCastTracer()
+{
+    constructDebug("RayCastTracer");
+}
+
 RayCastTracer::~RayCastTracer()
 {
+    deconstructDebug("RayCastTracer");
 }
 
 void RayCastTracer::traceRay(TraceThread &ttRef) const
@@ -15,6 +21,7 @@ void RayCastTracer::traceRay(TraceThread &ttRef) const
         ttRef.srMaterialSPtr->shade(ttRef);
     } else {
         ttRef.srColor.r = 0.0; ttRef.srColor.g = 0.0; ttRef.srColor.b = 0.0;
+    // NeedFix: Does Alpha need to be 0 ?
         ttRef.srColor.a = 0.0;
     }
 }

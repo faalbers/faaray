@@ -1,17 +1,25 @@
 #include "GUIViewPlane.hpp"
 
-GUIViewPlane::GUIViewPlane(RenderWidget *renderWidgetPtr)
-    : ViewPlane(renderWidgetPtr->bufferWidth(), renderWidgetPtr->bufferHeight()),
-      renderWidgetPtr_(renderWidgetPtr)
+GUIViewPlane::GUIViewPlane(std::shared_ptr<RenderWidget> renderWidgetSPtr)
+    : ViewPlane(renderWidgetSPtr->bufferWidth(), renderWidgetSPtr->bufferHeight()),
+      renderWidgetSPtr_(renderWidgetSPtr)
 {
+    constructDebug("GUIViewPlane");
+}
+
+GUIViewPlane::~GUIViewPlane()
+{
+    #ifdef SHARED_POINTER_DEBUG
+        std::cout << "\n---- GUIViewPlane:renderWidgetSPtr_ use count = " << renderWidgetSPtr_.use_count() << "\n";
+    #endif
+    deconstructDebug("GUIViewPlane");
 }
 
 void GUIViewPlane::setGUIPixel_(const Index &x, const Index &y,
         const RGBColor &c) const
 {
     //NOTE: add warning
-    if (renderWidgetPtr_ == 0 ) return;
-    renderWidgetPtr_->setPixel(x, y,
+    renderWidgetSPtr_->setPixel(x, y,
         (unsigned char) (c.r * 255.0),
         (unsigned char) (c.g * 255.0),
         (unsigned char) (c.b * 255.0),

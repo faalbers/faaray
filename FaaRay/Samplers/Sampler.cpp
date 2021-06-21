@@ -1,4 +1,4 @@
-#include "Samplers/Sampler.hpp"
+#include "Sampler.hpp"
 #include <math.h>
 #include <algorithm>   // for random_shuffle in Sampler::setupShuffledIndices
 #include "Render/TraceThread.hpp"

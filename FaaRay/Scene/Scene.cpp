@@ -1,6 +1,5 @@
 
-#include "Scene/Scene.hpp"
-#include "GFA.hpp"
+#include "Scene.hpp"
 #include <memory>
 #include "Cameras/Camera.hpp"
 #include "Tracers/Tracer.hpp"
@@ -10,12 +9,27 @@
 #include "GeometricObjects/Sphere.hpp"
 #include "Materials/Material.hpp"
 
-Scene::Scene(void)
+//#define FAARAY_CLASS_DEBUG
+
+Scene::Scene()
+    : cameraSPtr_(nullptr)
+    , tracerSPtr_(nullptr)
+    , ambientLightSPtr_(nullptr)
 {
+    constructDebug("Scene");
 }
 
-Scene::~Scene(void)
+Scene::~Scene()
 {
+    sPtrDebug("Scene::cameraSPtr_", cameraSPtr_);
+    sPtrDebug("Scene::tracerSPtr_", tracerSPtr_);
+    sPtrDebug("Scene::ambientLightSPtr_", ambientLightSPtr_);
+    for (Index j = 0; j < objectSPtrs_.size(); j++)
+        sPtrDebug("Scene::objectSPtrs_", objectSPtrs_[j], j);
+    for (Index j = 0; j < lightSPtrs_.size(); j++)
+        sPtrDebug(("Scene::lightSPtrs_"), lightSPtrs_[j], j);
+
+    deconstructDebug("Scene");
 }
 
 void Scene::setCamera(CameraSPtr cameraSPtr)
@@ -67,6 +81,19 @@ ConstTracerSPtr Scene::getConstTracerSPtr() const
 ConstLightSPtr Scene::getConstAmbientLightSPtr() const
 {
     return ambientLightSPtr_;
+}
+
+void Scene::printSPtrUseCounts()
+{
+    std::cout << "\nScene: Shared Pointers use count:\n";
+    std::cout << "cameraSPtr:\t" << cameraSPtr_.use_count() << std::endl;
+    std::cout << "tracerSPtr:\t" << tracerSPtr_.use_count() << std::endl;
+    std::cout << "cameraSPtr:\t" << ambientLightSPtr_.use_count() << std::endl;
+    for (Index j = 0; j < objectSPtrs_.size(); j++)
+        std::cout << "objectSPtr(" << j << "):\t" << objectSPtrs_[j].use_count() << std::endl;
+    for (Index j = 0; j < lightSPtrs_.size(); j++)
+        std::cout << "lightSPtrs_(" << j << "):\t" << lightSPtrs_[j].use_count() << std::endl;
+    
 }
 
 void Scene::hitObjects(TraceThread &ttRef) const

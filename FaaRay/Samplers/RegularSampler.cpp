@@ -1,4 +1,4 @@
-#include "Samplers/RegularSampler.hpp"
+#include "RegularSampler.hpp"
 
 RegularSampler::RegularSampler()
     :   Sampler()

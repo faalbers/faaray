@@ -1,14 +1,13 @@
 #ifndef __FAARAY_CAMERA_H__
 #define __FAARAY_CAMERA_H__
 
+#include "Shared.hpp"
+#include "GFA.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "Point3D.hpp"
-#include "Vector3D.hpp"
 
 class TraceThread;
 
-class Camera
+class Camera : public Base
 {
 public:
     Camera();

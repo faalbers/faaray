@@ -1,23 +1,26 @@
 #include "RenderJob.hpp"
 #include <stdlib.h>
 #include <time.h>
-#include "RGBColor.hpp"
 #include "Scene/ViewPlane.hpp"
 #include "Scene/Scene.hpp"
 #include "Render/TraceThread.hpp"
 
-#include <iostream>
-
 RenderJob::RenderJob()
-    :   viewPlaneSPtr_(new ViewPlane),
+    :   viewPlaneSPtr_(nullptr),
         sceneSPtr_(new Scene),
         multiThread_(false)
 {
+    constructDebug("RenderJob");
 }
 
 RenderJob::~RenderJob()
 {
+    sPtrDebug("RenderJob:viewPlaneSPtr_", viewPlaneSPtr_);
+    sPtrDebug("RenderJob:sceneSPtr_", sceneSPtr_);
+    deconstructDebug("RenderJob");
 }
+    std::shared_ptr<ViewPlane>  viewPlaneSPtr_;
+    std::shared_ptr<Scene>      sceneSPtr_;
 
 SceneSPtr RenderJob::getSceneSPtr() const
 {
@@ -31,7 +34,8 @@ ViewPlaneSPtr RenderJob::getViewPlaneSPtr() const
 
 void RenderJob::setViewPlaneSPtr(ViewPlaneSPtr viewPlaneSPtr)
 {
-    viewPlaneSPtr_.reset();
+    // NeedFix: make sure we need to reset first
+    viewPlaneSPtr_.reset(); // delete managed object
     viewPlaneSPtr_ = viewPlaneSPtr;
 }
   
@@ -45,7 +49,6 @@ void  RenderJob::render() const
     if (multiThread_)
         renderMultiThread_();
     else
-        std::cout << "render one thread\n";
         renderOneThread_();
 }
 

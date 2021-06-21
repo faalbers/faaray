@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 COMPONENTS Widgets OpenGLWidgets REQUIRED)
 
-file(GLOB GUI_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp )
+file(GLOB GUI_SOURCES *.cpp )
 
 get_target_property(GFA_SOURCE_DIR GFA SOURCE_DIR)
 get_target_property(FAARAY_SOURCE_DIR FaaRay SOURCE_DIR)

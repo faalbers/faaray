@@ -1,4 +1,4 @@
-#include "Lights/Light.hpp"
+#include "Light.hpp"
 #include "Render/TraceThread.hpp"
 
 Light::Light()

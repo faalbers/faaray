@@ -4,55 +4,49 @@
 #include <QGraphicsRectItem>
 #include <QTime>
 
+#include "GUIViewPlane.hpp"
 #include <iostream>
 #include <stdlib.h>
 #include <memory>
 
-#include "Render/RenderJob.hpp"
-#include "Scene/Scene.hpp"
-#include "GUIViewPlane.hpp"
-#include "Point3D.hpp"
-#include "Cameras/PinholeCamera.hpp"
-#include "Tracers/RayCastTracer.hpp"
-#include "Lights/AmbientLight.hpp"
-#include "Lights/PointLight.hpp"
-#include "Materials/MatteMaterial.hpp"
-#include "GeometricObjects/Sphere.hpp"
-
 MainWindow::MainWindow(QWidget *parent)
-    :   QMainWindow(parent),
-        ui_(new Ui::MainWindow),
-        renderThreadPtr_(nullptr)
+    : QMainWindow(parent)
+    , ui_(new Ui::MainWindow)
+    , renderThreadSPtr_(nullptr)
 {
     ui_->setupUi(this);
     setWindowTitle(tr("FAARay"));
 
-    renderWidgetPtr_ = new RenderWidget(ui_->width->value(), ui_->height->value());
+    std::shared_ptr<RenderWidget>  renderWidgetSPtr(new RenderWidget(ui_->width->value(), ui_->height->value()));
+    renderWidgetSPtr_ = renderWidgetSPtr;
 
-    ui_->renderLayout->addWidget(renderWidgetPtr_);
+    ui_->renderLayout->addWidget(renderWidgetSPtr_.get());
 
     connect(ui_->render, SIGNAL(clicked()), this, SLOT(render()));
-    //connect(ui_->renderUpdate, SIGNAL(clicked()), this, SLOT(rupdate()));
 
     // OGL update timer
     timer_ = new QTimer(this);
     connect(timer_, SIGNAL(timeout()), this, SLOT(updateOGL()));
+
+    constructDebug("MainWindow");
 }
 
 MainWindow::~MainWindow()
 {
-    delete renderWidgetPtr_;
+    sPtrDebug("MainWindow:renderWidgetSPtr_", renderWidgetSPtr_);
+    deconstructDebug("MainWindow");
 }
 
 void MainWindow::updateOGL() const
 {
-    renderWidgetPtr_->update();
+    renderWidgetSPtr_->update();
 }
 
 void MainWindow::viewPlaneSetup_() const
 {
     // Get shared viewplane pointer
-    ViewPlaneSPtr viewPlaneSPtr = renderJobPtr_->getViewPlaneSPtr();
+    std::shared_ptr<RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
+    ViewPlaneSPtr viewPlaneSPtr = renderJobSPtr->getViewPlaneSPtr();
 
     viewPlaneSPtr->setNumSamples(ui_->samples->value());
     ui_->samples->setValue(viewPlaneSPtr->numSamples());
@@ -60,8 +54,9 @@ void MainWindow::viewPlaneSetup_() const
 
 void MainWindow::sceneBuild_() const
 {
-    // Get shared scene pointer
-    SceneSPtr sceneSPtr = renderJobPtr_->getSceneSPtr();
+    // Get scene pointer
+    std::shared_ptr<RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
+    std::shared_ptr<Scene> sceneSPtr(renderJobSPtr->getSceneSPtr());
 
     // create shared Pin Hole Camera and add to scene
     PinholeCameraSPtr  cameraSPtr(new PinholeCamera);
@@ -106,14 +101,15 @@ void MainWindow::sceneBuild_() const
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
     PointLightSPtr pointLightASPtr(new PointLight);
-    pointLightASPtr->setCenter(10, 5, 15);
-    pointLightASPtr->setRadiance(2.0);
-    pointLightASPtr->castShadows(true);
+    pointLightASPtr->setCenter(0, 2000, 0);
+    pointLightASPtr->setRadiance(1.5);
+    pointLightASPtr->castShadows(false);
     sceneSPtr->addLight(pointLightASPtr);
     
     // create MatteMaterials for objects
     MatteMaterialSPtr matteMaterialASPtr(new MatteMaterial);
     matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
+
     /*
     // Create sphere array and add to scene
     SphereSPtr sphereSPtr(nullptr);
@@ -127,67 +123,118 @@ void MainWindow::sceneBuild_() const
             sceneSPtr->addObject(sphereSPtr);
         }
     }
+    
     */
+    // Objects
+    SphereSPtr sphereSPtr;
+    sphereSPtr = MakeSphereSPtr();
+    sphereSPtr->setCenter(0, 0, 0);
+    sphereSPtr->setRadius(5);
+    sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+    sceneSPtr->addObject(sphereSPtr);
+    sphereSPtr = MakeSphereSPtr();
+    sphereSPtr->setCenter(0, 0, -10);
+    sphereSPtr->setRadius(5);
+    sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+    sceneSPtr->addObject(sphereSPtr);
+
+
     // Create 2 sphere
+    /*
     SphereSPtr sphereSPtr(new Sphere);
     sphereSPtr->setCenter(-5, 0, 0);
     sphereSPtr->setRadius(5);
     sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
-    
+
     sphereSPtr = MakeSphereSPtr();
     sphereSPtr->setCenter(5, 0, 2);
     sphereSPtr->setRadius(5);
     sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
+    */
+
+    /*
+    Sphere* spherePtr;
+    spherePtr = new Sphere;
+    spherePtr->setCenter(2.2, 0.0, 0.0);
+    spherePtr->setRadius(1.0);
+    spherePtr->setMaterial(matteMaterialAPtr);
+    addObject(spherePtr);
+    spherePtr = new Sphere;
+    spherePtr->setCenter(-2.2, 0.0, 0.0);
+    spherePtr->setRadius(1.0);
+    spherePtr->setMaterial(phongMaterialAPtr);
+    addObject(spherePtr);
+    spherePtr = new Sphere;
+    spherePtr->setCenter(0.0, 0.0, 2.2);
+    spherePtr->setRadius(1.0);
+    spherePtr->setMaterial(phongMaterialAPtr);
+    addObject(spherePtr);
+    spherePtr = new Sphere;
+    spherePtr->setCenter(0.0, 0.0, -2.2);
+    spherePtr->setRadius(1.0);
+    spherePtr->setMaterial(emissiveMaterialAPtr);
+    addObject(spherePtr);
+
+    OpenCylinder* cylinderPtr = new OpenCylinder(-1.0, 2.0, 0.0);
+    cylinderPtr->setMaterial(phongMaterialAPtr);
+    addObject(cylinderPtr);
     
+    Plane* planePtr = new Plane(Point3D(0.0, -1.0, 0.0), Normal(0.0, 1.0, 0.0));
+    planePtr->setMaterial(phongMaterialBPtr);
+    addObject(planePtr);
+    
+    Disc* discPtr = new Disc(Point3D(1.5, 1.4, 0.5), Normal(0.0, 1.0, 0.0), 1.0);
+    discPtr->setMaterial(matteMaterialAPtr);
+    addObject(discPtr);
+
+    Rectangle* rectanglePtr = new Rectangle(Point3D(0.0, 1.5, 0.0), Vector3D(2.0, 0.0, 0.0), Vector3D(1.0, 0.0, -1.0));
+    rectanglePtr->setMaterial(matteMaterialAPtr);
+    addObject(rectanglePtr);
+    */
+
 }
 
 void MainWindow::render()
 {
+    std::cout << "\n**** MainWindow:render ****\n";
     ui_->render->setDisabled(true);
 
+    std::shared_ptr<RenderJob> renderJobSPtr(new RenderJob);
+    renderThreadSPtr_.reset(new RenderThread(renderJobSPtr));
+
     // Initialize render buffer
-    renderWidgetPtr_->resizeBuffer(ui_->width->value(), ui_->height->value());
+    renderWidgetSPtr_->resizeBuffer(ui_->width->value(), ui_->height->value());
     
     // Create render job
     QTime rjTimer(0,0);
 
-    renderJobPtr_   = new RenderJob;
-    
     // Replace renderjob viewplane by specifically designed viewplane 
     // for this gui based on ViewPlane
-    GUIViewPlaneSPtr viewPlaneSPtr(new GUIViewPlane(renderWidgetPtr_));
-    renderJobPtr_->setViewPlaneSPtr(viewPlaneSPtr);
+    GUIViewPlaneSPtr viewPlaneSPtr(new GUIViewPlane(renderWidgetSPtr_));
+    // NeedFix: Doesn't the viewPlane get deleted at the end of this proc ??
+    renderJobSPtr->setViewPlaneSPtr(viewPlaneSPtr);
 
     // Setup viewplane and scene
     viewPlaneSetup_();
     sceneBuild_();
-    
-    if (ui_->cpus->currentIndex() == 1) renderJobPtr_->setMultiThread();
-    std::cout << "Render Job Creation SEC: " << rjTimer.msecsSinceStartOfDay()/1000.0 << std::endl;
+
+    if (ui_->cpus->currentIndex() == 1) renderJobSPtr->setMultiThread();
+    std::cout << "\nRender Job Creation SEC: " << rjTimer.msecsSinceStartOfDay()/1000.0 << std::endl;
 
     updateOGL();
 
     // Start Qt render tread
-    if (renderThreadPtr_ == 0) {
-        renderThreadPtr_ = new RenderThread(renderJobPtr_);
-        connect(renderThreadPtr_, SIGNAL(renderDone()),this, SLOT(renderDone()));
-        renderThreadPtr_->start();
-        //timer_->start();   
-    }
+    connect(renderThreadSPtr_.get(), SIGNAL(renderDone()),this, SLOT(renderDone()));
+    renderThreadSPtr_->start();
 }
 
 void MainWindow::renderDone()
 {
-    if (renderThreadPtr_ != 0) {
-        renderThreadPtr_->wait();
-        delete renderThreadPtr_;
-        renderThreadPtr_ = 0;
-    }
-
-    // Remove render job
-    delete renderJobPtr_; renderJobPtr_ = 0;
+    std::cout << "\n**** MainWindow:renderDone ****\n";
+    renderThreadSPtr_->wait();
+    renderThreadSPtr_.reset();
 
     //timer_->stop();    
     updateOGL();

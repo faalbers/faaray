@@ -1,15 +1,16 @@
 #include "AmbientLight.hpp"
 #include "Render/TraceThread.hpp"
-#include "Vector3D.hpp"
 
 AmbientLight::AmbientLight()
     :   ls_(1.0),
         color_(RGBColor(1.0, 1.0, 1.0))
 {
+    constructDebug("AmbientLight");
 }
 
 AmbientLight::~AmbientLight()
 {
+    deconstructDebug("AmbientLight");
 }
 
 void AmbientLight::setLs(const Scalar &ls)

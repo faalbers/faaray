@@ -1,7 +1,7 @@
 #ifndef __GFA_POINT2D_H__
 #define __GFA_POINT2D_H__
 
-#include "GFA.hpp"
+#include "Shared.hpp"
 #include <iostream>
 
 class Point2D

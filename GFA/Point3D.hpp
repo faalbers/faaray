@@ -2,9 +2,8 @@
 #ifndef __GFA_POINT3D_H__
 #define __GFA_POINT3D_H__
 
-#include "GFA.hpp"
+#include "Shared.hpp"
 #include <iostream>
-
 
 class Vector3D;
 

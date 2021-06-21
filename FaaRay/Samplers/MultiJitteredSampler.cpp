@@ -1,4 +1,4 @@
-#include "Samplers/MultiJitteredSampler.hpp"
+#include "MultiJitteredSampler.hpp"
 
 MultiJitteredSampler::MultiJitteredSampler()
     :   Sampler()

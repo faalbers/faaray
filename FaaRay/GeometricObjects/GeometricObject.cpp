@@ -1,4 +1,4 @@
-#include "GeometricObjects/GeometricObject.hpp"
+#include "GeometricObject.hpp"
 #include "Render/TraceThread.hpp"
 #include "Materials/Material.hpp"
 

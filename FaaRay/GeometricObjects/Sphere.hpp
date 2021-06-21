@@ -1,11 +1,9 @@
 #ifndef __FAARAY_SPHERE_H__
 #define __FAARAY_SPHERE_H__
 
+#include "Shared.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "GeometricObjects/GeometricObject.hpp"
-#include "GFA.hpp"
-#include "Point3D.hpp"
+#include "GeometricObject.hpp"
 
 class Sphere : public GeometricObject
 {

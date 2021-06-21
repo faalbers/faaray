@@ -1,12 +1,13 @@
 #ifndef __FAARAY_LIGHT_H__
 #define __FAARAY_LIGHT_H__
 
-#include <memory>
+#include "Shared.hpp"
 
+#include <memory>
 
 class TraceThread;
     
-class Light
+class Light : public Base
 {
 public:
     Light();

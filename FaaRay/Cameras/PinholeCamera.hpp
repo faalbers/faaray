@@ -1,15 +1,14 @@
 #ifndef __FAARAY_PINHOLECAMERA_H__
 #define __FAARAY_PINHOLECAMERA_H__
 
+#include "Shared.hpp"
 #include <memory>
 #include "Camera.hpp"
-#include "Utils/FaaRay.hpp"
-#include "GFA.hpp"
 
 class PinholeCamera : public Camera
 {
 public:
-    //PinholeCamera();
+    PinholeCamera();
     virtual ~PinholeCamera();
 
     void setViewPlaneDistance(const Scalar &viewPlaneDistance);

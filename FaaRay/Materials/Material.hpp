@@ -1,14 +1,14 @@
 #ifndef __FAARAY_MATERIAL_H__
 #define __FAARAY_MATERIAL_H__
 
-#include <memory>
-#include "Utils/FaaRay.hpp"
-#include "RGBColor.hpp"
+#include "Shared.hpp"
 
+#include "GFA.hpp"
+#include <memory>
     
 class TraceThread;
 
-class Material
+class Material : public Base
 {
     public:
         Material();

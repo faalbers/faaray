@@ -1,5 +1,5 @@
 
-#include "Scene/ViewPlane.hpp"
+#include "ViewPlane.hpp"
 #include "Samplers/Sampler.hpp"
 #include "Samplers/RegularSampler.hpp"
 #include "Samplers/MultiJitteredSampler.hpp"
@@ -9,18 +9,23 @@ ViewPlane::ViewPlane()
         pixelSize_(1.0),
         samplerSPtr_(new RegularSampler)
 {
+    constructDebug("ViewPlane");
 }
 
+// NeedFix: Is this called at all ?S
 ViewPlane::ViewPlane(const Size width, const Size height)
     :   frameBufferPtr_(new RGBColorBuffer(width, height)),
         pixelSize_(10.0/256.0),
         samplerSPtr_(new RegularSampler(1))
 {
+    constructDebug("ViewPlane");
 }
 
 ViewPlane::~ViewPlane(void)
 {
     delete frameBufferPtr_;
+    sPtrDebug("ViewPlane:samplerSPtr_", samplerSPtr_);
+    deconstructDebug("ViewPlane");
 }
 
 const Size & ViewPlane::width() const
@@ -65,6 +70,7 @@ const Sampler * ViewPlane::getSamplerPtr() const
     return samplerSPtr_.get();
 }
 
+// NeedFix: why to procs doing the same thing
 SamplerSPtr ViewPlane::getSamplerSPtr() const
 {
     return samplerSPtr_;

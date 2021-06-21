@@ -1,3 +1,4 @@
+#include "GUI.hpp"
 #include "MainWindow.hpp"
 #include <QApplication>
 

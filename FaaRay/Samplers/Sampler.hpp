@@ -1,15 +1,15 @@
 #ifndef __FAARAY_SAMPLER_H__
 #define __FAARAY_SAMPLER_H__
 
+#include "Shared.hpp"
+
+#include "GFA.hpp"
 #include <memory>
 #include <vector>
-#include "GFA.hpp"
-#include "Utils/FaaRay.hpp"
-#include "Point2D.hpp"
 
 class TraceThread;
 
-class Sampler
+class Sampler : public Base
 {
     public:
         Sampler();

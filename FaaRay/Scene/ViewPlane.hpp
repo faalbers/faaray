@@ -2,16 +2,14 @@
 #ifndef __FAARAY_VIEWPLANE_H__
 #define __FAARAY_VIEWPLANE_H__
 
-#include <memory>
-#include "Utils/FaaRay.hpp"
-#include "GFA.hpp"
-#include "RGBColor.hpp"
-#include "RGBColorBuffer.hpp"
+#include "Shared.hpp"
 
+#include "GFA.hpp"
+#include <memory>
 
 class Sampler;
 
-class ViewPlane
+class ViewPlane : public Base
 {
     public:
         ViewPlane();

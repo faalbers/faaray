@@ -3,9 +3,10 @@
 
 #include <QWidget>
 #include <QPainter>
-#include "gfa.hpp"
+#include "Bose.hpp"
+#include "GFA.hpp"
 
-class RenderWidget : public QWidget
+class RenderWidget : public QWidget, public Bose
 {
     Q_OBJECT
 
@@ -19,7 +20,9 @@ public:
     Size bufferHeight();
 
     void resizeBuffer(const Size &width, const Size &height);
+    void resizeSBuffer(const Size &width, const Size &height);
     void fillBuffer(char r, char g, char b, char a = 255);
+    void fillSBuffer(char r, char g, char b, char a = 255);
 
     void setPixel(const Index &kiX, const Index &kiY,
         const unsigned char &r, const unsigned char &g, const unsigned char &b, const unsigned char &a);
@@ -30,7 +33,7 @@ protected:
 
 private:
     Size            width_, height_;
-    unsigned char   *pucBufferPtr_;
+    std::shared_ptr<unsigned char>  pucBufferSPtr_;
 };
 
 #endif // RENDERWIDGET_H

@@ -1,11 +1,10 @@
 #ifndef __FAARAY_AMBIENTLIGHT_H__
 #define __FAARAY_AMBIENTLIGHT_H__
 
+#include "Shared.hpp"
+#include "GFA.hpp"
 #include "Lights/Light.hpp"
 #include <memory>
-#include "Utils/FaaRay.hpp"
-#include "GFA.hpp"
-#include "RGBColor.hpp"
 
 class AmbientLight : public Light
 {

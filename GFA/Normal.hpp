@@ -2,7 +2,7 @@
 #ifndef __GFA_NORMAL_H__
 #define __GFA_NORMAL_H__
 
-#include "GFA.hpp"
+#include "Shared.hpp"
 
 
 class Vector3D;

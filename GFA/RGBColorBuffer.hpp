@@ -2,8 +2,7 @@
 #ifndef __GFA_RGBCOLORBUFFER_H__
 #define __GFA_RGBCOLORBUFFER_H__
 
-#include "GFA.hpp"
-
+#include "Shared.hpp"
 
 class RGBColor;
 

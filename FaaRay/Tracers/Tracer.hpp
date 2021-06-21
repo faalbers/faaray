@@ -2,16 +2,17 @@
 #ifndef __FAARAY_TRACER_H__
 #define __FAARAY_TRACER_H__
 
+#include "Shared.hpp"
+
 #include <memory>
-#include "Utils/FaaRay.hpp"
 
 class TraceThread;
 
-class Tracer
+class Tracer : public Base
 {
     public:
         Tracer();
-        virtual ~Tracer(void);
+        ~Tracer();
         
         virtual void traceRay(TraceThread &ttRef) const = 0;
 };
