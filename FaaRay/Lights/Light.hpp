@@ -1,7 +1,7 @@
 #ifndef __FAARAY_LIGHT_H__
 #define __FAARAY_LIGHT_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
 #include <memory>
 

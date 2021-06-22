@@ -2,7 +2,7 @@
 #ifndef __FAARAY_SCENE_H__
 #define __FAARAY_SCENE_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
 #include <vector>
 #include <memory>

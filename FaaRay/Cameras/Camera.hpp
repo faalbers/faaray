@@ -1,8 +1,7 @@
 #ifndef __FAARAY_CAMERA_H__
 #define __FAARAY_CAMERA_H__
 
-#include "Shared.hpp"
-#include "GFA.hpp"
+#include "Shared/Shared.hpp"
 #include <memory>
 
 class TraceThread;

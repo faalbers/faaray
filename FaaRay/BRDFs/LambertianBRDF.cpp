@@ -12,6 +12,7 @@ LambertianBRDF::~LambertianBRDF()
 {
 }
 
+// diffuse color
 void LambertianBRDF::setCd(
     const Scalar &r,
     const Scalar &g,
@@ -20,6 +21,7 @@ void LambertianBRDF::setCd(
     cd_.r = r; cd_.g = g; cd_.b = b;
 }
 
+// Diffuse Reflection Coefficient
 void LambertianBRDF::setKd(const Scalar &kd)
 {
     kd_ = kd;

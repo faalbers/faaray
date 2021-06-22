@@ -6,6 +6,7 @@
 
 class RGBColor;
 
+// NeedFix: change this to a RGBA8888 buffer
 class RGBColorBuffer
 {
     public:

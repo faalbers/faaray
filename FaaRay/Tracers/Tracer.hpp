@@ -2,7 +2,7 @@
 #ifndef __FAARAY_TRACER_H__
 #define __FAARAY_TRACER_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
 #include <memory>
 

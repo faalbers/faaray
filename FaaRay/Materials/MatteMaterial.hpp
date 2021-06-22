@@ -1,7 +1,7 @@
 #ifndef __FAARAY_MATTEMATERIAL_H__
 #define __FAARAY_MATTEMATERIAL_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <memory>
 #include "Materials/Material.hpp"
 

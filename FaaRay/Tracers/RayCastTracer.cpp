@@ -18,7 +18,11 @@ void RayCastTracer::traceRay(TraceThread &ttRef) const
 {
     ttRef.sceneSPtr->hitObjects(ttRef);
     if(ttRef.srHitAnObject) {
-        ttRef.srMaterialSPtr->shade(ttRef);
+        if ( ttRef.srMaterialSPtr.use_count() != 0) {
+            ttRef.srMaterialSPtr->shade(ttRef);
+        } else {
+            ttRef.srColor = RGBColor(1, 0, 0, 1);
+        }
     } else {
         ttRef.srColor.r = 0.0; ttRef.srColor.g = 0.0; ttRef.srColor.b = 0.0;
     // NeedFix: Does Alpha need to be 0 ?

@@ -1,7 +1,7 @@
 #ifndef __FAARAY_MULTIJITTEREDSAMPLER_H__
 #define __FAARAY_MULTIJITTEREDSAMPLER_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <memory>
 #include "Samplers/Sampler.hpp"
 

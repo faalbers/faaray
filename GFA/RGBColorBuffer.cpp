@@ -36,7 +36,7 @@ const Size & RGBColorBuffer::height() const
 void RGBColorBuffer::setPixel(
     const Index &, const Index &, const RGBColor &)
 {
-    //NOTE: Dees to be set up
+    // NeedFis: Dees to be set up
 }
 
 

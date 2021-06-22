@@ -48,10 +48,12 @@ const Size & ViewPlane::numSamples() const
     return samplerSPtr_->numSamples();
 }
 
+// NeedFix: are we setting 2 buffers ??
 void ViewPlane::setPixel(
     const Index &x, const Index &y,
     const RGBColor &col) const
 {
+    // NeedFix: frameBufferPtr does not do anything right now
     frameBufferPtr_->setPixel(x, y, col);
     setGUIPixel_(x, y, col);
 }

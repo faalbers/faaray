@@ -35,6 +35,7 @@ void PinholeCamera::render(TraceThread &ttRef) const
 
     Scalar xStart = ttRef.x - ttRef.halfWidth;
     Scalar yStart = ttRef.y - ttRef.halfHeight;
+
     for (Index j = 0; j < numSamples; j++) {
         ttRef.sampleIndex = j;
         ttRef.samplerSPtr->setSampleUnitSquare(ttRef);

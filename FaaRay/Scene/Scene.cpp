@@ -99,22 +99,25 @@ void Scene::printSPtrUseCounts()
 void Scene::hitObjects(TraceThread &ttRef) const
 {
     Scalar t;
+    Normal srNormal, srNormalmin;
     Scalar tmin = HUGE_SCALAR;
     Index  closestHit = 0;
 
     // Find closest hit
     ttRef.srHitAnObject = false;
     for (Index j = 0; j < objectSPtrs_.size(); j++) {
-        if (objectSPtrs_[j]->hit(ttRef, t) && (t < tmin)) {
-            ttRef.srHitAnObject = true;
-            tmin = t;
+        if (objectSPtrs_[j]->hit(ttRef, t, srNormal) && (t < tmin)) {
             closestHit = j;
+            tmin = t;
+            srNormalmin = srNormal;
+            ttRef.srHitAnObject = true;
         }
     }
+
     if (ttRef.srHitAnObject) {
-        // no need to delete prior srMaterialSPtr, this happens automatically
         ttRef.srMaterialSPtr = objectSPtrs_[closestHit]->getMaterialSPtr();
-        ttRef.srHitPoint = ttRef.rayOrigin + ttRef.rayDirection * t;
+        ttRef.srHitPoint = ttRef.rayOrigin + ttRef.rayDirection * tmin;
+        ttRef.srNormal = srNormalmin;
     }
 }
 

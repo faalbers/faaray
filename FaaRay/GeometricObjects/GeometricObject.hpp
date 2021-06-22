@@ -1,9 +1,8 @@
 #ifndef __FAARAY_GEOMETRICOBJECT_H__
 #define __FAARAY_GEOMETRICOBJECT_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
-#include "GFA.hpp"
 #include <memory>
 
 class TraceThread;
@@ -15,7 +14,7 @@ public:
     GeometricObject();      // default constructor
     ~GeometricObject();     // destructor
     
-    virtual bool hit(TraceThread &ttRef, Scalar &tmin) const = 0;
+    virtual bool hit(TraceThread &ttRef, Scalar &tmin, Normal &srNormal) const = 0;
     virtual bool shadowHit(TraceThread &ttRef, Scalar &tmin) const = 0;
 
     void setMaterialSPtr(std::shared_ptr<const Material> materialSPtr);

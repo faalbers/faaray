@@ -13,7 +13,7 @@ Sphere::~Sphere(void)
     deconstructDebug("Sphere");
 }
 
-bool Sphere::hit(TraceThread &ttRef, Scalar& tmin) const
+bool Sphere::hit(TraceThread &ttRef, Scalar& tmin, Normal &srNormal) const
 {
     // page 57
     Vector3D temp = ttRef.rayOrigin - center_;
@@ -33,7 +33,7 @@ bool Sphere::hit(TraceThread &ttRef, Scalar& tmin) const
                 return false;
 
         tmin = t;
-        ttRef.srNormal = (temp + ttRef.rayDirection * t) / radius_;
+        srNormal = (temp + ttRef.rayDirection * t) / radius_;
     }
     
     return true;

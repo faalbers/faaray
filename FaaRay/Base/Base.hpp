@@ -1,6 +1,7 @@
 #ifndef __FAARAY_BASE_H__
 #define __FAARAY_BASE_H__
 
+#include "Shared/Shared.hpp"
 #include <memory>
 
 class Base

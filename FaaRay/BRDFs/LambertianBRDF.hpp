@@ -1,8 +1,8 @@
 #ifndef __FAARAY_LAMBERTIANBRDF_H__
 #define __FAARAY_LAMBERTIANBRDF_H__
 
-#include "Shared.hpp"
-#include "GFA.hpp"
+#include "Shared/Shared.hpp"
+
 #include "BRDF.hpp"
 
 class LambertianBRDF : public BRDF

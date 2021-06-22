@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui_->render, SIGNAL(clicked()), this, SLOT(render()));
 
     // OGL update timer
+    // NeedFix: What exactly does this do ?
     timer_ = new QTimer(this);
     connect(timer_, SIGNAL(timeout()), this, SLOT(updateOGL()));
 
@@ -100,44 +101,75 @@ void MainWindow::sceneBuild_() const
     ambientLightSPtr->setLs(0.05);
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
+    // NeedFix: why does this not work ??
+    //PointLightSPtr pointLightASPtr;
+    //pointLightASPtr = MakePointLightSPtr;
+
     PointLightSPtr pointLightASPtr(new PointLight);
-    pointLightASPtr->setCenter(0, 2000, 0);
-    pointLightASPtr->setRadiance(1.5);
-    pointLightASPtr->castShadows(false);
+    pointLightASPtr->setCenter(60, 200, 40);
+    pointLightASPtr->setColor(RGBColor(1, 1, 0.3));
+    pointLightASPtr->setRadiance(3);
+    pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
+    
+    pointLightASPtr.reset(new PointLight);
+    pointLightASPtr->setCenter(40, -40, 40);
+    pointLightASPtr->setColor(RGBColor(0.3, 0.3, 1));
+    pointLightASPtr->setRadiance(2);
+    pointLightASPtr->castShadows(true);
+    sceneSPtr->addLight(pointLightASPtr);
+
+    pointLightASPtr.reset(new PointLight);
     
     // create MatteMaterials for objects
     MatteMaterialSPtr matteMaterialASPtr(new MatteMaterial);
-    matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
+    matteMaterialASPtr->setCd(1.0, 1.0, 1.0);
+    MatteMaterialSPtr matteMaterialBSPtr(new MatteMaterial);
+    matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
 
-    /*
     // Create sphere array and add to scene
-    SphereSPtr sphereSPtr(nullptr);
+    /*
+    SphereSPtr sphereSPtr;
     for (Index x = 0; x < 20; x ++) {
         for (Index y = 0; y < 20; y ++) {
             // No need to reset pointer, does it automatically
             sphereSPtr = MakeSphereSPtr();
             sphereSPtr->setCenter((x*1.5)-14.25, (y*1.5)-14.25, 0.0);
-            sphereSPtr->setRadius(0.75);
+            sphereSPtr->setRadius(((0.75/20) * (x+1)) * ((y+1)/20.0));
             sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
             sceneSPtr->addObject(sphereSPtr);
         }
     }
-    
     */
     // Objects
     SphereSPtr sphereSPtr;
     sphereSPtr = MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
     sphereSPtr->setRadius(5);
-    sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+    sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
     sceneSPtr->addObject(sphereSPtr);
+
     sphereSPtr = MakeSphereSPtr();
-    sphereSPtr->setCenter(0, 0, -10);
+    sphereSPtr->setCenter(3, 10, 1);
     sphereSPtr->setRadius(5);
     sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
 
+    /* Cover problem
+    SphereSPtr sphereSPtr;
+
+    sphereSPtr = MakeSphereSPtr();
+    sphereSPtr->setCenter(-5.0, 0, 0);
+    sphereSPtr->setRadius(5);
+    sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+    sceneSPtr->addObject(sphereSPtr);
+
+    sphereSPtr = MakeSphereSPtr();
+    sphereSPtr->setCenter(0, 0, -10);
+    sphereSPtr->setRadius(5);
+    sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
+    sceneSPtr->addObject(sphereSPtr);
+    */
 
     // Create 2 sphere
     /*
@@ -176,7 +208,9 @@ void MainWindow::sceneBuild_() const
     spherePtr->setRadius(1.0);
     spherePtr->setMaterial(emissiveMaterialAPtr);
     addObject(spherePtr);
+    */
 
+    /*
     OpenCylinder* cylinderPtr = new OpenCylinder(-1.0, 2.0, 0.0);
     cylinderPtr->setMaterial(phongMaterialAPtr);
     addObject(cylinderPtr);
@@ -212,6 +246,7 @@ void MainWindow::render()
 
     // Replace renderjob viewplane by specifically designed viewplane 
     // for this gui based on ViewPlane
+    // NeedFix: this might be done with shared pointer reset ?
     GUIViewPlaneSPtr viewPlaneSPtr(new GUIViewPlane(renderWidgetSPtr_));
     // NeedFix: Doesn't the viewPlane get deleted at the end of this proc ??
     renderJobSPtr->setViewPlaneSPtr(viewPlaneSPtr);

@@ -1,8 +1,7 @@
 #ifndef __FAARAY_BRDF_H__
 #define __FAARAY_BRDF_H__
 
-
-
+#include "Shared/Shared.hpp"
 
 class TraceThread;
 

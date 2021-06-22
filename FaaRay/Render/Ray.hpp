@@ -1,8 +1,8 @@
 #ifndef __FAARAY_RAY_H__
 #define __FAARAY_RAY_H__
 
-#include "Shared.hpp"
-#include "GFA.hpp"
+#include "Shared/Shared.hpp"
+
 
 class Ray
 {

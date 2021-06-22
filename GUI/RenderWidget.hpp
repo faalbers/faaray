@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QPainter>
 #include "Bose.hpp"
-#include "GFA.hpp"
 
 class RenderWidget : public QWidget, public Bose
 {

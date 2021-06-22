@@ -7,9 +7,16 @@
 #include "Lights/Light.hpp"
 #include "Materials/Material.hpp"
 
+#include <algorithm>
 
 TraceThread::TraceThread()
 {
+    constructDebug("TraceThread");
+}
+
+TraceThread::~TraceThread()
+{
+    deconstructDebug("TraceThread");
 }
 
 void TraceThread::render()

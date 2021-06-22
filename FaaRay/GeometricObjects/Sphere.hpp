@@ -1,7 +1,7 @@
 #ifndef __FAARAY_SPHERE_H__
 #define __FAARAY_SPHERE_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <memory>
 #include "GeometricObject.hpp"
 
@@ -17,7 +17,7 @@ public:
         const Scalar &z);
     void setRadius(const Scalar &radius);
 
-    virtual bool hit(TraceThread &ttRef, Scalar &tmin) const;
+    virtual bool hit(TraceThread &ttRef, Scalar &tmin, Normal &srNormal) const;
     virtual bool shadowHit(TraceThread &ttRef, Scalar &tmin) const;
 
 private:

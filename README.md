@@ -21,3 +21,9 @@ https://www.youtube.com/watch?v=-dREJCf2ve4
 sp.use_count() to get usage counter of shared pointer
 
 Figure out what all this thread() thread.join() is about !!!!!
+
+NeedFiX:
+
+- Change RGBColorBuffer to RGNA8888 buffer in ViewPlane . Use that one in GUIViewPlane
+- I should use namespace
+

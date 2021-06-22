@@ -1,8 +1,8 @@
 #ifndef __FAARAY_POINTLIGHT_H__
 #define __FAARAY_POINTLIGHT_H__
 
-#include "Shared.hpp"
-#include "GFA.hpp"
+#include "Shared/Shared.hpp"
+
 #include "Lights/Light.hpp"
 #include <memory>
 
@@ -22,6 +22,7 @@ public:
     virtual void inShadow(TraceThread &ttRef) const;    
 
     void setRadiance(const Scalar b) { ls_ = b; }
+    void setColor(const RGBColor color) { color_ = color; }
 
 private:
     Point3D    center_; // center point of the point light

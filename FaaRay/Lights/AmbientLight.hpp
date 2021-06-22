@@ -1,8 +1,8 @@
 #ifndef __FAARAY_AMBIENTLIGHT_H__
 #define __FAARAY_AMBIENTLIGHT_H__
 
-#include "Shared.hpp"
-#include "GFA.hpp"
+#include "Shared/Shared.hpp"
+
 #include "Lights/Light.hpp"
 #include <memory>
 

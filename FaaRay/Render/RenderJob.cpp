@@ -61,7 +61,7 @@ void RenderJob::setupTraceThread_(TraceThread &ttRef) const
     ttRef.tracerSPtr = ttRef.sceneSPtr->getConstTracerSPtr();
     ttRef.ambientLightSPtr = ttRef.sceneSPtr->getConstAmbientLightSPtr();
     
-    // All following could be added to a TraceThread init method
+    // NeedFix: All following could be added to a TraceThread init method
     
     // Optimization variables
     ttRef.width = ttRef.viewPlaneSPtr->width();
@@ -74,7 +74,7 @@ void RenderJob::setupTraceThread_(TraceThread &ttRef) const
 void RenderJob::renderOneThread_() const
 {
     //NOTE: Needs warning
-    if (viewPlaneSPtr_ == 0 || sceneSPtr_ == 0) return;
+    if (viewPlaneSPtr_.use_count() == 0 || sceneSPtr_.use_count() == 0) return;
     
     // setup render pixel that will be refferenced through the whole thread
     TraceThread tt;
@@ -83,6 +83,8 @@ void RenderJob::renderOneThread_() const
     // Init random seed
     tt.initRandom(0);
 
+    RGBColor pixcol;
+    
     std::size_t max = tt.width * tt.height;
     for ( std::size_t i = 0; i < max; i++ ) {
         tt.x = i % tt.width;
@@ -95,6 +97,8 @@ void RenderJob::renderMultiThread_() const
 {
     //NOTE: Needs warning
     if (viewPlaneSPtr_ == 0 || sceneSPtr_ == 0) return;
+
+    // NeedFix: Multi thread implementation
     /*
     tbb::parallel_for(
         tbb::blocked_range<size_t>(

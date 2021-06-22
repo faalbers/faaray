@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(faaraygui VERSION 0.1 LANGUAGES CXX)
 
-add_compile_definitions(CLASS_DEBUG)
-add_compile_definitions(SHARED_POINTER_DEBUG)
+#add_compile_definitions(CLASS_DEBUG)
+#add_compile_definitions(SHARED_POINTER_DEBUG)
 
 add_subdirectory(GFA)
 add_subdirectory(FaaRay)
