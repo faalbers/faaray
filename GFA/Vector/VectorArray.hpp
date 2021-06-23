@@ -1,8 +1,9 @@
 #ifndef __GFA_VECTORARRAY_H__
 #define __GFA_VECTORARRAY_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
+namespace GFA {
 class VectorArray
 {
     public:
@@ -16,6 +17,8 @@ class VectorArray
         Size    dim_;
         Size    size_;
 };
+
+}
 
 #endif
 

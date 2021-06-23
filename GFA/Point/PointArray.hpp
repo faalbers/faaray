@@ -1,8 +1,9 @@
 #ifndef __GFA_POINTARRAY_H__
 #define __GFA_POINTARRAY_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
+namespace GFA {
 class PointArray
 {
     public:
@@ -16,6 +17,8 @@ class PointArray
         Size    dim_;
         Size    size_;
 };
+
+}
 
 #endif
 

@@ -1,8 +1,9 @@
 #ifndef __GFA_MATRIX_H__
 #define __GFA_MATRIX_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
+namespace GFA {
 class Matrix
 {
     public:
@@ -16,6 +17,8 @@ class Matrix
         Size    cols_;
         Size    rows_;
 };
+
+}
 
 #endif
 

@@ -2,9 +2,10 @@
 #ifndef __GFA_NORMAL_H__
 #define __GFA_NORMAL_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
 
+namespace GFA {
 class Vector3D;
 
 class Normal
@@ -21,6 +22,8 @@ class Normal
         Scalar operator* (const Normal &rhs) const;
         
 };
+
+}
 
 #endif
 

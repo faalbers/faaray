@@ -1,8 +1,9 @@
 #ifndef __GFA_VECTOR_H__
 #define __GFA_VECTOR_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
+namespace GFA {
 class Vector
 {
     public:
@@ -21,6 +22,8 @@ class Vector
     protected:
         Size    dim_;
 };
+
+}
 
 #endif
 

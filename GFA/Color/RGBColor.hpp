@@ -1,9 +1,10 @@
 #ifndef __GFA_RGBCOLOR_H__
 #define __GFA_RGBCOLOR_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <iostream>
 
+namespace GFA {
 class RGBColor
 {
     public:
@@ -29,6 +30,8 @@ class RGBColor
 };
 
 std::ostream & operator<< (std::ostream &os, RGBColor const &rhs);
+
+}
 
 #endif
 

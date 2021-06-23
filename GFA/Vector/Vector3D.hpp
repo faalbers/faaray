@@ -2,10 +2,11 @@
 #ifndef __GFA_VECTOR3D_H__
 #define __GFA_VECTOR3D_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <iostream>
 
 
+namespace GFA {
 class Normal;
 
 class Vector3D
@@ -32,6 +33,8 @@ class Vector3D
 };
 
 std::ostream & operator<< (std::ostream &os, const Vector3D &rhs);
+
+}
 
 #endif
 

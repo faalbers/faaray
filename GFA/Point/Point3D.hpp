@@ -2,8 +2,10 @@
 #ifndef __GFA_POINT3D_H__
 #define __GFA_POINT3D_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <iostream>
+
+namespace GFA {
 
 class Vector3D;
 
@@ -20,6 +22,8 @@ class Point3D
 };
 
 std::ostream & operator<< (std::ostream &os, Point3D const &rhs);
+
+}
 
 #endif
 

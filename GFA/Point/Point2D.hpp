@@ -1,9 +1,10 @@
 #ifndef __GFA_POINT2D_H__
 #define __GFA_POINT2D_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 #include <iostream>
 
+namespace GFA {
 class Point2D
 {
     public:
@@ -14,6 +15,8 @@ class Point2D
 };
 
 std::ostream & operator<< (std::ostream &os, Point2D const &rhs);
+
+}
 
 #endif
 

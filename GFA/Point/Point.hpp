@@ -1,8 +1,9 @@
 #ifndef __GFA_POINT_H__
 #define __GFA_POINT_H__
 
-#include "Shared.hpp"
+#include "Shared/Shared.hpp"
 
+namespace GFA {
 class Point
 {
     public:
@@ -21,6 +22,8 @@ class Point
     protected:
         Size    dim_;
 };
+
+}
 
 #endif
 
