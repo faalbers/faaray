@@ -14,8 +14,8 @@ public:
 private:
     std::shared_ptr<RenderWidget>  renderWidgetSPtr_;
 
-    virtual void setGUIPixel_(const Index &x, const Index &y,
-        const RGBColor &c) const; 
+    virtual void setGUIPixel_(const GFA::Index &x, const GFA::Index &y,
+        const GFA::RGBColor &c) const; 
 };
 
 typedef std::shared_ptr<GUIViewPlane> GUIViewPlaneSPtr;

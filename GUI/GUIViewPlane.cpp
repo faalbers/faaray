@@ -15,8 +15,8 @@ GUIViewPlane::~GUIViewPlane()
     deconstructDebug("GUIViewPlane");
 }
 
-void GUIViewPlane::setGUIPixel_(const Index &x, const Index &y,
-        const RGBColor &c) const
+void GUIViewPlane::setGUIPixel_(const GFA::Index &x, const GFA::Index &y,
+        const GFA::RGBColor &c) const
 {
     //NOTE: add warning
     renderWidgetSPtr_->setPixel(x, y,

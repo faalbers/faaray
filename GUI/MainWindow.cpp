@@ -61,11 +61,11 @@ void MainWindow::sceneBuild_() const
 
     // create shared Pin Hole Camera and add to scene
     PinholeCameraSPtr  cameraSPtr(new PinholeCamera);
-    cameraSPtr->setEye(Point3D(
+    cameraSPtr->setEye(GFA::Point3D(
             ui_->cameraX->value(),
             ui_->cameraY->value(),
             ui_->cameraZ->value()));
-    cameraSPtr->setLookAt(Point3D(
+    cameraSPtr->setLookAt(GFA::Point3D(
             ui_->lookAtX->value(),
             ui_->lookAtY->value(),
             ui_->lookAtZ->value()));
@@ -107,14 +107,14 @@ void MainWindow::sceneBuild_() const
 
     PointLightSPtr pointLightASPtr(new PointLight);
     pointLightASPtr->setCenter(60, 200, 40);
-    pointLightASPtr->setColor(RGBColor(1, 1, 0.3));
+    pointLightASPtr->setColor(GFA::RGBColor(1, 1, 0.3));
     pointLightASPtr->setRadiance(3);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
     
     pointLightASPtr.reset(new PointLight);
     pointLightASPtr->setCenter(40, -40, 40);
-    pointLightASPtr->setColor(RGBColor(0.3, 0.3, 1));
+    pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
     pointLightASPtr->setRadiance(2);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
@@ -215,15 +215,15 @@ void MainWindow::sceneBuild_() const
     cylinderPtr->setMaterial(phongMaterialAPtr);
     addObject(cylinderPtr);
     
-    Plane* planePtr = new Plane(Point3D(0.0, -1.0, 0.0), Normal(0.0, 1.0, 0.0));
+    Plane* planePtr = new Plane(GFA::Point3D(0.0, -1.0, 0.0), Normal(0.0, 1.0, 0.0));
     planePtr->setMaterial(phongMaterialBPtr);
     addObject(planePtr);
     
-    Disc* discPtr = new Disc(Point3D(1.5, 1.4, 0.5), Normal(0.0, 1.0, 0.0), 1.0);
+    Disc* discPtr = new Disc(GFA::Point3D(1.5, 1.4, 0.5), Normal(0.0, 1.0, 0.0), 1.0);
     discPtr->setMaterial(matteMaterialAPtr);
     addObject(discPtr);
 
-    Rectangle* rectanglePtr = new Rectangle(Point3D(0.0, 1.5, 0.0), Vector3D(2.0, 0.0, 0.0), Vector3D(1.0, 0.0, -1.0));
+    Rectangle* rectanglePtr = new Rectangle(GFA::Point3D(0.0, 1.5, 0.0), Vector3D(2.0, 0.0, 0.0), Vector3D(1.0, 0.0, -1.0));
     rectanglePtr->setMaterial(matteMaterialAPtr);
     addObject(rectanglePtr);
     */

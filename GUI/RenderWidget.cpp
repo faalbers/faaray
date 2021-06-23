@@ -9,7 +9,7 @@ RenderWidget::RenderWidget(QWidget *parent)
     constructDebug("RenderWidget");
 }
 
-RenderWidget::RenderWidget(const Size &widthB, const Size &heightB, QWidget *parent)
+RenderWidget::RenderWidget(const GFA::Size &widthB, const GFA::Size &heightB, QWidget *parent)
     : QWidget(parent)
     , width_(widthB)
     , height_(heightB)
@@ -25,11 +25,11 @@ RenderWidget::~RenderWidget()
     deconstructDebug("RenderWidget");
 }
 
-Size RenderWidget::bufferWidth() { return width_; }
+GFA::Size RenderWidget::bufferWidth() { return width_; }
 
-Size RenderWidget::bufferHeight() { return height_; }
+GFA::Size RenderWidget::bufferHeight() { return height_; }
 
-void RenderWidget::resizeBuffer(const Size &widthB, const Size &heightB)
+void RenderWidget::resizeBuffer(const GFA::Size &widthB, const GFA::Size &heightB)
 {
     const int frameBufferSize = widthB * heightB;
     const int frameBufferSizeBytes = frameBufferSize * sizeof(uint32_t);
@@ -67,7 +67,7 @@ void RenderWidget::mousePressEvent(QMouseEvent *event)
     update();
 }
 
-void RenderWidget::setPixel(const Index &kiX, const Index &kiY,
+void RenderWidget::setPixel(const GFA::Index &kiX, const GFA::Index &kiY,
     const unsigned char &r, const unsigned char &g, const unsigned char &b, const unsigned char &a)
 {
    if (kiX >= width_ || kiY >= height_) return;
