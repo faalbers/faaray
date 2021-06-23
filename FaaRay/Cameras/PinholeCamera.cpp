@@ -14,12 +14,12 @@ PinholeCamera::~PinholeCamera()
 }
 
 void PinholeCamera::setViewPlaneDistance(
-    const Scalar &viewPlaneDistance)
+    const GFA::Scalar &viewPlaneDistance)
 {
     viewPlaneDistance_ = viewPlaneDistance;
 }
 
-void PinholeCamera::setZoom(const Scalar &zoom)
+void PinholeCamera::setZoom(const GFA::Scalar &zoom)
 {
     zoom_ = zoom;
 }
@@ -31,12 +31,12 @@ void PinholeCamera::render(TraceThread &ttRef) const
     ttRef.color.r = 0.0; ttRef.color.g = 0.0; ttRef.color.b = 0.0;
     ttRef.color.a = 0.0;
     ttRef.rayOrigin = eye_;
-    Size numSamples = ttRef.samplerSPtr->numSamples();
+    GFA::Size numSamples = ttRef.samplerSPtr->numSamples();
 
-    Scalar xStart = ttRef.x - ttRef.halfWidth;
-    Scalar yStart = ttRef.y - ttRef.halfHeight;
+    GFA::Scalar xStart = ttRef.x - ttRef.halfWidth;
+    GFA::Scalar yStart = ttRef.y - ttRef.halfHeight;
 
-    for (Index j = 0; j < numSamples; j++) {
+    for (GFA::Index j = 0; j < numSamples; j++) {
         ttRef.sampleIndex = j;
         ttRef.samplerSPtr->setSampleUnitSquare(ttRef);
         ttRef.samplePoint.x = (xStart + ttRef.sampleUnitSquare.x) * ttRef.pixelSize;

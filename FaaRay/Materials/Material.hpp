@@ -12,14 +12,14 @@ class Material : public Base
         Material();
         virtual ~Material();
 
-        virtual const RGBColor & getDiffuseCd() const { return color_; }
+        virtual const GFA::RGBColor & getDiffuseCd() const { return color_; }
         virtual void shade(TraceThread &ttRef) const = 0;
         virtual void diffuse(TraceThread &ttRef) const = 0;
 
         void setColor() { color_.r = 0.0;}
     
     protected:
-        RGBColor color_;
+        GFA::RGBColor color_;
 };
 
 typedef std::shared_ptr<Material>  MaterialSPtr;

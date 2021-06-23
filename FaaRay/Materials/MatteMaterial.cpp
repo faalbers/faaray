@@ -19,15 +19,15 @@ MatteMaterial::~MatteMaterial()
 }
 
 void MatteMaterial::setCd(
-            const Scalar &r,
-            const Scalar &g,
-            const Scalar &b) const
+            const GFA::Scalar &r,
+            const GFA::Scalar &g,
+            const GFA::Scalar &b) const
 {
     ambientBrdfPtr_->setCd(r, g, b);
     diffuseBrdfPtr_->setCd(r, g, b);
 }
 
-const RGBColor & MatteMaterial::getDiffuseCd() const
+const GFA::RGBColor & MatteMaterial::getDiffuseCd() const
 {
     return diffuseBrdfPtr_->getCd();
 }
@@ -40,19 +40,19 @@ void MatteMaterial::shade(TraceThread &ttRef) const
     ttRef.ambientLightSPtr->L(ttRef);
     ttRef.srColor = ttRef.srRhoColor * ttRef.srAmbientL;
     
-    //ttRef.srColor *= Normal(0.0,0.0,1.0) * ttRef.srNormal;
+    //ttRef.srColor *= GFA::Normal(0.0,0.0,1.0) * ttRef.srNormal;
     
     // Add receiving lights.
     ttRef.sceneSPtr->applyLights(ttRef);
     
     /*
-    Vector3D    wo = -sr.ray.direction;
+    GFA::Vector3D    wo = -sr.ray.direction;
     // Ambient BRDF reflectance mult Ambient Light 
-    RGBColor L = ambientBrdf->rho(sr, wo) * sr.world.ambientPtr->L(sr);
+    GFA::RGBColor L = ambientBrdf->rho(sr, wo) * sr.world.ambientPtr->L(sr);
 
     int numLights = sr.world.lights.size();
     for (int j = 0; j < numLights; j++) {
-        Vector3D wi = sr.world.lights[j]->getDirection(sr);
+        GFA::Vector3D wi = sr.world.lights[j]->getDirection(sr);
         double ndotwi = wi * sr.normal;
         
         if (ndotwi > 0.0) {

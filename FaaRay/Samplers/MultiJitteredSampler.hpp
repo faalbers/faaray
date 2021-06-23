@@ -9,7 +9,7 @@ class MultiJitteredSampler : public Sampler
 {
     public:
         MultiJitteredSampler();
-        MultiJitteredSampler(const Size &numSamplesRef);
+        MultiJitteredSampler(const GFA::Size &numSamplesRef);
         virtual ~MultiJitteredSampler();
 
         virtual void generateSamples();
@@ -17,7 +17,7 @@ class MultiJitteredSampler : public Sampler
 
 typedef std::shared_ptr<MultiJitteredSampler>  MultiJitteredSamplerSPtr;
 MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr();
-MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr(const Size &numSamplesRef);
+MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr(const GFA::Size &numSamplesRef);
 
 #endif
 

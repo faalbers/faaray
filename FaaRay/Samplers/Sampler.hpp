@@ -13,10 +13,10 @@ class Sampler : public Base
 {
     public:
         Sampler();
-        Sampler(const Size &numSamplesRef);
+        Sampler(const GFA::Size &numSamplesRef);
         virtual ~Sampler();
         
-        const Size & numSamples() const;
+        const GFA::Size & numSamples() const;
         
         virtual void generateSamples() = 0;
         void setupShuffledIndices();
@@ -24,14 +24,14 @@ class Sampler : public Base
         void setSampleUnitSquare(TraceThread &ttRef) const;
         
     protected:
-        Size                   numOneDimSamples_;  // one dim of samples
-        Size                   numSamples_;        // sample count in set
-        Size                   numSets_;           // sample sets count
-        std::vector<Point2D>   samples_;
-        std::vector<Index>     shuffledIndices_;
+        GFA::Size                   numOneDimSamples_;  // one dim of samples
+        GFA::Size                   numSamples_;        // sample count in set
+        GFA::Size                   numSets_;           // sample sets count
+        std::vector<GFA::Point2D>   samples_;
+        std::vector<GFA::Index>     shuffledIndices_;
         MyRNG       rng_;
-        std::uniform_real_distribution<Scalar> distribution;  
-        Scalar rand_();
+        std::uniform_real_distribution<GFA::Scalar> distribution;  
+        GFA::Scalar rand_();
 };
 
 typedef std::shared_ptr<Sampler>  SamplerSPtr;

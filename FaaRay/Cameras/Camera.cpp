@@ -10,17 +10,17 @@ Camera::~Camera()
 {
 }
 
-void Camera::setEye(const Point3D &eye)
+void Camera::setEye(const GFA::Point3D &eye)
 {
     eye_ = eye;
 }
 
-const Point3D & Camera::getEye() const
+const GFA::Point3D & Camera::getEye() const
 {
     return eye_;
 }
 
-void Camera::setLookAt(const Point3D &lookAt)
+void Camera::setLookAt(const GFA::Point3D &lookAt)
 {
     lookAt_ = lookAt;
 }

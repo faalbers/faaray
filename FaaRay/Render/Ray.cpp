@@ -10,13 +10,13 @@ Ray::Ray(const Ray &rayRef)
 {
 }
 
-Ray::Ray(const Point3D &originRef, const Vector3D &directionRef)
+Ray::Ray(const GFA::Point3D &originRef, const GFA::Vector3D &directionRef)
     :   origin_(originRef),
         direction_(directionRef)
 {
 }
 
-void Ray::setOrigin(const Point3D &originRef)
+void Ray::setOrigin(const GFA::Point3D &originRef)
 {
     origin_ = originRef;
 }

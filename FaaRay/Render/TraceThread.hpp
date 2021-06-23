@@ -21,7 +21,7 @@ public:
     void render();
     
     void        initRandom(const uint32_t &s);
-    Scalar rand();
+    GFA::Scalar rand();
 
     // shared between threads, objects need to be const
     std::shared_ptr<const ViewPlane>    viewPlaneSPtr;
@@ -30,53 +30,53 @@ public:
     std::shared_ptr<const Tracer>       tracerSPtr;
     std::shared_ptr<const Light>        ambientLightSPtr;
     
-    Scalar      x;
-    Scalar      y;
-    RGBColor    color;
+    GFA::Scalar      x;
+    GFA::Scalar      y;
+    GFA::RGBColor    color;
     uint32_t    seedVal;
     
     // optimization variables
 
     // viewplane data
-    Size       width;
-    Size       height;
-    Scalar     halfWidth;
-    Scalar     halfHeight;
-    Scalar     pixelSize;
+    GFA::Size       width;
+    GFA::Size       height;
+    GFA::Scalar     halfWidth;
+    GFA::Scalar     halfHeight;
+    GFA::Scalar     pixelSize;
     
     // sample data
-    Index      sampleIndex;
-    Index      sampleSetIndex;
-    Point2D    sampleUnitSquare;
-    Point2D    samplePoint;
+    GFA::Index      sampleIndex;
+    GFA::Index      sampleSetIndex;
+    GFA::Point2D    sampleUnitSquare;
+    GFA::Point2D    samplePoint;
     
     // ray data
-    Point3D    rayOrigin;
-    Vector3D   rayDirection;
+    GFA::Point3D    rayOrigin;
+    GFA::Vector3D   rayDirection;
 
     // shadow ray data
-    Point3D     sRayOrigin;
-    Vector3D    sRayDirection;
+    GFA::Point3D     sRayOrigin;
+    GFA::Vector3D    sRayDirection;
     bool        sRayInShadow;
 
     // ShadeRec (surface) data
-    Normal                         srNormal;
-    Point3D                        srHitPoint;
-    RGBColor                       srColor;
-    RGBColor                       srAmbientL;
-    RGBColor                       srLightL;
-    RGBColor                       srRhoColor;
-    RGBColor                       srFColor;
+    GFA::Normal                         srNormal;
+    GFA::Point3D                        srHitPoint;
+    GFA::RGBColor                       srColor;
+    GFA::RGBColor                       srAmbientL;
+    GFA::RGBColor                       srLightL;
+    GFA::RGBColor                       srRhoColor;
+    GFA::RGBColor                       srFColor;
     bool                                srHitAnObject;
     std::shared_ptr<const Material>     srMaterialSPtr; // gets changed per hit point
 
     // light data
-    Vector3D   lDirection;
+    GFA::Vector3D   lDirection;
     
 private:
     uint32_t        seedValue_;
     MyRNG           rng_;
-    std::uniform_real_distribution<Scalar> distribution;  
+    std::uniform_real_distribution<GFA::Scalar> distribution;  
 };
 
 #endif

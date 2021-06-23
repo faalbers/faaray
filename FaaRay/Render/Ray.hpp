@@ -9,13 +9,13 @@ class Ray
     public:
         Ray();
         Ray(const Ray &rayRef);
-        Ray(const Point3D &originRef, const Vector3D &directionRef);
+        Ray(const GFA::Point3D &originRef, const GFA::Vector3D &directionRef);
         
-        void setOrigin(const Point3D &originRef);
+        void setOrigin(const GFA::Point3D &originRef);
     
     private:
-        Point3D     origin_;
-        Vector3D    direction_;
+        GFA::Point3D     origin_;
+        GFA::Vector3D    direction_;
 };
 
 #endif

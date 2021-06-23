@@ -3,7 +3,7 @@
 
 PointLight::PointLight()
     :   ls_(1.0),
-        color_(RGBColor(1.0, 1.0, 1.0))
+        color_(GFA::RGBColor(1.0, 1.0, 1.0))
 {
 }
 
@@ -12,9 +12,9 @@ PointLight::~PointLight()
 }
 
 void PointLight::setCenter(
-    const Scalar &x,
-    const Scalar &y,
-    const Scalar &z)
+    const GFA::Scalar &x,
+    const GFA::Scalar &y,
+    const GFA::Scalar &z)
 {
     center_.x = x;
     center_.y = y;

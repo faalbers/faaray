@@ -12,18 +12,18 @@ public:
     ~Sphere(void);     // destructor
 
     void setCenter(
-        const Scalar &x,
-        const Scalar &y,
-        const Scalar &z);
-    void setRadius(const Scalar &radius);
+        const GFA::Scalar &x,
+        const GFA::Scalar &y,
+        const GFA::Scalar &z);
+    void setRadius(const GFA::Scalar &radius);
 
-    virtual bool hit(TraceThread &ttRef, Scalar &tmin, Normal &srNormal) const;
-    virtual bool shadowHit(TraceThread &ttRef, Scalar &tmin) const;
+    virtual bool hit(TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const;
+    virtual bool shadowHit(TraceThread &ttRef, GFA::Scalar &tmin) const;
 
 private:
-    Point3D    center_;    // center point of the sphere
-    Scalar     radius_;     // sphere radius
-    Scalar     radiusQuad_; // quadratic sphere radius
+    GFA::Point3D    center_;    // center point of the sphere
+    GFA::Scalar     radius_;     // sphere radius
+    GFA::Scalar     radiusQuad_; // quadratic sphere radius
 };
 
 typedef std::shared_ptr<Sphere> SphereSPtr;

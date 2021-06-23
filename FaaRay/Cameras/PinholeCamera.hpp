@@ -11,16 +11,16 @@ public:
     PinholeCamera();
     virtual ~PinholeCamera();
 
-    void setViewPlaneDistance(const Scalar &viewPlaneDistance);
-    void setZoom(const Scalar &zoom);
+    void setViewPlaneDistance(const GFA::Scalar &viewPlaneDistance);
+    void setZoom(const GFA::Scalar &zoom);
     
     void setRayDirection(TraceThread &ttRef) const;
 
     virtual void render(TraceThread &ttRef) const;
  
 private:
-    Scalar viewPlaneDistance_;
-    Scalar zoom_;
+    GFA::Scalar viewPlaneDistance_;
+    GFA::Scalar zoom_;
 };
 
 typedef std::shared_ptr<PinholeCamera> PinholeCameraSPtr;

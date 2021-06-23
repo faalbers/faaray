@@ -12,19 +12,19 @@ public:
     virtual ~LambertianBRDF();
 
     void setCd(
-        const Scalar &r,
-        const Scalar &g,
-        const Scalar &b);
-    void setKd(const Scalar &kd);
+        const GFA::Scalar &r,
+        const GFA::Scalar &g,
+        const GFA::Scalar &b);
+    void setKd(const GFA::Scalar &kd);
         
-    const RGBColor & getCd() const;
+    const GFA::RGBColor & getCd() const;
     
     virtual void rho(TraceThread &ttRef) const;
     virtual void f(TraceThread &ttRef) const;
     
 private:
-    RGBColor   cd_;    // diffuse color
-    Scalar     kd_;    // Diffuse Reflection Coefficient
+    GFA::RGBColor   cd_;    // diffuse color
+    GFA::Scalar     kd_;    // Diffuse Reflection Coefficient
 };
 
 #endif

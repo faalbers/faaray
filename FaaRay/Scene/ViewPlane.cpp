@@ -5,7 +5,7 @@
 #include "Samplers/MultiJitteredSampler.hpp"
 
 ViewPlane::ViewPlane()
-    :   frameBufferPtr_(new RGBColorBuffer),
+    :   frameBufferPtr_(new GFA::RGBColorBuffer),
         pixelSize_(1.0),
         samplerSPtr_(new RegularSampler)
 {
@@ -13,8 +13,8 @@ ViewPlane::ViewPlane()
 }
 
 // NeedFix: Is this called at all ?S
-ViewPlane::ViewPlane(const Size width, const Size height)
-    :   frameBufferPtr_(new RGBColorBuffer(width, height)),
+ViewPlane::ViewPlane(const GFA::Size width, const GFA::Size height)
+    :   frameBufferPtr_(new GFA::RGBColorBuffer(width, height)),
         pixelSize_(10.0/256.0),
         samplerSPtr_(new RegularSampler(1))
 {
@@ -28,37 +28,37 @@ ViewPlane::~ViewPlane(void)
     deconstructDebug("ViewPlane");
 }
 
-const Size & ViewPlane::width() const
+const GFA::Size & ViewPlane::width() const
 {
     return frameBufferPtr_->width();
 }
 
-const Size & ViewPlane::height() const
+const GFA::Size & ViewPlane::height() const
 {
     return frameBufferPtr_->height();
 }
 
-const Scalar & ViewPlane::pixelSize() const
+const GFA::Scalar & ViewPlane::pixelSize() const
 {
     return pixelSize_;
 }
 
-const Size & ViewPlane::numSamples() const
+const GFA::Size & ViewPlane::numSamples() const
 {
     return samplerSPtr_->numSamples();
 }
 
 // NeedFix: are we setting 2 buffers ??
 void ViewPlane::setPixel(
-    const Index &x, const Index &y,
-    const RGBColor &col) const
+    const GFA::Index &x, const GFA::Index &y,
+    const GFA::RGBColor &col) const
 {
     // NeedFix: frameBufferPtr does not do anything right now
     frameBufferPtr_->setPixel(x, y, col);
     setGUIPixel_(x, y, col);
 }
 
-void ViewPlane::setNumSamples(const Size &numSamples)
+void ViewPlane::setNumSamples(const GFA::Size &numSamples)
 {
     if (samplerSPtr_->numSamples() == numSamples) return;
 
@@ -83,8 +83,8 @@ ConstSamplerSPtr ViewPlane::getConstSamplerSPtr() const
     return samplerSPtr_;
 }
 
-void ViewPlane::setGUIPixel_(const Index &, const Index &,
-        const RGBColor &) const
+void ViewPlane::setGUIPixel_(const GFA::Index &, const GFA::Index &,
+        const GFA::RGBColor &) const
 {
 }
 

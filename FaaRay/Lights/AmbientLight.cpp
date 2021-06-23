@@ -3,7 +3,7 @@
 
 AmbientLight::AmbientLight()
     :   ls_(1.0),
-        color_(RGBColor(1.0, 1.0, 1.0))
+        color_(GFA::RGBColor(1.0, 1.0, 1.0))
 {
     constructDebug("AmbientLight");
 }
@@ -13,14 +13,14 @@ AmbientLight::~AmbientLight()
     deconstructDebug("AmbientLight");
 }
 
-void AmbientLight::setLs(const Scalar &ls)
+void AmbientLight::setLs(const GFA::Scalar &ls)
 {
     ls_ = ls;
 }
 
 void  AmbientLight::getDirection(TraceThread &ttRef) const
 {
-    ttRef.lDirection = Vector3D(0.0, 0.0, 0.0);
+    ttRef.lDirection = GFA::Vector3D(0.0, 0.0, 0.0);
 }
 
 void  AmbientLight::inShadow(TraceThread &ttRef) const

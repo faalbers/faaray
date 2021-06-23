@@ -31,7 +31,7 @@ void TraceThread::initRandom(const uint32_t &s)
     rng_.seed(seedValue_);
 }
 
-Scalar TraceThread::rand()
+GFA::Scalar TraceThread::rand()
 {
     return distribution(rng_);
 }

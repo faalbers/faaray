@@ -24,9 +24,9 @@ Scene::~Scene()
     sPtrDebug("Scene::cameraSPtr_", cameraSPtr_);
     sPtrDebug("Scene::tracerSPtr_", tracerSPtr_);
     sPtrDebug("Scene::ambientLightSPtr_", ambientLightSPtr_);
-    for (Index j = 0; j < objectSPtrs_.size(); j++)
+    for (GFA::Index j = 0; j < objectSPtrs_.size(); j++)
         sPtrDebug("Scene::objectSPtrs_", objectSPtrs_[j], j);
-    for (Index j = 0; j < lightSPtrs_.size(); j++)
+    for (GFA::Index j = 0; j < lightSPtrs_.size(); j++)
         sPtrDebug(("Scene::lightSPtrs_"), lightSPtrs_[j], j);
 
     deconstructDebug("Scene");
@@ -89,23 +89,23 @@ void Scene::printSPtrUseCounts()
     std::cout << "cameraSPtr:\t" << cameraSPtr_.use_count() << std::endl;
     std::cout << "tracerSPtr:\t" << tracerSPtr_.use_count() << std::endl;
     std::cout << "cameraSPtr:\t" << ambientLightSPtr_.use_count() << std::endl;
-    for (Index j = 0; j < objectSPtrs_.size(); j++)
+    for (GFA::Index j = 0; j < objectSPtrs_.size(); j++)
         std::cout << "objectSPtr(" << j << "):\t" << objectSPtrs_[j].use_count() << std::endl;
-    for (Index j = 0; j < lightSPtrs_.size(); j++)
+    for (GFA::Index j = 0; j < lightSPtrs_.size(); j++)
         std::cout << "lightSPtrs_(" << j << "):\t" << lightSPtrs_[j].use_count() << std::endl;
     
 }
 
 void Scene::hitObjects(TraceThread &ttRef) const
 {
-    Scalar t;
-    Normal srNormal, srNormalmin;
-    Scalar tmin = HUGE_SCALAR;
-    Index  closestHit = 0;
+    GFA::Scalar t;
+    GFA::Normal srNormal, srNormalmin;
+    GFA::Scalar tmin = GFA::HUGE_SCALAR;
+    GFA::Index  closestHit = 0;
 
     // Find closest hit
     ttRef.srHitAnObject = false;
-    for (Index j = 0; j < objectSPtrs_.size(); j++) {
+    for (GFA::Index j = 0; j < objectSPtrs_.size(); j++) {
         if (objectSPtrs_[j]->hit(ttRef, t, srNormal) && (t < tmin)) {
             closestHit = j;
             tmin = t;
@@ -123,9 +123,9 @@ void Scene::hitObjects(TraceThread &ttRef) const
 
 void Scene::shadowHitObjects(TraceThread &ttRef) const
 {
-    Scalar t;
+    GFA::Scalar t;
 
-    for (Index j = 0; j < objectSPtrs_.size(); j++) {
+    for (GFA::Index j = 0; j < objectSPtrs_.size(); j++) {
         if ( objectSPtrs_[j]->shadowHit(ttRef, t) ) {
             ttRef.sRayInShadow = true;
             return;
@@ -136,8 +136,8 @@ void Scene::shadowHitObjects(TraceThread &ttRef) const
 
 void Scene::applyLights(TraceThread &ttRef) const
 {   int tempy;
-    Scalar ndotwi;
-    for (Index j = 0; j < lightSPtrs_.size(); j++) {
+    GFA::Scalar ndotwi;
+    for (GFA::Index j = 0; j < lightSPtrs_.size(); j++) {
         // get light direction vector from light to hit point
         lightSPtrs_[j]->getDirection(ttRef);
         // get multiplier between light and surface vectors
@@ -169,8 +169,8 @@ void Scene::applyLights(TraceThread &ttRef) const
 */
 
 /*
-    for (Index j = 0; j < numLights; j++) {
-        Vector3D wi = sr.world.lights[j]->getDirection(sr);
+    for (GFA::Index j = 0; j < numLights; j++) {
+        GFA::Vector3D wi = sr.world.lights[j]->getDirection(sr);
         double ndotwi = wi * sr.normal;
         
         if (ndotwi > 0.0) {

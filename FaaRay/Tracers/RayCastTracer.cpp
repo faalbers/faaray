@@ -21,7 +21,7 @@ void RayCastTracer::traceRay(TraceThread &ttRef) const
         if ( ttRef.srMaterialSPtr.use_count() != 0) {
             ttRef.srMaterialSPtr->shade(ttRef);
         } else {
-            ttRef.srColor = RGBColor(1, 0, 0, 1);
+            ttRef.srColor = GFA::RGBColor(1, 0, 0, 1);
         }
     } else {
         ttRef.srColor.r = 0.0; ttRef.srColor.g = 0.0; ttRef.srColor.b = 0.0;

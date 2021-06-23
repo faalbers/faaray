@@ -15,11 +15,11 @@ class MatteMaterial : public Material
         virtual ~MatteMaterial();
 
         void setCd(
-            const Scalar &r,
-            const Scalar &g,
-            const Scalar &b) const;
+            const GFA::Scalar &r,
+            const GFA::Scalar &g,
+            const GFA::Scalar &b) const;
         
-        virtual const RGBColor & getDiffuseCd() const;
+        virtual const GFA::RGBColor & getDiffuseCd() const;
         virtual void shade(TraceThread &ttRef) const;
         virtual void diffuse(TraceThread &ttRef) const;
         

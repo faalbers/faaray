@@ -83,7 +83,7 @@ void RenderJob::renderOneThread_() const
     // Init random seed
     tt.initRandom(0);
 
-    RGBColor pixcol;
+    GFA::RGBColor pixcol;
     
     std::size_t max = tt.width * tt.height;
     for ( std::size_t i = 0; i < max; i++ ) {

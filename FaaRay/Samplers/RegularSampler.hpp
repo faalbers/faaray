@@ -10,7 +10,7 @@ class RegularSampler : public Sampler
 {
     public:
         RegularSampler();
-        RegularSampler(const Size &numSamplesRef);
+        RegularSampler(const GFA::Size &numSamplesRef);
         virtual ~RegularSampler();
 
         virtual void generateSamples();
@@ -19,7 +19,7 @@ class RegularSampler : public Sampler
 
 typedef std::shared_ptr<RegularSampler>  RegularSamplerSPtr;
 RegularSamplerSPtr MakeRegularSamplerSPtr();
-RegularSamplerSPtr MakeRegularSamplerSPtr(const Size &numSamplesRef);
+RegularSamplerSPtr MakeRegularSamplerSPtr(const GFA::Size &numSamplesRef);
 
 #endif
 

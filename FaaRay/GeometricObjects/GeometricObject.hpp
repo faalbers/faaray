@@ -14,8 +14,8 @@ public:
     GeometricObject();      // default constructor
     ~GeometricObject();     // destructor
     
-    virtual bool hit(TraceThread &ttRef, Scalar &tmin, Normal &srNormal) const = 0;
-    virtual bool shadowHit(TraceThread &ttRef, Scalar &tmin) const = 0;
+    virtual bool hit(TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const = 0;
+    virtual bool shadowHit(TraceThread &ttRef, GFA::Scalar &tmin) const = 0;
 
     void setMaterialSPtr(std::shared_ptr<const Material> materialSPtr);
     std::shared_ptr<const Material> getMaterialSPtr() const;

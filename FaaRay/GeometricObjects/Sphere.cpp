@@ -13,23 +13,23 @@ Sphere::~Sphere(void)
     deconstructDebug("Sphere");
 }
 
-bool Sphere::hit(TraceThread &ttRef, Scalar& tmin, Normal &srNormal) const
+bool Sphere::hit(TraceThread &ttRef, GFA::Scalar& tmin, GFA::Normal &srNormal) const
 {
     // page 57
-    Vector3D temp = ttRef.rayOrigin - center_;
-    Scalar b = 2.0 * (temp * ttRef.rayDirection);
-    Scalar c = (temp * temp) - radiusQuad_;
-    Scalar disc = (b * b) - (4 * c);
+    GFA::Vector3D temp = ttRef.rayOrigin - center_;
+    GFA::Scalar b = 2.0 * (temp * ttRef.rayDirection);
+    GFA::Scalar c = (temp * temp) - radiusQuad_;
+    GFA::Scalar disc = (b * b) - (4 * c);
 
     if (disc < 0.0)
         return false;
     else {
-        Scalar t;
-        Scalar e = sqrt(disc);
+        GFA::Scalar t;
+        GFA::Scalar e = sqrt(disc);
         t = (-b - e) / 2.0; // smaller root
-        if (t <= EPSILON)
+        if (t <= GFA::EPSILON)
             t = (-b + e) / 2.0; // larger root
-            if (t <= EPSILON)
+            if (t <= GFA::EPSILON)
                 return false;
 
         tmin = t;
@@ -39,15 +39,15 @@ bool Sphere::hit(TraceThread &ttRef, Scalar& tmin, Normal &srNormal) const
     return true;
 }
 
-bool Sphere::shadowHit(TraceThread &ttRef, Scalar& tmin) const
+bool Sphere::shadowHit(TraceThread &ttRef, GFA::Scalar& tmin) const
 {
     // page 57
-    Scalar t;
-    Vector3D temp = ttRef.sRayOrigin - center_;
-    Scalar a = ttRef.sRayDirection * ttRef.sRayDirection;
-    Scalar b = 2.0 * (temp * ttRef.sRayDirection);
-    Scalar c = (temp * temp) - radiusQuad_;
-    Scalar disc = (b * b) - (4 * c);
+    GFA::Scalar t;
+    GFA::Vector3D temp = ttRef.sRayOrigin - center_;
+    GFA::Scalar a = ttRef.sRayDirection * ttRef.sRayDirection;
+    GFA::Scalar b = 2.0 * (temp * ttRef.sRayDirection);
+    GFA::Scalar c = (temp * temp) - radiusQuad_;
+    GFA::Scalar disc = (b * b) - (4 * c);
 
     if (disc < 0.0)
         return false;
@@ -56,14 +56,14 @@ bool Sphere::shadowHit(TraceThread &ttRef, Scalar& tmin) const
         double denom = 2.0 * a;
         t = (-b - e) / denom; // smaller root
 
-        if (t > EPSILON) {
+        if (t > GFA::EPSILON) {
             tmin = t;
             return true;
         }
 
         t = (-b + e) / denom; // larger root
 
-        if (t > EPSILON) {
+        if (t > GFA::EPSILON) {
             tmin = t;
             return true;
         }
@@ -73,16 +73,16 @@ bool Sphere::shadowHit(TraceThread &ttRef, Scalar& tmin) const
 }
 
 void Sphere::setCenter(
-    const Scalar &x,
-    const Scalar &y,
-    const Scalar &z)
+    const GFA::Scalar &x,
+    const GFA::Scalar &y,
+    const GFA::Scalar &z)
 {
     center_.x = x;
     center_.y = y;
     center_.z = z;
 }
 
-void Sphere::setRadius(const Scalar &radius)
+void Sphere::setRadius(const GFA::Scalar &radius)
 {
     radius_ = radius;
     radiusQuad_ = radius_*radius_;
@@ -94,7 +94,7 @@ SphereSPtr MakeSphereSPtr()
 }
 
 /*
-void Sphere::setCenter(const Point3D& p)
+void Sphere::setCenter(const GFA::Point3D& p)
 {
     center.x = p.x;
     center.y = p.y;
@@ -105,7 +105,7 @@ bool Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const
 {
     // page 57
     double t;
-    Vector3D temp = ray.origin - center;
+    GFA::Vector3D temp = ray.origin - center;
     double a = ray.direction * ray.direction;
     double b = 2.0 * (temp * ray.direction);
     double c = (temp * temp) - (radius * radius);
@@ -143,7 +143,7 @@ bool Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const
 bool Sphere::shadowHit(const Ray& ray, double& tmin) const
 {
     double t;
-    Vector3D temp = ray.origin - center;
+    GFA::Vector3D temp = ray.origin - center;
     double a = ray.direction * ray.direction;
     double b = 2.0 * (temp * ray.direction);
     double c = (temp * temp) - (radius * radius);

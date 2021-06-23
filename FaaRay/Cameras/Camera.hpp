@@ -12,19 +12,19 @@ public:
     Camera();
     virtual ~Camera();                           
 
-    void setEye(const Point3D &eye);
-    const Point3D & getEye() const;
-    void setLookAt(const Point3D &lookAt);
+    void setEye(const GFA::Point3D &eye);
+    const GFA::Point3D & getEye() const;
+    void setLookAt(const GFA::Point3D &lookAt);
    
     void            computeUVW();
 
     virtual void    render(TraceThread &rp) const = 0;
 
 protected:
-    Point3D  eye_;
-    Point3D  lookAt_;
-    Vector3D up_;
-    Vector3D u_, v_, w_;
+    GFA::Point3D  eye_;
+    GFA::Point3D  lookAt_;
+    GFA::Vector3D up_;
+    GFA::Vector3D u_, v_, w_;
 };
 
 typedef std::shared_ptr<Camera> CameraSPtr;

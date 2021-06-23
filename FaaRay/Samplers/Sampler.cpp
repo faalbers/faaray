@@ -19,8 +19,8 @@ Sampler::Sampler()
 
 // The numSamples will be changed to lowes nomber that has a int square root
 // ex: 10 will be changed to 9 because lowest square root is 3
-Sampler::Sampler(const Size &numSamplesRef)
-    :   numOneDimSamples_((Size) sqrt((float) numSamplesRef)),
+Sampler::Sampler(const GFA::Size &numSamplesRef)
+    :   numOneDimSamples_((GFA::Size) sqrt((float) numSamplesRef)),
         numSamples_(numOneDimSamples_ * numOneDimSamples_),
         numSets_(83) // some kind of magical number
 {
@@ -37,7 +37,7 @@ Sampler::~Sampler()
 {
 }
 
-const Size & Sampler::numSamples() const
+const GFA::Size & Sampler::numSamples() const
 {
     return numSamples_;
 }
@@ -46,15 +46,15 @@ const Size & Sampler::numSamples() const
 void Sampler::setupShuffledIndices()
 {
 	shuffledIndices_.reserve(numSamples_ * numSets_);
-	std::vector<Index> indices;
+	std::vector<GFA::Index> indices;
 	
-	for (Index j = 0; j < numSamples_; j++)
+	for (GFA::Index j = 0; j < numSamples_; j++)
 		indices.push_back(j);
 	
-	for (Index p = 0; p < numSets_; p++) { 
+	for (GFA::Index p = 0; p < numSets_; p++) { 
 		random_shuffle(indices.begin(), indices.end());	
 		
-		for (Index j = 0; j < numSamples_; j++)
+		for (GFA::Index j = 0; j < numSamples_; j++)
 			shuffledIndices_.push_back(indices[j]);
 	}	
 }
@@ -64,10 +64,10 @@ void Sampler::setupShuffledIndices()
 // render thread. TraceThread will be updated.
 void Sampler::setSampleUnitSquare(TraceThread &ttRef) const
 {
-    Index newIndex;
+    GFA::Index newIndex;
     
     if (ttRef.sampleIndex == 0)
-        ttRef.sampleSetIndex = (Index) (numSets_ * ttRef.rand()) * numSamples_;
+        ttRef.sampleSetIndex = GFA::Index (numSets_ * ttRef.rand()) * numSamples_;
 
     newIndex = ttRef.sampleSetIndex + ttRef.sampleIndex;
     newIndex = ttRef.sampleSetIndex + shuffledIndices_[newIndex];
@@ -78,7 +78,7 @@ void Sampler::setSampleUnitSquare(TraceThread &ttRef) const
 }
 
 // Get next random scalar between 0.0 and less then 1.0
-Scalar Sampler::rand_()
+GFA::Scalar Sampler::rand_()
 {
     return distribution(rng_);
 }

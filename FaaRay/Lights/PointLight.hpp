@@ -13,21 +13,21 @@ public:
     virtual ~PointLight();
 
     void setCenter(
-        const Scalar &x,
-        const Scalar &y,
-        const Scalar &z);
+        const GFA::Scalar &x,
+        const GFA::Scalar &y,
+        const GFA::Scalar &z);
 
     virtual void getDirection(TraceThread &ttRef) const;
     virtual void L(TraceThread &ttRef) const;
     virtual void inShadow(TraceThread &ttRef) const;    
 
-    void setRadiance(const Scalar b) { ls_ = b; }
-    void setColor(const RGBColor color) { color_ = color; }
+    void setRadiance(const GFA::Scalar b) { ls_ = b; }
+    void setColor(const GFA::RGBColor color) { color_ = color; }
 
 private:
-    Point3D    center_; // center point of the point light
-    Scalar     ls_;     // light strength
-    RGBColor   color_;  // light color
+    GFA::Point3D    center_; // center point of the point light
+    GFA::Scalar     ls_;     // light strength
+    GFA::RGBColor   color_;  // light color
 };
 
 typedef std::shared_ptr<PointLight>  PointLightSPtr;

@@ -13,29 +13,29 @@ class ViewPlane : public Base
 {
     public:
         ViewPlane();
-        ViewPlane(const Size width, const Size height);
+        ViewPlane(const GFA::Size width, const GFA::Size height);
         virtual ~ViewPlane(void);
     
-        const Size   & width() const;
-        const Size   & height() const;
-        const Scalar & pixelSize() const;
-        const Size   & numSamples() const;
+        const GFA::Size   & width() const;
+        const GFA::Size   & height() const;
+        const GFA::Scalar & pixelSize() const;
+        const GFA::Size   & numSamples() const;
         
-        void setPixel(const Index &x, const Index &y,
-            const RGBColor &col) const; 
+        void setPixel(const GFA::Index &x, const GFA::Index &y,
+            const GFA::RGBColor &col) const; 
     
-        void setNumSamples(const Size &numSamples);
+        void setNumSamples(const GFA::Size &numSamples);
         const Sampler * getSamplerPtr() const;
         std::shared_ptr<Sampler> getSamplerSPtr() const;
         std::shared_ptr<const Sampler> getConstSamplerSPtr() const;
        
     protected:
-        RGBColorBuffer         *frameBufferPtr_;
-        Scalar                 pixelSize_;
+        GFA::RGBColorBuffer         *frameBufferPtr_;
+        GFA::Scalar                 pixelSize_;
         std::shared_ptr<Sampler>    samplerSPtr_;
     
-        virtual void setGUIPixel_(const Index &x, const Index &y,
-            const RGBColor &col) const; 
+        virtual void setGUIPixel_(const GFA::Index &x, const GFA::Index &y,
+            const GFA::RGBColor &col) const; 
 };
 
 typedef std::shared_ptr<ViewPlane> ViewPlaneSPtr;
