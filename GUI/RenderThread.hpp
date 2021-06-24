@@ -10,10 +10,10 @@ class RenderThread : public QThread, public Bose
     Q_OBJECT
 
 public:
-    RenderThread(std::shared_ptr<RenderJob> renderJobSPtr);
+    RenderThread(std::shared_ptr<FaaRay::RenderJob> renderJobSPtr);
     ~RenderThread(void);
 
-    std::shared_ptr<RenderJob> getRenderJobSPtr() { return renderJobSPtr_; }
+    std::shared_ptr<FaaRay::RenderJob> getRenderJobSPtr() { return renderJobSPtr_; }
 
 protected:
     void run();
@@ -22,7 +22,7 @@ signals:
     void renderDone();
 
 private:
-    std::shared_ptr<RenderJob>   renderJobSPtr_;
+    std::shared_ptr<FaaRay::RenderJob>   renderJobSPtr_;
 };
 
 #endif

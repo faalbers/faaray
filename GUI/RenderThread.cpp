@@ -1,9 +1,10 @@
 #include "RenderThread.hpp"
+#include "FaaRay.hpp"
 #include <QTime>
 
 #include <iostream>
 
-RenderThread::RenderThread(std::shared_ptr<RenderJob> renderJobSPtr)
+RenderThread::RenderThread(std::shared_ptr<FaaRay::RenderJob> renderJobSPtr)
     :   renderJobSPtr_(renderJobSPtr)
 {
     constructDebug("RenderThread");

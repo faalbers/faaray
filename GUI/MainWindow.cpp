@@ -1,6 +1,8 @@
 #include "MainWindow.hpp"
 #include "./ui_MainWindow.h"
 
+#include "GFA.hpp"
+#include "FaaRay.hpp"
 #include <QGraphicsRectItem>
 #include <QTime>
 
@@ -46,8 +48,8 @@ void MainWindow::updateOGL() const
 void MainWindow::viewPlaneSetup_() const
 {
     // Get shared viewplane pointer
-    std::shared_ptr<RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
-    ViewPlaneSPtr viewPlaneSPtr = renderJobSPtr->getViewPlaneSPtr();
+    std::shared_ptr<FaaRay::RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
+    FaaRay::ViewPlaneSPtr viewPlaneSPtr = renderJobSPtr->getViewPlaneSPtr();
 
     viewPlaneSPtr->setNumSamples(ui_->samples->value());
     ui_->samples->setValue(viewPlaneSPtr->numSamples());
@@ -56,11 +58,11 @@ void MainWindow::viewPlaneSetup_() const
 void MainWindow::sceneBuild_() const
 {
     // Get scene pointer
-    std::shared_ptr<RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
-    std::shared_ptr<Scene> sceneSPtr(renderJobSPtr->getSceneSPtr());
+    std::shared_ptr<FaaRay::RenderJob> renderJobSPtr(renderThreadSPtr_->getRenderJobSPtr());
+    std::shared_ptr<FaaRay::Scene> sceneSPtr(renderJobSPtr->getSceneSPtr());
 
     // create shared Pin Hole Camera and add to scene
-    PinholeCameraSPtr  cameraSPtr(new PinholeCamera);
+    FaaRay::PinholeCameraSPtr  cameraSPtr(new FaaRay::PinholeCamera);
     cameraSPtr->setEye(GFA::Point3D(
             ui_->cameraX->value(),
             ui_->cameraY->value(),
@@ -75,26 +77,26 @@ void MainWindow::sceneBuild_() const
     sceneSPtr->setCamera(cameraSPtr);
 
     // Create tracer and add to scene
-    TracerSPtr tracerSPtr(nullptr);
+    FaaRay::TracerSPtr tracerSPtr(nullptr);
     switch (ui_->tracer->currentIndex()) {
         case 0:
-            tracerSPtr = MakeRayCastTracerSPtr();
+            tracerSPtr = FaaRay::MakeRayCastTracerSPtr();
             break;
         default:
-            tracerSPtr = MakeRayCastTracerSPtr();
+            tracerSPtr = FaaRay::MakeRayCastTracerSPtr();
             ui_->tracer->setCurrentIndex(0);
             break;
     }
     sceneSPtr->setTracer(tracerSPtr);
 
     // Create ambient light and add to scene
-    AmbientLightSPtr ambientLightSPtr(nullptr);
+    FaaRay::AmbientLightSPtr ambientLightSPtr(nullptr);
     switch (ui_->ambient->currentIndex()) {
         case 0:
-            ambientLightSPtr = MakeAmbientLightSPtr();
+            ambientLightSPtr = FaaRay::MakeAmbientLightSPtr();
             break;
         default:
-            ambientLightSPtr = MakeAmbientLightSPtr();
+            ambientLightSPtr = FaaRay::MakeAmbientLightSPtr();
             ui_->ambient->setCurrentIndex(0);
             break;
     }
@@ -105,26 +107,26 @@ void MainWindow::sceneBuild_() const
     //PointLightSPtr pointLightASPtr;
     //pointLightASPtr = MakePointLightSPtr;
 
-    PointLightSPtr pointLightASPtr(new PointLight);
+    FaaRay::PointLightSPtr pointLightASPtr(new FaaRay::PointLight);
     pointLightASPtr->setCenter(60, 200, 40);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 0.3));
     pointLightASPtr->setRadiance(3);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
     
-    pointLightASPtr.reset(new PointLight);
+    pointLightASPtr.reset(new FaaRay::PointLight);
     pointLightASPtr->setCenter(40, -40, 40);
     pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
     pointLightASPtr->setRadiance(2);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
 
-    pointLightASPtr.reset(new PointLight);
+    pointLightASPtr.reset(new FaaRay::PointLight);
     
     // create MatteMaterials for objects
-    MatteMaterialSPtr matteMaterialASPtr(new MatteMaterial);
+    FaaRay::MatteMaterialSPtr matteMaterialASPtr(new FaaRay::MatteMaterial);
     matteMaterialASPtr->setCd(1.0, 1.0, 1.0);
-    MatteMaterialSPtr matteMaterialBSPtr(new MatteMaterial);
+    FaaRay::MatteMaterialSPtr matteMaterialBSPtr(new FaaRay::MatteMaterial);
     matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
 
     // Create sphere array and add to scene
@@ -142,14 +144,14 @@ void MainWindow::sceneBuild_() const
     }
     */
     // Objects
-    SphereSPtr sphereSPtr;
-    sphereSPtr = MakeSphereSPtr();
+    FaaRay::SphereSPtr sphereSPtr;
+    sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
     sphereSPtr->setRadius(5);
     sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
     sceneSPtr->addObject(sphereSPtr);
 
-    sphereSPtr = MakeSphereSPtr();
+    sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(3, 10, 1);
     sphereSPtr->setRadius(5);
     sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
@@ -235,7 +237,7 @@ void MainWindow::render()
     std::cout << "\n**** MainWindow:render ****\n";
     ui_->render->setDisabled(true);
 
-    std::shared_ptr<RenderJob> renderJobSPtr(new RenderJob);
+    std::shared_ptr<FaaRay::RenderJob> renderJobSPtr(new FaaRay::RenderJob);
     renderThreadSPtr_.reset(new RenderThread(renderJobSPtr));
 
     // Initialize render buffer

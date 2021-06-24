@@ -2,10 +2,11 @@
 #define __GUIVIEWPLANE_H__
 
 #include <memory>
+#include "GFA.hpp"
 #include "FaaRay.hpp"
 #include "RenderWidget.hpp"
 
-class GUIViewPlane : public ViewPlane
+class GUIViewPlane : public FaaRay::ViewPlane
 {
 public:
     GUIViewPlane(std::shared_ptr<RenderWidget> renderWidgetSPtr);

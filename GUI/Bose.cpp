@@ -25,7 +25,7 @@ void Bose::sPtrDebug(const char* varName, std::shared_ptr<Bose> sPtr, int index)
     #endif
 }
 
-void Bose::sPtrDebug(const char* varName, std::shared_ptr<Base> sPtr, int index)
+void Bose::sPtrDebug(const char* varName, std::shared_ptr<FaaRay::Base> sPtr, int index)
 {
     #ifdef SHARED_POINTER_DEBUG
     if (index > -1)

@@ -9,7 +9,7 @@ class Bose
 public:
     void constructDebug(const char* name);
     void deconstructDebug(const char* name);
-    void sPtrDebug(const char* varName, std::shared_ptr<Base> sPtr, int index = -1);
+    void sPtrDebug(const char* varName, std::shared_ptr<FaaRay::Base> sPtr, int index = -1);
     void sPtrDebug(const char* varName, std::shared_ptr<Bose> sPtr, int index = -1);
     void sPtrDebug(const char* varName, std::shared_ptr<unsigned char> sPtr, int index = -1);
 };
