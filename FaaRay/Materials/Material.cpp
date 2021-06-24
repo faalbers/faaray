@@ -1,10 +1,13 @@
 #include "Material.hpp"
 
-Material::Material()
+// NeedFix: because TraceThread also uses Material
+#include "Render/TraceThread.hpp"
+
+FaaRay::Material::Material()
 {
 }
 
-Material::~Material()
+FaaRay::Material::~Material()
 {
 }
 

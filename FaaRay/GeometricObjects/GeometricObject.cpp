@@ -1,22 +1,20 @@
 #include "GeometricObject.hpp"
-#include "Render/TraceThread.hpp"
 #include "Materials/Material.hpp"
 
-GeometricObject::GeometricObject(void)
+FaaRay::GeometricObject::GeometricObject()
 {
 }
 
-GeometricObject::~GeometricObject(void)
+FaaRay::GeometricObject::~GeometricObject()
 {
 }
 
-void GeometricObject::setMaterialSPtr(ConstMaterialSPtr materialSPtr)
+void FaaRay::GeometricObject::setMaterialSPtr(FaaRay::ConstMaterialSPtr materialSPtr)
 {
     materialSPtr_ = materialSPtr;
 }
 
-ConstMaterialSPtr GeometricObject::getMaterialSPtr() const
+FaaRay::ConstMaterialSPtr FaaRay::GeometricObject::getMaterialSPtr() const
 {
     return materialSPtr_;
 }
-

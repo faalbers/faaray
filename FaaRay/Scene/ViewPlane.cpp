@@ -1,55 +1,56 @@
 
 #include "ViewPlane.hpp"
+#include "GFA.hpp"
 #include "Samplers/Sampler.hpp"
 #include "Samplers/RegularSampler.hpp"
 #include "Samplers/MultiJitteredSampler.hpp"
 
-ViewPlane::ViewPlane()
-    :   frameBufferPtr_(new GFA::RGBColorBuffer),
-        pixelSize_(1.0),
-        samplerSPtr_(new RegularSampler)
+FaaRay::ViewPlane::ViewPlane()
+    : samplerSPtr_(new FaaRay::RegularSampler)
+    , frameBufferPtr_(new GFA::RGBColorBuffer)
+    , pixelSize_(1.0)
 {
-    constructDebug("ViewPlane");
+    constructDebug("FaaRay::ViewPlane");
 }
 
 // NeedFix: Is this called at all ?S
-ViewPlane::ViewPlane(const GFA::Size width, const GFA::Size height)
-    :   frameBufferPtr_(new GFA::RGBColorBuffer(width, height)),
-        pixelSize_(10.0/256.0),
-        samplerSPtr_(new RegularSampler(1))
+FaaRay::ViewPlane::ViewPlane(const GFA::Size width, const GFA::Size height)
+    : samplerSPtr_(new FaaRay::RegularSampler(1))
+    , frameBufferPtr_(new GFA::RGBColorBuffer(width, height))
+    , pixelSize_(10.0/256.0)
 {
-    constructDebug("ViewPlane");
+    constructDebug("FaaRay::ViewPlane");
 }
 
-ViewPlane::~ViewPlane(void)
+FaaRay::ViewPlane::~ViewPlane(void)
 {
     delete frameBufferPtr_;
-    sPtrDebug("ViewPlane:samplerSPtr_", samplerSPtr_);
-    deconstructDebug("ViewPlane");
+    sPtrDebug("FaaRay::ViewPlane:samplerSPtr_", samplerSPtr_);
+    deconstructDebug("FaaRay::ViewPlane");
 }
 
-const GFA::Size & ViewPlane::width() const
+const GFA::Size & FaaRay::ViewPlane::width() const
 {
     return frameBufferPtr_->width();
 }
 
-const GFA::Size & ViewPlane::height() const
+const GFA::Size & FaaRay::ViewPlane::height() const
 {
     return frameBufferPtr_->height();
 }
 
-const GFA::Scalar & ViewPlane::pixelSize() const
+const GFA::Scalar & FaaRay::ViewPlane::pixelSize() const
 {
     return pixelSize_;
 }
 
-const GFA::Size & ViewPlane::numSamples() const
+const GFA::Size & FaaRay::ViewPlane::numSamples() const
 {
     return samplerSPtr_->numSamples();
 }
 
 // NeedFix: are we setting 2 buffers ??
-void ViewPlane::setPixel(
+void FaaRay::ViewPlane::setPixel(
     const GFA::Index &x, const GFA::Index &y,
     const GFA::RGBColor &col) const
 {
@@ -58,34 +59,31 @@ void ViewPlane::setPixel(
     setGUIPixel_(x, y, col);
 }
 
-void ViewPlane::setNumSamples(const GFA::Size &numSamples)
+void FaaRay::ViewPlane::setNumSamples(const GFA::Size &numSamples)
 {
     if (samplerSPtr_->numSamples() == numSamples) return;
 
-    // no need to reset prior samplerSPtr, this happens automatically
-    if (numSamples > 1) samplerSPtr_ = MakeMultiJitteredSamplerSPtr(numSamples);
-    else samplerSPtr_ = MakeRegularSamplerSPtr(numSamples);
+    if (numSamples > 1) samplerSPtr_ = FaaRay::MakeMultiJitteredSamplerSPtr(numSamples);
+    else samplerSPtr_ = FaaRay::MakeRegularSamplerSPtr(numSamples);
 }
 
-const Sampler * ViewPlane::getSamplerPtr() const
+const FaaRay::Sampler * FaaRay::ViewPlane::getSamplerPtr() const
 {
     return samplerSPtr_.get();
 }
 
 // NeedFix: why to procs doing the same thing
-SamplerSPtr ViewPlane::getSamplerSPtr() const
+FaaRay::SamplerSPtr FaaRay::ViewPlane::getSamplerSPtr() const
 {
     return samplerSPtr_;
 }
 
-ConstSamplerSPtr ViewPlane::getConstSamplerSPtr() const
+FaaRay::ConstSamplerSPtr FaaRay::ViewPlane::getConstSamplerSPtr() const
 {
     return samplerSPtr_;
 }
 
-void ViewPlane::setGUIPixel_(const GFA::Index &, const GFA::Index &,
+void FaaRay::ViewPlane::setGUIPixel_(const GFA::Index &, const GFA::Index &,
         const GFA::RGBColor &) const
 {
 }
-
-

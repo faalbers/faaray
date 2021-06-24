@@ -1,30 +1,29 @@
 #include "PinholeCamera.hpp"
-#include "Samplers/Sampler.hpp"
-#include "Tracers/Tracer.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
 
-PinholeCamera::PinholeCamera()
+FaaRay::PinholeCamera::PinholeCamera()
 {
-    constructDebug("PinholeCamera");
+    constructDebug("FaaRay::PinholeCamera");
 }
 
-PinholeCamera::~PinholeCamera()
+FaaRay::PinholeCamera::~PinholeCamera()
 {
-    deconstructDebug("PinholeCamera");
+    deconstructDebug("FaaRay::PinholeCamera");
 }
 
-void PinholeCamera::setViewPlaneDistance(
+void FaaRay::PinholeCamera::setViewPlaneDistance(
     const GFA::Scalar &viewPlaneDistance)
 {
     viewPlaneDistance_ = viewPlaneDistance;
 }
 
-void PinholeCamera::setZoom(const GFA::Scalar &zoom)
+void FaaRay::PinholeCamera::setZoom(const GFA::Scalar &zoom)
 {
     zoom_ = zoom;
 }
 
-void PinholeCamera::render(TraceThread &ttRef) const
+void FaaRay::PinholeCamera::render(FaaRay::TraceThread &ttRef) const
 {
     //ShadeRec sr;
     // best optimization for more samples
@@ -48,7 +47,7 @@ void PinholeCamera::render(TraceThread &ttRef) const
     ttRef.color /= numSamples;
 }
 
-void PinholeCamera::setRayDirection(TraceThread &ttRef) const
+void FaaRay::PinholeCamera::setRayDirection(FaaRay::TraceThread &ttRef) const
 {
     /*
     ttRef.rayDirection =
@@ -70,9 +69,9 @@ void PinholeCamera::setRayDirection(TraceThread &ttRef) const
     ttRef.rayDirection.normalize();
 }
 
-PinholeCameraSPtr MakePinholeCameraSPtr()
+FaaRay::PinholeCameraSPtr FaaRay::MakePinholeCameraSPtr()
 {
-    return std::make_shared<PinholeCamera>();
+    return std::make_shared<FaaRay::PinholeCamera>();
 }
 
 

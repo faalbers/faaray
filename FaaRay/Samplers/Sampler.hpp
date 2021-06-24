@@ -1,15 +1,17 @@
 #ifndef __FAARAY_SAMPLER_H__
 #define __FAARAY_SAMPLER_H__
 
+#include "Base/Base.hpp"
 #include "Shared/Shared.hpp"
-
-
-#include <memory>
+#include "GFA.hpp"
 #include <vector>
 
+namespace FaaRay {
+
+// NeedFix: because TraceThread also uses Sampler
 class TraceThread;
 
-class Sampler : public Base
+class Sampler : public FaaRay::Base
 {
     public:
         Sampler();
@@ -21,7 +23,7 @@ class Sampler : public Base
         virtual void generateSamples() = 0;
         void setupShuffledIndices();
     
-        void setSampleUnitSquare(TraceThread &ttRef) const;
+        void setSampleUnitSquare(FaaRay::TraceThread &ttRef) const;
         
     protected:
         GFA::Size                   numOneDimSamples_;  // one dim of samples
@@ -29,13 +31,14 @@ class Sampler : public Base
         GFA::Size                   numSets_;           // sample sets count
         std::vector<GFA::Point2D>   samples_;
         std::vector<GFA::Index>     shuffledIndices_;
-        MyRNG       rng_;
+        FaaRay::MyRNG               rng_;
         std::uniform_real_distribution<GFA::Scalar> distribution;  
         GFA::Scalar rand_();
 };
 
 typedef std::shared_ptr<Sampler>  SamplerSPtr;
 typedef std::shared_ptr<const Sampler>  ConstSamplerSPtr;
+}
 
 #endif
 

@@ -1,19 +1,20 @@
 #include "Sphere.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
 
-Sphere::Sphere()
+FaaRay::Sphere::Sphere()
     : radius_(1.0)
     , radiusQuad_(1.0)
 {
-    constructDebug("Sphere");
+    constructDebug("FaaRay::Sphere");
 }
 
-Sphere::~Sphere(void)
+FaaRay::Sphere::~Sphere(void)
 {
-    deconstructDebug("Sphere");
+    deconstructDebug("FaaRay::Sphere");
 }
 
-bool Sphere::hit(TraceThread &ttRef, GFA::Scalar& tmin, GFA::Normal &srNormal) const
+bool FaaRay::Sphere::hit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin, GFA::Normal &srNormal) const
 {
     // page 57
     GFA::Vector3D temp = ttRef.rayOrigin - center_;
@@ -39,7 +40,7 @@ bool Sphere::hit(TraceThread &ttRef, GFA::Scalar& tmin, GFA::Normal &srNormal) c
     return true;
 }
 
-bool Sphere::shadowHit(TraceThread &ttRef, GFA::Scalar& tmin) const
+bool FaaRay::Sphere::shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin) const
 {
     // page 57
     GFA::Scalar t;
@@ -72,7 +73,7 @@ bool Sphere::shadowHit(TraceThread &ttRef, GFA::Scalar& tmin) const
     return false;
 }
 
-void Sphere::setCenter(
+void FaaRay::Sphere::setCenter(
     const GFA::Scalar &x,
     const GFA::Scalar &y,
     const GFA::Scalar &z)
@@ -82,26 +83,26 @@ void Sphere::setCenter(
     center_.z = z;
 }
 
-void Sphere::setRadius(const GFA::Scalar &radius)
+void FaaRay::Sphere::setRadius(const GFA::Scalar &radius)
 {
     radius_ = radius;
     radiusQuad_ = radius_*radius_;
 }
 
-SphereSPtr MakeSphereSPtr()
+FaaRay::SphereSPtr FaaRay::MakeSphereSPtr()
 {
-    return std::make_shared<Sphere>();
+    return std::make_shared<FaaRay::Sphere>();
 }
 
 /*
-void Sphere::setCenter(const GFA::Point3D& p)
+void FaaRay::Sphere::setCenter(const GFA::Point3D& p)
 {
     center.x = p.x;
     center.y = p.y;
     center.z = p.z;
 }
 
-bool Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const
+bool FaaRay::Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const
 {
     // page 57
     double t;
@@ -140,7 +141,7 @@ bool Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const
     return (false);
 }
 
-bool Sphere::shadowHit(const Ray& ray, double& tmin) const
+bool FaaRay::Sphere::shadowHit(const Ray& ray, double& tmin) const
 {
     double t;
     GFA::Vector3D temp = ray.origin - center;

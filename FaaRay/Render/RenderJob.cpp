@@ -1,50 +1,49 @@
 #include "RenderJob.hpp"
-#include <stdlib.h>
-#include <time.h>
-#include "Scene/ViewPlane.hpp"
+#include "GFA.hpp"
 #include "Scene/Scene.hpp"
+#include "Scene/ViewPlane.hpp"
 #include "Render/TraceThread.hpp"
+//#include <stdlib.h>
+//#include <time.h>
 
-RenderJob::RenderJob()
-    :   viewPlaneSPtr_(nullptr),
-        sceneSPtr_(new Scene),
-        multiThread_(false)
+FaaRay::RenderJob::RenderJob()
+    : viewPlaneSPtr_(nullptr)
+    , sceneSPtr_(new FaaRay::Scene)
+    , multiThread_(false)
 {
-    constructDebug("RenderJob");
+    constructDebug("FaaRay::RenderJob");
 }
 
-RenderJob::~RenderJob()
+FaaRay::RenderJob::~RenderJob()
 {
-    sPtrDebug("RenderJob:viewPlaneSPtr_", viewPlaneSPtr_);
-    sPtrDebug("RenderJob:sceneSPtr_", sceneSPtr_);
-    deconstructDebug("RenderJob");
+    sPtrDebug("FaaRay::RenderJob:viewPlaneSPtr_", viewPlaneSPtr_);
+    sPtrDebug("FaaRay::RenderJob:sceneSPtr_", sceneSPtr_);
+    deconstructDebug("FaaRay::RenderJob");
 }
-    std::shared_ptr<ViewPlane>  viewPlaneSPtr_;
-    std::shared_ptr<Scene>      sceneSPtr_;
 
-SceneSPtr RenderJob::getSceneSPtr() const
+FaaRay::SceneSPtr FaaRay::RenderJob::getSceneSPtr() const
 {
     return sceneSPtr_;
 }
 
-ViewPlaneSPtr RenderJob::getViewPlaneSPtr() const
+FaaRay::ViewPlaneSPtr FaaRay::RenderJob::getViewPlaneSPtr() const
 {
     return viewPlaneSPtr_;
 }
 
-void RenderJob::setViewPlaneSPtr(ViewPlaneSPtr viewPlaneSPtr)
+void FaaRay::RenderJob::setViewPlaneSPtr(FaaRay::ViewPlaneSPtr viewPlaneSPtr)
 {
     // NeedFix: make sure we need to reset first
     viewPlaneSPtr_.reset(); // delete managed object
     viewPlaneSPtr_ = viewPlaneSPtr;
 }
-  
-void RenderJob::setMultiThread()
+
+void FaaRay::RenderJob::setMultiThread()
 {
     multiThread_ = true;
 }
   
-void  RenderJob::render() const
+void  FaaRay::RenderJob::render() const
 {   
     if (multiThread_)
         renderMultiThread_();
@@ -52,7 +51,7 @@ void  RenderJob::render() const
         renderOneThread_();
 }
 
-void RenderJob::setupTraceThread_(TraceThread &ttRef) const
+void FaaRay::RenderJob::setupTraceThread_(FaaRay::TraceThread &ttRef) const
 {
     //NOTE: Should be shared pointers ?
     ttRef.viewPlaneSPtr = viewPlaneSPtr_;
@@ -71,13 +70,13 @@ void RenderJob::setupTraceThread_(TraceThread &ttRef) const
     ttRef.pixelSize = ttRef.viewPlaneSPtr->pixelSize();
 }
 
-void RenderJob::renderOneThread_() const
+void FaaRay::RenderJob::renderOneThread_() const
 {
     //NOTE: Needs warning
     if (viewPlaneSPtr_.use_count() == 0 || sceneSPtr_.use_count() == 0) return;
     
     // setup render pixel that will be refferenced through the whole thread
-    TraceThread tt;
+    FaaRay::TraceThread tt;
     setupTraceThread_(tt);
 
     // Init random seed
@@ -93,7 +92,7 @@ void RenderJob::renderOneThread_() const
     }
 }
 
-void RenderJob::renderMultiThread_() const
+void FaaRay::RenderJob::renderMultiThread_() const
 {
     //NOTE: Needs warning
     if (viewPlaneSPtr_ == 0 || sceneSPtr_ == 0) return;

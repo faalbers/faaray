@@ -1,12 +1,13 @@
 #ifndef __FAARAY_REGULARSAMPLER_H__
 #define __FAARAY_REGULARSAMPLER_H__
 
-#include "Shared/Shared.hpp"
-#include <memory>
 #include "Sampler.hpp"
+#include "GFA.hpp"
+#include <memory>
 
+namespace FaaRay {
 
-class RegularSampler : public Sampler
+class RegularSampler : public FaaRay::Sampler
 {
     public:
         RegularSampler();
@@ -20,6 +21,8 @@ class RegularSampler : public Sampler
 typedef std::shared_ptr<RegularSampler>  RegularSamplerSPtr;
 RegularSamplerSPtr MakeRegularSamplerSPtr();
 RegularSamplerSPtr MakeRegularSamplerSPtr(const GFA::Size &numSamplesRef);
+
+}
 
 #endif
 

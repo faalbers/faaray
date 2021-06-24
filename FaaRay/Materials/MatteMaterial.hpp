@@ -1,14 +1,16 @@
 #ifndef __FAARAY_MATTEMATERIAL_H__
 #define __FAARAY_MATTEMATERIAL_H__
 
-#include "Shared/Shared.hpp"
-#include <memory>
 #include "Materials/Material.hpp"
+#include "GFA.hpp"
+#include "BRDFs/LambertianBRDF.hpp"
+#include <memory>
+
+namespace FaaRay {
 
 class TraceThread;
-class LambertianBRDF;
 
-class MatteMaterial : public Material
+class MatteMaterial : public FaaRay::Material
 {
     public:
         MatteMaterial();
@@ -20,16 +22,18 @@ class MatteMaterial : public Material
             const GFA::Scalar &b) const;
         
         virtual const GFA::RGBColor & getDiffuseCd() const;
-        virtual void shade(TraceThread &ttRef) const;
-        virtual void diffuse(TraceThread &ttRef) const;
+        virtual void shade(FaaRay::TraceThread &ttRef) const;
+        virtual void diffuse(FaaRay::TraceThread &ttRef) const;
         
     private:
-        LambertianBRDF *ambientBrdfPtr_;
-        LambertianBRDF *diffuseBrdfPtr_;
+        FaaRay::LambertianBRDF *ambientBrdfPtr_;
+        FaaRay::LambertianBRDF *diffuseBrdfPtr_;
 };
 
 typedef std::shared_ptr<MatteMaterial>  MatteMaterialSPtr;
 typedef std::shared_ptr<const MatteMaterial>  ConstMatteMaterialSPtr;
+
+}
 
 #endif
 

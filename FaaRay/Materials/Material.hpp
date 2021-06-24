@@ -1,20 +1,23 @@
 #ifndef __FAARAY_MATERIAL_H__
 #define __FAARAY_MATERIAL_H__
 
-#include "Shared/Shared.hpp"
-#include <memory>
-    
+#include "Base/Base.hpp"
+#include "GFA.hpp"
+
+namespace FaaRay{
+
+// NeedFix: because TraceThread also uses Material
 class TraceThread;
 
-class Material : public Base
+class Material : public FaaRay::Base
 {
     public:
         Material();
         virtual ~Material();
 
         virtual const GFA::RGBColor & getDiffuseCd() const { return color_; }
-        virtual void shade(TraceThread &ttRef) const = 0;
-        virtual void diffuse(TraceThread &ttRef) const = 0;
+        virtual void shade(FaaRay::TraceThread &ttRef) const = 0;
+        virtual void diffuse(FaaRay::TraceThread &ttRef) const = 0;
 
         void setColor() { color_.r = 0.0;}
     
@@ -24,6 +27,8 @@ class Material : public Base
 
 typedef std::shared_ptr<Material>  MaterialSPtr;
 typedef std::shared_ptr<const Material>  ConstMaterialSPtr;
+
+}
 
 #endif
 

@@ -1,24 +1,23 @@
 #ifndef __FAARAY_RENDERJOB_H__
 #define __FAARAY_RENDERJOB_H__
 
-#include "Shared/Shared.hpp"
+#include "Base/Base.hpp"
+#include "Scene/Scene.hpp"
+#include "Scene/ViewPlane.hpp"
+#include "Render/TraceThread.hpp"
 
-#include <memory>
+namespace FaaRay {
 
-class Scene;
-class ViewPlane;
-class TraceThread;
-
-class RenderJob : public Base
+class RenderJob : public FaaRay::Base
 {
 public:
     RenderJob();
     ~RenderJob();
 
-    std::shared_ptr<Scene>      getSceneSPtr() const;
-    std::shared_ptr<ViewPlane>  getViewPlaneSPtr() const;
+    FaaRay::SceneSPtr      getSceneSPtr() const;
+    FaaRay::ViewPlaneSPtr  getViewPlaneSPtr() const;
 
-    void setViewPlaneSPtr(std::shared_ptr<ViewPlane> viewPlaneSPtr);
+    void setViewPlaneSPtr(FaaRay::ViewPlaneSPtr viewPlaneSPtr);
 
     void setMultiThread();
     
@@ -26,16 +25,21 @@ public:
 
 private:
     // NeedFix: create typedefs for these
-    std::shared_ptr<ViewPlane>  viewPlaneSPtr_;
-    std::shared_ptr<Scene>      sceneSPtr_;
-    bool                        multiThread_;
+    FaaRay::ViewPlaneSPtr   viewPlaneSPtr_;
+    FaaRay::SceneSPtr       sceneSPtr_;
+    bool            multiThread_;
     
 
     
     void renderOneThread_() const;
     void renderMultiThread_() const;
-    void setupTraceThread_(TraceThread &rt) const;
+    void setupTraceThread_(FaaRay::TraceThread &rt) const;
 };
+
+typedef std::shared_ptr<RenderJob> RenderJobSPtr;
+typedef std::shared_ptr<const RenderJob> ConstRenderJobSPtr;
+
+}
 
 #endif
 

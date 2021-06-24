@@ -1,18 +1,18 @@
 #ifndef __FAARAY_TRACETHREAD_H__
 #define __FAARAY_TRACETHREAD_H__
 
-#include "Shared/Shared.hpp"
-
+#include "Base/Base.hpp"
+#include "GFA.hpp"
+#include "Scene/Scene.hpp"
+#include "Scene/ViewPlane.hpp"
+#include "Tracers/Tracer.hpp"
+#include "Lights/Light.hpp"
+#include "Materials/Material.hpp"
 #include <memory>
 
-class ViewPlane;
-class Scene;
-class Sampler;
-class Tracer;
-class Light;
-class Material;
+namespace FaaRay {
 
-class TraceThread : public Base
+class TraceThread : public FaaRay::Base
 {
 public:
     TraceThread();
@@ -24,11 +24,11 @@ public:
     GFA::Scalar rand();
 
     // shared between threads, objects need to be const
-    std::shared_ptr<const ViewPlane>    viewPlaneSPtr;
-    std::shared_ptr<const Scene>        sceneSPtr;
-    std::shared_ptr<const Sampler>      samplerSPtr;
-    std::shared_ptr<const Tracer>       tracerSPtr;
-    std::shared_ptr<const Light>        ambientLightSPtr;
+    FaaRay::ConstViewPlaneSPtr    viewPlaneSPtr;
+    FaaRay::ConstSceneSPtr        sceneSPtr;
+    FaaRay::ConstSamplerSPtr      samplerSPtr;
+    FaaRay::ConstTracerSPtr       tracerSPtr;
+    FaaRay::ConstLightSPtr        ambientLightSPtr;
     
     GFA::Scalar      x;
     GFA::Scalar      y;
@@ -55,9 +55,9 @@ public:
     GFA::Vector3D   rayDirection;
 
     // shadow ray data
-    GFA::Point3D     sRayOrigin;
-    GFA::Vector3D    sRayDirection;
-    bool        sRayInShadow;
+    GFA::Point3D    sRayOrigin;
+    GFA::Vector3D   sRayDirection;
+    bool            sRayInShadow;
 
     // ShadeRec (surface) data
     GFA::Normal                         srNormal;
@@ -68,16 +68,18 @@ public:
     GFA::RGBColor                       srRhoColor;
     GFA::RGBColor                       srFColor;
     bool                                srHitAnObject;
-    std::shared_ptr<const Material>     srMaterialSPtr; // gets changed per hit point
+    FaaRay::ConstMaterialSPtr     srMaterialSPtr; // gets changed per hit point
 
     // light data
     GFA::Vector3D   lDirection;
     
 private:
     uint32_t        seedValue_;
-    MyRNG           rng_;
+    FaaRay::MyRNG           rng_;
     std::uniform_real_distribution<GFA::Scalar> distribution;  
 };
+
+}
 
 #endif
 

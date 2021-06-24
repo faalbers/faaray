@@ -1,11 +1,10 @@
 #include "BRDF.hpp"
-#include "Render/TraceThread.hpp"
 
-BRDF::BRDF()
+FaaRay::BRDF::BRDF()
 {
 }
 
-BRDF::~BRDF()
+FaaRay::BRDF::~BRDF()
 {
 }
 

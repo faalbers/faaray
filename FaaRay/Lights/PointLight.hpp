@@ -1,12 +1,15 @@
 #ifndef __FAARAY_POINTLIGHT_H__
 #define __FAARAY_POINTLIGHT_H__
 
-#include "Shared/Shared.hpp"
-
 #include "Lights/Light.hpp"
+#include "GFA.hpp"
 #include <memory>
 
-class PointLight : public Light
+namespace FaaRay {
+
+class TraceThread;
+
+class PointLight : public FaaRay::Light
 {
 public:
     PointLight();
@@ -17,9 +20,9 @@ public:
         const GFA::Scalar &y,
         const GFA::Scalar &z);
 
-    virtual void getDirection(TraceThread &ttRef) const;
-    virtual void L(TraceThread &ttRef) const;
-    virtual void inShadow(TraceThread &ttRef) const;    
+    virtual void getDirection(FaaRay::TraceThread &ttRef) const;
+    virtual void L(FaaRay::TraceThread &ttRef) const;
+    virtual void inShadow(FaaRay::TraceThread &ttRef) const;    
 
     void setRadiance(const GFA::Scalar b) { ls_ = b; }
     void setColor(const GFA::RGBColor color) { color_ = color; }
@@ -32,6 +35,8 @@ private:
 
 typedef std::shared_ptr<PointLight>  PointLightSPtr;
 PointLightSPtr MakePointLightSPtr();
+
+}
 
 #endif
 

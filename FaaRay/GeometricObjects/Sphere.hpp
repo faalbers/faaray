@@ -1,11 +1,15 @@
 #ifndef __FAARAY_SPHERE_H__
 #define __FAARAY_SPHERE_H__
 
-#include "Shared/Shared.hpp"
-#include <memory>
 #include "GeometricObject.hpp"
+#include "GFA.hpp"
+#include <memory>
 
-class Sphere : public GeometricObject
+namespace FaaRay {
+
+class TraceThread;
+
+class Sphere : public FaaRay::GeometricObject
 {
 public:
     Sphere();
@@ -17,8 +21,8 @@ public:
         const GFA::Scalar &z);
     void setRadius(const GFA::Scalar &radius);
 
-    virtual bool hit(TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const;
-    virtual bool shadowHit(TraceThread &ttRef, GFA::Scalar &tmin) const;
+    virtual bool hit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const;
+    virtual bool shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin) const;
 
 private:
     GFA::Point3D    center_;    // center point of the sphere
@@ -28,6 +32,8 @@ private:
 
 typedef std::shared_ptr<Sphere> SphereSPtr;
 SphereSPtr MakeSphereSPtr();
+
+}
 
 #endif
 

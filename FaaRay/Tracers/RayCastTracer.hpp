@@ -1,21 +1,25 @@
 #ifndef __FAARAY_RAYCASTTRACER_H__
 #define __FAARAY_RAYCASTTRACER_H__
 
-#include "Shared/Shared.hpp"
-#include <memory>
 #include "Tracer.hpp"
+#include "Render/TraceThread.hpp"
+#include <memory>
 
-class RayCastTracer : public Tracer
+namespace FaaRay {
+    
+class RayCastTracer : public FaaRay::Tracer
 {
     public:
         RayCastTracer();
         ~RayCastTracer();
 
-        virtual void traceRay(TraceThread &ttRef) const;
+        virtual void traceRay(FaaRay::TraceThread &ttRef) const;
 };
                                   
 typedef std::shared_ptr<RayCastTracer>  RayCastTracerSPtr;
 RayCastTracerSPtr MakeRayCastTracerSPtr();
+
+}
 
 #endif
 

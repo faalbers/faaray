@@ -1,21 +1,23 @@
 #include "Light.hpp"
+
+// NeedFix: because TraceThread also uses Material
 #include "Render/TraceThread.hpp"
 
-Light::Light()
+FaaRay::Light::Light()
     :   shadows_(false)
 {
 }
 
-Light::~Light()
+FaaRay::Light::~Light()
 {
 }
 
-const bool & Light::castsShadows() const
+const bool & FaaRay::Light::castsShadows() const
 {
     return shadows_;
 }
 
-void Light::castShadows(const bool &shadows)
+void FaaRay::Light::castShadows(const bool &shadows)
 {
     shadows_ = shadows;
 }

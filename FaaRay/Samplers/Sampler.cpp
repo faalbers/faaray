@@ -1,9 +1,13 @@
 #include "Sampler.hpp"
+#include "GFA.hpp"
+#include "Render/TraceThread.hpp"
 #include <math.h>
 #include <algorithm>   // for random_shuffle in Sampler::setupShuffledIndices
+
+// NeedFix: because TraceThread also uses Sampler
 #include "Render/TraceThread.hpp"
 
-Sampler::Sampler()
+FaaRay::Sampler::Sampler()
     :   numOneDimSamples_(1),
         numSamples_(1),
         numSets_(83) // some kind of magical number
@@ -19,7 +23,7 @@ Sampler::Sampler()
 
 // The numSamples will be changed to lowes nomber that has a int square root
 // ex: 10 will be changed to 9 because lowest square root is 3
-Sampler::Sampler(const GFA::Size &numSamplesRef)
+FaaRay::Sampler::Sampler(const GFA::Size &numSamplesRef)
     :   numOneDimSamples_((GFA::Size) sqrt((float) numSamplesRef)),
         numSamples_(numOneDimSamples_ * numOneDimSamples_),
         numSets_(83) // some kind of magical number
@@ -33,17 +37,17 @@ Sampler::Sampler(const GFA::Size &numSamplesRef)
 	setupShuffledIndices();
 }
 
-Sampler::~Sampler()
+FaaRay::Sampler::~Sampler()
 {
 }
 
-const GFA::Size & Sampler::numSamples() const
+const GFA::Size & FaaRay::Sampler::numSamples() const
 {
     return numSamples_;
 }
 
 // sets up randomly shuffled indices for the samples
-void Sampler::setupShuffledIndices()
+void FaaRay::Sampler::setupShuffledIndices()
 {
 	shuffledIndices_.reserve(numSamples_ * numSets_);
 	std::vector<GFA::Index> indices;
@@ -62,7 +66,7 @@ void Sampler::setupShuffledIndices()
 // This method is called from multiple threads at the same time
 // Do NOT use this class's random method, only the given random method in the
 // render thread. TraceThread will be updated.
-void Sampler::setSampleUnitSquare(TraceThread &ttRef) const
+void FaaRay::Sampler::setSampleUnitSquare(FaaRay::TraceThread &ttRef) const
 {
     GFA::Index newIndex;
     
@@ -78,9 +82,7 @@ void Sampler::setSampleUnitSquare(TraceThread &ttRef) const
 }
 
 // Get next random scalar between 0.0 and less then 1.0
-GFA::Scalar Sampler::rand_()
+GFA::Scalar FaaRay::Sampler::rand_()
 {
     return distribution(rng_);
 }
-
-

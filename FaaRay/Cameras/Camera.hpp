@@ -1,12 +1,15 @@
 #ifndef __FAARAY_CAMERA_H__
 #define __FAARAY_CAMERA_H__
 
-#include "Shared/Shared.hpp"
+#include "Base/Base.hpp"
+#include "GFA.hpp"
 #include <memory>
+
+namespace FaaRay {
 
 class TraceThread;
 
-class Camera : public Base
+class Camera : public FaaRay::Base
 {
 public:
     Camera();
@@ -18,7 +21,7 @@ public:
    
     void            computeUVW();
 
-    virtual void    render(TraceThread &rp) const = 0;
+    virtual void    render(FaaRay::TraceThread &rp) const = 0;
 
 protected:
     GFA::Point3D  eye_;
@@ -28,6 +31,9 @@ protected:
 };
 
 typedef std::shared_ptr<Camera> CameraSPtr;
+typedef std::shared_ptr<const Camera> ConstCameraSPtr;
+
+}
 
 #endif
 

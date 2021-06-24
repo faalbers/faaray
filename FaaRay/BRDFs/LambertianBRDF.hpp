@@ -1,11 +1,14 @@
 #ifndef __FAARAY_LAMBERTIANBRDF_H__
 #define __FAARAY_LAMBERTIANBRDF_H__
 
-#include "Shared/Shared.hpp"
-
 #include "BRDF.hpp"
+#include "GFA.hpp"
 
-class LambertianBRDF : public BRDF
+namespace FaaRay {
+
+class TraceThread;
+
+class LambertianBRDF : public FaaRay::BRDF
 {
 public:
     LambertianBRDF();
@@ -19,13 +22,15 @@ public:
         
     const GFA::RGBColor & getCd() const;
     
-    virtual void rho(TraceThread &ttRef) const;
-    virtual void f(TraceThread &ttRef) const;
+    virtual void rho(FaaRay::TraceThread &ttRef) const;
+    virtual void f(FaaRay::TraceThread &ttRef) const;
     
 private:
     GFA::RGBColor   cd_;    // diffuse color
     GFA::Scalar     kd_;    // Diffuse Reflection Coefficient
 };
+
+}
 
 #endif
 

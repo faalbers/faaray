@@ -2,14 +2,14 @@
 #ifndef __FAARAY_VIEWPLANE_H__
 #define __FAARAY_VIEWPLANE_H__
 
-#include "Shared/Shared.hpp"
-
-
+#include "Base/Base.hpp"
+#include "GFA.hpp"
+#include "Samplers/Sampler.hpp"
 #include <memory>
 
-class Sampler;
+namespace FaaRay {
 
-class ViewPlane : public Base
+class ViewPlane : public FaaRay::Base
 {
     public:
         ViewPlane();
@@ -25,14 +25,14 @@ class ViewPlane : public Base
             const GFA::RGBColor &col) const; 
     
         void setNumSamples(const GFA::Size &numSamples);
-        const Sampler * getSamplerPtr() const;
-        std::shared_ptr<Sampler> getSamplerSPtr() const;
-        std::shared_ptr<const Sampler> getConstSamplerSPtr() const;
+        const FaaRay::Sampler * getSamplerPtr() const;
+        FaaRay::SamplerSPtr getSamplerSPtr() const;
+        FaaRay::ConstSamplerSPtr getConstSamplerSPtr() const;
        
     protected:
         GFA::RGBColorBuffer         *frameBufferPtr_;
         GFA::Scalar                 pixelSize_;
-        std::shared_ptr<Sampler>    samplerSPtr_;
+        FaaRay::SamplerSPtr    samplerSPtr_;
     
         virtual void setGUIPixel_(const GFA::Index &x, const GFA::Index &y,
             const GFA::RGBColor &col) const; 
@@ -40,6 +40,7 @@ class ViewPlane : public Base
 
 typedef std::shared_ptr<ViewPlane> ViewPlaneSPtr;
 typedef std::shared_ptr<const ViewPlane> ConstViewPlaneSPtr;
+}
 
 #endif
 

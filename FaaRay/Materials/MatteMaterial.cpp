@@ -1,24 +1,23 @@
 #include "MatteMaterial.hpp"
-#include "Render/TraceThread.hpp"
+#include "GFA.hpp"
 #include "BRDFs/LambertianBRDF.hpp"
-#include "Lights/Light.hpp"
-#include "Scene/Scene.hpp"
+#include "Render/TraceThread.hpp"
 
-MatteMaterial::MatteMaterial()
-    :   ambientBrdfPtr_(new LambertianBRDF),
-        diffuseBrdfPtr_(new LambertianBRDF)
+FaaRay::MatteMaterial::MatteMaterial()
+    :   ambientBrdfPtr_(new FaaRay::LambertianBRDF),
+        diffuseBrdfPtr_(new FaaRay::LambertianBRDF)
 {
-    constructDebug("MatteMaterial");
+    constructDebug("FaaRay::MatteMaterial");
 }
 
-MatteMaterial::~MatteMaterial()
+FaaRay::MatteMaterial::~MatteMaterial()
 {
-    deconstructDebug("MatteMaterial");
+    deconstructDebug("FaaRay::MatteMaterial");
     delete ambientBrdfPtr_;
     delete diffuseBrdfPtr_;
 }
 
-void MatteMaterial::setCd(
+void FaaRay::MatteMaterial::setCd(
             const GFA::Scalar &r,
             const GFA::Scalar &g,
             const GFA::Scalar &b) const
@@ -27,12 +26,12 @@ void MatteMaterial::setCd(
     diffuseBrdfPtr_->setCd(r, g, b);
 }
 
-const GFA::RGBColor & MatteMaterial::getDiffuseCd() const
+const GFA::RGBColor & FaaRay::MatteMaterial::getDiffuseCd() const
 {
     return diffuseBrdfPtr_->getCd();
 }
 
-void MatteMaterial::shade(TraceThread &ttRef) const
+void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
 {
     // Ambient BRDF reflectance mult Ambient Light 
     ambientBrdfPtr_->rho(ttRef);
@@ -71,7 +70,7 @@ void MatteMaterial::shade(TraceThread &ttRef) const
     */
 }
 
-void MatteMaterial::diffuse(TraceThread &ttRef) const
+void FaaRay::MatteMaterial::diffuse(FaaRay::TraceThread &ttRef) const
 {
 }
 

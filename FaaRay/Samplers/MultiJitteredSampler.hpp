@@ -1,11 +1,13 @@
 #ifndef __FAARAY_MULTIJITTEREDSAMPLER_H__
 #define __FAARAY_MULTIJITTEREDSAMPLER_H__
 
-#include "Shared/Shared.hpp"
+#include "Sampler.hpp"
+#include "GFA.hpp"
 #include <memory>
-#include "Samplers/Sampler.hpp"
 
-class MultiJitteredSampler : public Sampler
+namespace FaaRay {
+
+class MultiJitteredSampler : public FaaRay::Sampler
 {
     public:
         MultiJitteredSampler();
@@ -18,6 +20,8 @@ class MultiJitteredSampler : public Sampler
 typedef std::shared_ptr<MultiJitteredSampler>  MultiJitteredSamplerSPtr;
 MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr();
 MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr(const GFA::Size &numSamplesRef);
+
+}
 
 #endif
 

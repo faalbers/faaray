@@ -1,41 +1,42 @@
 #include "AmbientLight.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
 
-AmbientLight::AmbientLight()
+FaaRay::AmbientLight::AmbientLight()
     :   ls_(1.0),
         color_(GFA::RGBColor(1.0, 1.0, 1.0))
 {
-    constructDebug("AmbientLight");
+    constructDebug("FaaRay::AmbientLight");
 }
 
-AmbientLight::~AmbientLight()
+FaaRay::AmbientLight::~AmbientLight()
 {
-    deconstructDebug("AmbientLight");
+    deconstructDebug("FaaRay::AmbientLight");
 }
 
-void AmbientLight::setLs(const GFA::Scalar &ls)
+void FaaRay::AmbientLight::setLs(const GFA::Scalar &ls)
 {
     ls_ = ls;
 }
 
-void  AmbientLight::getDirection(TraceThread &ttRef) const
+void  FaaRay::AmbientLight::getDirection(FaaRay::TraceThread &ttRef) const
 {
     ttRef.lDirection = GFA::Vector3D(0.0, 0.0, 0.0);
 }
 
-void  AmbientLight::inShadow(TraceThread &ttRef) const
+void  FaaRay::AmbientLight::inShadow(FaaRay::TraceThread &ttRef) const
 {
     ttRef.sRayInShadow = false;
 }
 
-void  AmbientLight::L(TraceThread &ttRef) const
+void  FaaRay::AmbientLight::L(FaaRay::TraceThread &ttRef) const
 {
     ttRef.srAmbientL = color_ * ls_;
 }
 
-AmbientLightSPtr MakeAmbientLightSPtr()
+FaaRay::AmbientLightSPtr FaaRay::MakeAmbientLightSPtr()
 {
-    return std::make_shared<AmbientLight>();
+    return std::make_shared<FaaRay::AmbientLight>();
 }
 
 

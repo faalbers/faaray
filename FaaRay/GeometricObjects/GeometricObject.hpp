@@ -1,30 +1,35 @@
 #ifndef __FAARAY_GEOMETRICOBJECT_H__
 #define __FAARAY_GEOMETRICOBJECT_H__
 
-#include "Shared/Shared.hpp"
-
+#include "Base/Base.hpp"
+#include "GFA.hpp"
+#include "Materials/Material.hpp"
 #include <memory>
 
-class TraceThread;
-class Material;
+namespace FaaRay {
 
-class GeometricObject : public Base
+class TraceThread;
+
+class GeometricObject : public FaaRay::Base
 {
 public:
     GeometricObject();      // default constructor
     ~GeometricObject();     // destructor
     
-    virtual bool hit(TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const = 0;
-    virtual bool shadowHit(TraceThread &ttRef, GFA::Scalar &tmin) const = 0;
+    virtual bool hit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const = 0;
+    virtual bool shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin) const = 0;
 
-    void setMaterialSPtr(std::shared_ptr<const Material> materialSPtr);
-    std::shared_ptr<const Material> getMaterialSPtr() const;
+    void setMaterialSPtr(FaaRay::ConstMaterialSPtr materialSPtr);
+    FaaRay::ConstMaterialSPtr getMaterialSPtr() const;
     
 protected:
-    std::shared_ptr<const Material>  materialSPtr_;
+    FaaRay::ConstMaterialSPtr  materialSPtr_;
 };
 
 typedef std::shared_ptr<GeometricObject> GeometricObjectSPtr;
+typedef std::shared_ptr<const GeometricObject> ConstGeometricObjectSPtr;
+
+}
 
 #endif
 

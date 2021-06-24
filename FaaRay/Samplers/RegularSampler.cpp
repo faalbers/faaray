@@ -1,22 +1,29 @@
+#include "Sampler.hpp"
 #include "RegularSampler.hpp"
+#include "GFA.hpp"
+#include <memory>
 
-RegularSampler::RegularSampler()
-    :   Sampler()
+FaaRay::RegularSampler::RegularSampler()
+    :   FaaRay::Sampler()
+{
+    std::cout << "BLAAH\n";
+    generateSamples();
+    constructDebug("FaaRay::RegularSampler");
+}
+
+FaaRay::RegularSampler::RegularSampler(const GFA::Size &numSamplesRef)
+    :   FaaRay::Sampler(numSamplesRef)
 {
     generateSamples();
+    constructDebug("FaaRay::RegularSampler(numSamples)");
 }
 
-RegularSampler::RegularSampler(const GFA::Size &numSamplesRef)
-    :   Sampler(numSamplesRef)
+FaaRay::RegularSampler::~RegularSampler()
 {
-    generateSamples();
+    deconstructDebug("FaaRay::RegularSampler");
 }
 
-RegularSampler::~RegularSampler()
-{
-}
-
-void RegularSampler::generateSamples()
+void FaaRay::RegularSampler::generateSamples()
 {
     // Create numSets of numOneDimSamples by numOneDimSamples box
     // each point will be in the middle of each sample box area
@@ -32,15 +39,13 @@ void RegularSampler::generateSamples()
     }
 }
 
-RegularSamplerSPtr MakeRegularSamplerSPtr()
+FaaRay::RegularSamplerSPtr FaaRay::MakeRegularSamplerSPtr()
 {
-    return std::make_shared<RegularSampler>();
+    return std::make_shared<FaaRay::RegularSampler>();
 }
 
-RegularSamplerSPtr MakeRegularSamplerSPtr(
-    const GFA::Size &numSamplesRef)
+FaaRay::RegularSamplerSPtr FaaRay::MakeRegularSamplerSPtr(const GFA::Size &numSamplesRef)
 {
-    return std::make_shared<RegularSampler>(numSamplesRef);
+    return std::make_shared<FaaRay::RegularSampler>(numSamplesRef);
 }
-
 

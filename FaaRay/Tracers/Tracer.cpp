@@ -1,12 +1,11 @@
 
 #include "Tracer.hpp"
-#include "Render/TraceThread.hpp"
 
-Tracer::Tracer()
+FaaRay::Tracer::Tracer()
 {
 }
 
-Tracer::~Tracer()
+FaaRay::Tracer::~Tracer()
 {
 }
 

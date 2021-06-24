@@ -1,31 +1,31 @@
 #include "Camera.hpp"
-#include "Render/TraceThread.hpp"
+#include "GFA.hpp"
 
-Camera::Camera()
+FaaRay::Camera::Camera()
 {
     up_.y = 1.0; // set up vector
 }
 
-Camera::~Camera()
+FaaRay::Camera::~Camera()
 {
 }
 
-void Camera::setEye(const GFA::Point3D &eye)
+void FaaRay::Camera::setEye(const GFA::Point3D &eye)
 {
     eye_ = eye;
 }
 
-const GFA::Point3D & Camera::getEye() const
+const GFA::Point3D & FaaRay::Camera::getEye() const
 {
     return eye_;
 }
 
-void Camera::setLookAt(const GFA::Point3D &lookAt)
+void FaaRay::Camera::setLookAt(const GFA::Point3D &lookAt)
 {
     lookAt_ = lookAt;
 }
 
-void Camera::computeUVW()
+void FaaRay::Camera::computeUVW()
 {
     // take care of up and down singularities
     if ( eye_.x == lookAt_.x && eye_.z == lookAt_.z ) {
@@ -48,5 +48,4 @@ void Camera::computeUVW()
     u_.normalize();
     v_ = w_ ^ u_;
 }
-
 

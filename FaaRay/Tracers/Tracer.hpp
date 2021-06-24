@@ -2,9 +2,9 @@
 #ifndef __FAARAY_TRACER_H__
 #define __FAARAY_TRACER_H__
 
-#include "Shared/Shared.hpp"
+#include "Base/Base.hpp"
 
-#include <memory>
+namespace FaaRay {
 
 class TraceThread;
 
@@ -19,6 +19,8 @@ class Tracer : public Base
                                   
 typedef std::shared_ptr<Tracer> TracerSPtr;
 typedef std::shared_ptr<const Tracer> ConstTracerSPtr;
+
+}
 
 #endif
 

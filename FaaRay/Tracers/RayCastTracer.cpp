@@ -1,20 +1,19 @@
 
 #include "RayCastTracer.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
-#include "Scene/Scene.hpp"
-#include "Materials/Material.hpp"
 
-RayCastTracer::RayCastTracer()
+FaaRay::RayCastTracer::RayCastTracer()
 {
     constructDebug("RayCastTracer");
 }
 
-RayCastTracer::~RayCastTracer()
+FaaRay::RayCastTracer::~RayCastTracer()
 {
     deconstructDebug("RayCastTracer");
 }
 
-void RayCastTracer::traceRay(TraceThread &ttRef) const
+void FaaRay::RayCastTracer::traceRay(FaaRay::TraceThread &ttRef) const
 {
     ttRef.sceneSPtr->hitObjects(ttRef);
     if(ttRef.srHitAnObject) {
@@ -30,9 +29,9 @@ void RayCastTracer::traceRay(TraceThread &ttRef) const
     }
 }
 
-RayCastTracerSPtr MakeRayCastTracerSPtr()
+FaaRay::RayCastTracerSPtr FaaRay::MakeRayCastTracerSPtr()
 {
-    return std::make_shared<RayCastTracer>();
+    return std::make_shared<FaaRay::RayCastTracer>();
 }
 
 

@@ -1,22 +1,27 @@
 #include "MultiJitteredSampler.hpp"
+#include "Sampler.hpp"
+#include "GFA.hpp"
 
-MultiJitteredSampler::MultiJitteredSampler()
-    :   Sampler()
+FaaRay::MultiJitteredSampler::MultiJitteredSampler()
+    :   FaaRay::Sampler()
 {
     generateSamples();
+    constructDebug("FaaRay::MultiJitteredSampler");
 }
 
-MultiJitteredSampler::MultiJitteredSampler(const GFA::Size &numSamplesRef)
+FaaRay::MultiJitteredSampler::MultiJitteredSampler(const GFA::Size &numSamplesRef)
     :   Sampler(numSamplesRef)
 {
     generateSamples();
+    constructDebug("FaaRay::MultiJitteredSampler(numSample)");
 }
 
-MultiJitteredSampler::~MultiJitteredSampler()
+FaaRay::MultiJitteredSampler::~MultiJitteredSampler()
 {
+    deconstructDebug("FaaRay::MultiJitteredSampler");
 }
 
-void MultiJitteredSampler::generateSamples(void)
+void FaaRay::MultiJitteredSampler::generateSamples(void)
 {
     // Create numSets of numOneDimSamples by numOneDimSamples random box
     // points between 0.0 and less then 1.0
@@ -32,15 +37,13 @@ void MultiJitteredSampler::generateSamples(void)
     }
 }
 
-MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr()
+FaaRay::MultiJitteredSamplerSPtr FaaRay::MakeMultiJitteredSamplerSPtr()
 {
-    return std::make_shared<MultiJitteredSampler>();
+    return std::make_shared<FaaRay::MultiJitteredSampler>();
 }
 
-MultiJitteredSamplerSPtr MakeMultiJitteredSamplerSPtr(
-    const GFA::Size &numSamplesRef)
+FaaRay::MultiJitteredSamplerSPtr FaaRay::MakeMultiJitteredSamplerSPtr(const GFA::Size &numSamplesRef)
 {
-    return std::make_shared<MultiJitteredSampler>(numSamplesRef);
+    return std::make_shared<FaaRay::MultiJitteredSampler>(numSamplesRef);
 }
-
 

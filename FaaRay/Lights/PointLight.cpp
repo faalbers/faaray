@@ -1,17 +1,20 @@
 #include "PointLight.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
 
-PointLight::PointLight()
+FaaRay::PointLight::PointLight()
     :   ls_(1.0),
         color_(GFA::RGBColor(1.0, 1.0, 1.0))
 {
+    constructDebug("FaaRay::PointLight");
 }
 
-PointLight::~PointLight()
+FaaRay::PointLight::~PointLight()
 {
+    deconstructDebug("FaaRay::PointLight");
 }
 
-void PointLight::setCenter(
+void FaaRay::PointLight::setCenter(
     const GFA::Scalar &x,
     const GFA::Scalar &y,
     const GFA::Scalar &z)
@@ -21,13 +24,13 @@ void PointLight::setCenter(
     center_.z = z;
 }
 
-void  PointLight::getDirection(TraceThread &ttRef) const
+void  FaaRay::PointLight::getDirection(FaaRay::TraceThread &ttRef) const
 {
     ttRef.lDirection = center_ - ttRef.srHitPoint;
     ttRef.lDirection.normalize();
 }
 
-void  PointLight::inShadow(TraceThread &ttRef) const
+void  FaaRay::PointLight::inShadow(FaaRay::TraceThread &ttRef) const
 {
     if ( castsShadows() ) {
         ttRef.sRayInShadow = false;
@@ -35,14 +38,14 @@ void  PointLight::inShadow(TraceThread &ttRef) const
         ttRef.sRayInShadow = false;
 }
 
-void  PointLight::L(TraceThread &ttRef) const
+void  FaaRay::PointLight::L(FaaRay::TraceThread &ttRef) const
 {
     ttRef.srLightL = color_ * ls_;
 }
 
-PointLightSPtr MakePointLightSPtr()
+FaaRay::PointLightSPtr FaaRay::MakePointLightSPtr()
 {
-    return std::make_shared<PointLight>();
+    return std::make_shared<FaaRay::PointLight>();
 }
 
 /*

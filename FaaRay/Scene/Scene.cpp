@@ -1,102 +1,84 @@
 
 #include "Scene.hpp"
-#include <memory>
+#include "GFA.hpp"
 #include "Cameras/Camera.hpp"
-#include "Tracers/Tracer.hpp"
-#include "Lights/Light.hpp"
 #include "Render/TraceThread.hpp"
+#include "Lights/Light.hpp"
 #include "GeometricObjects/GeometricObject.hpp"
-#include "GeometricObjects/Sphere.hpp"
-#include "Materials/Material.hpp"
+#include "Tracers/Tracer.hpp"
 
-//#define FAARAY_CLASS_DEBUG
-
-Scene::Scene()
+FaaRay::Scene::Scene()
     : cameraSPtr_(nullptr)
     , tracerSPtr_(nullptr)
     , ambientLightSPtr_(nullptr)
 {
-    constructDebug("Scene");
+    constructDebug("FaaRay::Scene");
 }
 
-Scene::~Scene()
+FaaRay::Scene::~Scene()
 {
-    sPtrDebug("Scene::cameraSPtr_", cameraSPtr_);
-    sPtrDebug("Scene::tracerSPtr_", tracerSPtr_);
-    sPtrDebug("Scene::ambientLightSPtr_", ambientLightSPtr_);
+    sPtrDebug("FaaRay::Scene::cameraSPtr_", cameraSPtr_);
+    sPtrDebug("FaaRay::Scene::tracerSPtr_", tracerSPtr_);
+    sPtrDebug("FaaRay::Scene::ambientLightSPtr_", ambientLightSPtr_);
     for (GFA::Index j = 0; j < objectSPtrs_.size(); j++)
-        sPtrDebug("Scene::objectSPtrs_", objectSPtrs_[j], j);
+        sPtrDebug("FaaRay::Scene::objectSPtrs_", objectSPtrs_[j], j);
     for (GFA::Index j = 0; j < lightSPtrs_.size(); j++)
-        sPtrDebug(("Scene::lightSPtrs_"), lightSPtrs_[j], j);
-
-    deconstructDebug("Scene");
+        sPtrDebug(("FaaRay::Scene::lightSPtrs_"), lightSPtrs_[j], j);
+    deconstructDebug("FaaRay::Scene");
 }
 
-void Scene::setCamera(CameraSPtr cameraSPtr)
+void FaaRay::Scene::setCamera(FaaRay::CameraSPtr cameraSPtr)
 {
     cameraSPtr_ = cameraSPtr;
     cameraSPtr_->computeUVW();
 }
 
-void Scene::setTracer(TracerSPtr tracerSPtr)
+void FaaRay::Scene::setTracer(FaaRay::TracerSPtr tracerSPtr)
 {
     tracerSPtr_ = tracerSPtr;
 }
 
-void Scene::setAmbientLight(LightSPtr ambientLightSPtr)
+void FaaRay::Scene::setAmbientLight(FaaRay::LightSPtr ambientLightSPtr)
 {
     ambientLightSPtr_ = ambientLightSPtr;
 }
 
-void Scene::addLight(LightSPtr lightSPtr)
+void FaaRay::Scene::addLight(FaaRay::LightSPtr lightSPtr)
 {                                       
     lightSPtrs_.push_back(lightSPtr);
 }
 
-void Scene::addObject(GeometricObjectSPtr objectSPtr)
+void FaaRay::Scene::addObject(FaaRay::GeometricObjectSPtr objectSPtr)
 {                                       
     objectSPtrs_.push_back(objectSPtr);
 }
 
-CameraSPtr Scene::getCameraSPtr() const
+FaaRay::CameraSPtr FaaRay::Scene::getCameraSPtr() const
 {
     return cameraSPtr_;
 }
 
-const Tracer * Scene::getTracerPtr() const
+const FaaRay::Tracer * FaaRay::Scene::getTracerPtr() const
 {
     return tracerSPtr_.get();
 }
 
-TracerSPtr Scene::getTracerSPtr() const
+FaaRay::TracerSPtr FaaRay::Scene::getTracerSPtr() const
 {
     return tracerSPtr_;
 }
 
-ConstTracerSPtr Scene::getConstTracerSPtr() const
+FaaRay::ConstTracerSPtr FaaRay::Scene::getConstTracerSPtr() const
 {
     return tracerSPtr_;
 }
 
-ConstLightSPtr Scene::getConstAmbientLightSPtr() const
+FaaRay::ConstLightSPtr FaaRay::Scene::getConstAmbientLightSPtr() const
 {
     return ambientLightSPtr_;
 }
 
-void Scene::printSPtrUseCounts()
-{
-    std::cout << "\nScene: Shared Pointers use count:\n";
-    std::cout << "cameraSPtr:\t" << cameraSPtr_.use_count() << std::endl;
-    std::cout << "tracerSPtr:\t" << tracerSPtr_.use_count() << std::endl;
-    std::cout << "cameraSPtr:\t" << ambientLightSPtr_.use_count() << std::endl;
-    for (GFA::Index j = 0; j < objectSPtrs_.size(); j++)
-        std::cout << "objectSPtr(" << j << "):\t" << objectSPtrs_[j].use_count() << std::endl;
-    for (GFA::Index j = 0; j < lightSPtrs_.size(); j++)
-        std::cout << "lightSPtrs_(" << j << "):\t" << lightSPtrs_[j].use_count() << std::endl;
-    
-}
-
-void Scene::hitObjects(TraceThread &ttRef) const
+void FaaRay::Scene::hitObjects(FaaRay::TraceThread &ttRef) const
 {
     GFA::Scalar t;
     GFA::Normal srNormal, srNormalmin;
@@ -121,7 +103,7 @@ void Scene::hitObjects(TraceThread &ttRef) const
     }
 }
 
-void Scene::shadowHitObjects(TraceThread &ttRef) const
+void FaaRay::Scene::shadowHitObjects(FaaRay::TraceThread &ttRef) const
 {
     GFA::Scalar t;
 
@@ -134,7 +116,7 @@ void Scene::shadowHitObjects(TraceThread &ttRef) const
     ttRef.sRayInShadow = false;
 }
 
-void Scene::applyLights(TraceThread &ttRef) const
+void FaaRay::Scene::applyLights(FaaRay::TraceThread &ttRef) const
 {   int tempy;
     GFA::Scalar ndotwi;
     for (GFA::Index j = 0; j < lightSPtrs_.size(); j++) {
@@ -157,6 +139,8 @@ void Scene::applyLights(TraceThread &ttRef) const
         }
     }
 }
+
+
 /*
             bool inShadow = false;
             
