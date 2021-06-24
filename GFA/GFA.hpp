@@ -16,16 +16,20 @@
 #include "VectorArray.hpp"
 */
 
-#include "Shared/Shared.hpp"
+/*
 
-#include "Color/RGBColor.hpp"
-#include "Color/RGBColorBuffer.hpp"
+
+
+#include "Vector/Normal.hpp"
+#include "Vector/Vector3D.hpp"
+*/
+#include "Shared/Shared.hpp"
 
 #include "Point/Point2D.hpp"
 #include "Point/Point3D.hpp"
 
-#include "Vector/Normal.hpp"
-#include "Vector/Vector3D.hpp"
+#include "Color/RGBColor.hpp"
+#include "Color/RGBColorBuffer.hpp"
 
 #endif
 

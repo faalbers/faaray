@@ -1,5 +1,6 @@
 
 #include "Point3D.hpp"
+#include "Shared/Shared.hpp"
 #include "Vector/Vector3D.hpp"
 
 GFA::Point3D::Point3D()

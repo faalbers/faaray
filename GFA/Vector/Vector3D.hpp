@@ -3,11 +3,11 @@
 #define __GFA_VECTOR3D_H__
 
 #include "Shared/Shared.hpp"
+#include "Normal.hpp"
 #include <iostream>
 
 
 namespace GFA {
-class Normal;
 
 class Vector3D
 {

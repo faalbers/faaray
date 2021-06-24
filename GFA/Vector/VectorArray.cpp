@@ -1,4 +1,5 @@
 #include "VectorArray.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::VectorArray::VectorArray(const GFA::Size &dim, const GFA::Size &size)
     :   dataPtr_(new GFA::Scalar[(dim+1)*size]),

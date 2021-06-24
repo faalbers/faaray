@@ -3,11 +3,10 @@
 #define __GFA_POINT3D_H__
 
 #include "Shared/Shared.hpp"
+#include "Vector/Vector3D.hpp"
 #include <iostream>
 
 namespace GFA {
-
-class Vector3D;
 
 class Point3D
 {

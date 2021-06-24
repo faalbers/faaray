@@ -1,7 +1,8 @@
 
-#include "Vector/Vector3D.hpp"
-#include <math.h>
+#include "Vector3D.hpp"
+#include "Shared/Shared.hpp"
 #include "Normal.hpp"
+#include <math.h>
 
 GFA::Vector3D::Vector3D()
     :   x(0.0),

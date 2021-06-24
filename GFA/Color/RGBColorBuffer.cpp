@@ -1,5 +1,6 @@
 
 #include "RGBColorBuffer.hpp"
+#include "Shared/Shared.hpp"
 #include "RGBColor.hpp"
 
 GFA::RGBColorBuffer::RGBColorBuffer()

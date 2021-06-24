@@ -1,5 +1,6 @@
 
 #include "Normal.hpp"
+#include "Shared/Shared.hpp"
 #include "Vector/Vector3D.hpp"
 
 GFA::Normal::Normal()

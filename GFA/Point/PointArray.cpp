@@ -1,4 +1,5 @@
 #include "PointArray.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::PointArray::PointArray(const GFA::Size &dim, const GFA::Size &size)
     :   dataPtr_(new GFA::Scalar[(dim+1)*size]),

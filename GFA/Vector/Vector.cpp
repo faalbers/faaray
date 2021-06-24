@@ -1,4 +1,5 @@
 #include "Vector.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::Vector::Vector()
     :   dataPtr_(0),

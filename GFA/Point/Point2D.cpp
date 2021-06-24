@@ -1,5 +1,6 @@
 
 #include "Point2D.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::Point2D::Point2D()
     :   x(0.0),

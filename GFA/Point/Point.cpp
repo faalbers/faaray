@@ -1,4 +1,5 @@
 #include "Point/Point.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::Point::Point()
     : dataPtr_(0)

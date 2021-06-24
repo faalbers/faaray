@@ -4,8 +4,9 @@
 
 #include "Shared/Shared.hpp"
 
-
 namespace GFA {
+
+// NeedFix: ? Because Normal and Vector3D use each other. Maybe inherit ?
 class Vector3D;
 
 class Normal

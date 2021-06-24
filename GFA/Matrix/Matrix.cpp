@@ -1,4 +1,5 @@
 #include "Matrix.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::Matrix::Matrix(const GFA::Size &cols, const GFA::Size &rows)
     :   dataPtr_(new GFA::Scalar[cols*rows]),

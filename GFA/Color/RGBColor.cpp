@@ -1,4 +1,5 @@
 #include "RGBColor.hpp"
+#include "Shared/Shared.hpp"
 
 GFA::RGBColor::RGBColor()
     :   r(0.0),
