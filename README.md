@@ -24,6 +24,7 @@ Figure out what all this thread() thread.join() is about !!!!!
 
 NeedFiX:
 
+- Fix coordinate system ?
 - Change RGBColorBuffer to RGNA8888 buffer in ViewPlane . Use that one in GUIViewPlane
 - I should use namespace
-
+- GFA needs to be operator expanded
