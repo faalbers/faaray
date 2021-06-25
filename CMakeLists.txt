@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(faaraygui VERSION 0.1 LANGUAGES CXX)
 
-add_compile_definitions(CLASS_DEBUG)
-add_compile_definitions(SHARED_POINTER_DEBUG)
+#add_compile_definitions(CLASS_DEBUG)
+#add_compile_definitions(SHARED_POINTER_DEBUG)
 
 add_subdirectory(GFA)
 add_subdirectory(FaaRay)
@@ -24,4 +24,11 @@ add_executable(faaraytest faareytest.cpp)
 get_target_property(FAARAY_SOURCE_DIR FaaRay SOURCE_DIR)
 target_include_directories(faaraytest PUBLIC ${FAARAY_SOURCE_DIR})
 target_link_libraries(faaraytest PRIVATE FaaRay)
+endif()
+
+if(OFF)
+add_executable(gfatest gfatest.cpp)
+get_target_property(GFA_SOURCE_DIR GFA SOURCE_DIR)
+target_include_directories(gfatest PUBLIC ${GFA_SOURCE_DIR})
+target_link_libraries(gfatest PRIVATE GFA)
 endif()
