@@ -36,7 +36,6 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
 {
     // Ambient BRDF reflectance mult Ambient Light 
     ambientBrdfPtr_->rho(ttRef);
-    diffuseBrdfPtr_->f(ttRef);
     ttRef.ambientLightSPtr->L(ttRef);
     ttRef.srColor = ttRef.srRhoColor * ttRef.srAmbientL;
     
@@ -49,6 +48,8 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
     for (GFA::Index j = 0; j < lightSPtrs.size(); j++) {
         // get light direction vector from light to hit point
         lightSPtrs[j]->getDirection(ttRef);
+        // now that the direction is set we can run the BRDF f
+        diffuseBrdfPtr_->f(ttRef);
         // get multiplier between light and surface vectors
         ndotwi = ttRef.lDirection * ttRef.srNormal;
         if (ndotwi > 0.0) {
