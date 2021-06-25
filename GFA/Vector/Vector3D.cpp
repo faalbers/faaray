@@ -1,7 +1,7 @@
 
 #include "Vector3D.hpp"
 #include "Shared/Shared.hpp"
-#include "Normal.hpp"
+#include <iostream>
 #include <math.h>
 
 GFA::Vector3D::Vector3D()
@@ -24,6 +24,16 @@ void GFA::Vector3D::normalize()
     x *= dom;
     y *= dom;
     z *= dom;
+    if ( isnan(x) ) x = 0;
+    if ( isnan(y) ) y = 0;
+    if ( isnan(z) ) z = 0;
+}
+
+GFA::Vector3D GFA::Vector3D::normal()
+{
+    GFA::Vector3D hello = *this;
+    hello.normalize();
+    return hello;
 }
 
 GFA::Vector3D GFA::Vector3D::operator+ (const GFA::Vector3D &rhs) const
@@ -41,9 +51,21 @@ GFA::Vector3D GFA::Vector3D::operator* (const GFA::Scalar &rhs) const
     return GFA::Vector3D(x * rhs, y * rhs, z * rhs);
 }
 
+GFA::Vector3D &GFA::Vector3D::operator*=(const GFA::Scalar &rhs)
+{
+    x *= rhs; y *= rhs; z *= rhs; 
+    return *this;
+}
+
 GFA::Vector3D GFA::Vector3D::operator/ (const GFA::Scalar &rhs) const
 {
     return GFA::Vector3D(x / rhs, y / rhs, z / rhs);
+}
+
+GFA::Vector3D &GFA::Vector3D::operator/=(const GFA::Scalar &rhs)
+{
+    x /= rhs; y /= rhs; z /= rhs; 
+    return *this;
 }
 
 // cross product
@@ -58,16 +80,8 @@ GFA::Scalar GFA::Vector3D::operator* (const GFA::Vector3D &rhs) const
     return x*rhs.x+y*rhs.y+z*rhs.z;
 }
 
-// dot product
-GFA::Scalar GFA::Vector3D::operator* (const GFA::Normal &rhs) const
-{
-    return x*rhs.x+y*rhs.y+z*rhs.z;
-}
-
-std::ostream & operator<< (std::ostream &os, const GFA::Vector3D &rhs)
+std::ostream & GFA::operator<< (std::ostream &os, const GFA::Vector3D &rhs)
 {
     os << "Vector3D(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
     return os;
 }
-
-

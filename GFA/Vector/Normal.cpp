@@ -4,29 +4,33 @@
 #include "Vector/Vector3D.hpp"
 
 GFA::Normal::Normal()
-    :   x(0.0),
-        y(0.0),
-        z(0.0)
 {
 }
 
 GFA::Normal::Normal(const GFA::Scalar &x_, const GFA::Scalar &y_, const GFA::Scalar &z_)
-    :   x(x_),
-        y(y_),
-        z(z_)
+    : GFA::Vector3D(x_, y_, z_)
 {
+    normalize();
 }
 
-GFA::Normal & GFA::Normal::operator= (const GFA::Vector3D &rhs)
+GFA::Normal::Normal(const Vector3D &v)
 {
-	x = rhs.x; y = rhs.y; z = rhs.z;
-	return (*this);
+    x = v.x; y = v.y; z = v.z;
+    normalize();
 }
 
-// dot product
-GFA::Scalar GFA::Normal::operator* (const GFA::Normal &rhs) const
+GFA::Normal &GFA::Normal::operator*=(const GFA::Scalar &rhs)
 {
-    return x*rhs.x+y*rhs.y+z*rhs.z;
+    return *this;
 }
 
+GFA::Normal &GFA::Normal::operator/=(const GFA::Scalar &rhs)
+{
+    return *this;
+}
 
+std::ostream & GFA::operator<< (std::ostream &os, const GFA::Normal &rhs)
+{
+    os << "NormalD(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
+    return os;
+}

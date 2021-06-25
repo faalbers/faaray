@@ -25,6 +25,9 @@
 */
 #include "Shared/Shared.hpp"
 
+#include "Vector/Vector3D.hpp"
+#include "Vector/Normal.hpp"
+
 #include "Point/Point2D.hpp"
 #include "Point/Point3D.hpp"
 

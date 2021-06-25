@@ -16,8 +16,8 @@ class Point3D
 
         Scalar x, y, z;
         
-        Vector3D    operator-(const Point3D &rhs) const;
-        Point3D     operator+(const Vector3D& rhs) const;
+        GFA::Vector3D  operator-(const Point3D &rhs) const;
+        Point3D         operator+(const GFA::Vector3D& rhs) const;
 };
 
 std::ostream & operator<< (std::ostream &os, Point3D const &rhs);

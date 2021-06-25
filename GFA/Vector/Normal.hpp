@@ -3,26 +3,23 @@
 #define __GFA_NORMAL_H__
 
 #include "Shared/Shared.hpp"
+#include "Vector3D.hpp"
 
 namespace GFA {
 
-// NeedFix: ? Because Normal and Vector3D use each other. Maybe inherit ?
-class Vector3D;
-
-class Normal
+class Normal : public GFA::Vector3D
 {
     public:
         Normal();
-        Normal(const Scalar &x_, const Scalar &y_, const Scalar &z_);
+        Normal(const GFA::Scalar &x_, const GFA::Scalar &y_, const GFA::Scalar &z_);
+        Normal(const Vector3D &v);
 
-        Scalar x, y, z;
-        
-        Normal & operator= (const Vector3D &rhs);
+        Normal &operator*=(const GFA::Scalar &rhs);
+        Normal &operator/=(const GFA::Scalar &rhs);
 
-        // dot product
-        Scalar operator* (const Normal &rhs) const;
-        
 };
+
+std::ostream & operator<< (std::ostream &os, const Normal &rhs);
 
 }
 

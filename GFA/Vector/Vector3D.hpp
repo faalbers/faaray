@@ -3,9 +3,7 @@
 #define __GFA_VECTOR3D_H__
 
 #include "Shared/Shared.hpp"
-#include "Normal.hpp"
 #include <iostream>
-
 
 namespace GFA {
 
@@ -13,22 +11,24 @@ class Vector3D
 {
     public:
         Vector3D();
-        Vector3D(const Scalar &x_, const Scalar &y_, const Scalar &z_);
+        Vector3D(const GFA::Scalar &x_, const GFA::Scalar &y_, const GFA::Scalar &z_);
 
-        Scalar x, y, z;
+        GFA::Scalar x, y, z;
         
         void normalize();
+        Vector3D normal();
         
         Vector3D operator+ (const Vector3D &rhs) const;
         Vector3D operator- (const Vector3D &rhs) const;
-        Vector3D operator* (const Scalar &rhs) const;
-        Vector3D operator/ (const Scalar &rhs) const;
+        Vector3D operator* (const GFA::Scalar &rhs) const;
+        Vector3D &operator*=(const GFA::Scalar &rhs);
+        Vector3D operator/ (const GFA::Scalar &rhs) const;
+        Vector3D &operator/=(const GFA::Scalar &rhs);
         
         // cross product
         Vector3D operator^ (const Vector3D &rhs) const;
         // dot product
-        Scalar operator* (const Vector3D &rhs) const;
-        Scalar operator* (const Normal &rhs) const;
+        GFA::Scalar operator* (const Vector3D &rhs) const;
 
 };
 
