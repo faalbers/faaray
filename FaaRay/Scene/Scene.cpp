@@ -6,6 +6,7 @@
 #include "Lights/Light.hpp"
 #include "GeometricObjects/GeometricObject.hpp"
 #include "Tracers/Tracer.hpp"
+#include <vector>
 
 FaaRay::Scene::Scene()
     : cameraSPtr_(nullptr)
@@ -78,6 +79,11 @@ FaaRay::ConstLightSPtr FaaRay::Scene::getConstAmbientLightSPtr() const
     return ambientLightSPtr_;
 }
 
+std::vector<FaaRay::LightSPtr> FaaRay::Scene::getLightSPtrs() const
+{
+    return lightSPtrs_;
+}
+
 void FaaRay::Scene::hitObjects(FaaRay::TraceThread &ttRef) const
 {
     GFA::Scalar t;
@@ -115,31 +121,6 @@ void FaaRay::Scene::shadowHitObjects(FaaRay::TraceThread &ttRef) const
     }
     ttRef.sRayInShadow = false;
 }
-
-void FaaRay::Scene::applyLights(FaaRay::TraceThread &ttRef) const
-{   int tempy;
-    GFA::Scalar ndotwi;
-    for (GFA::Index j = 0; j < lightSPtrs_.size(); j++) {
-        // get light direction vector from light to hit point
-        lightSPtrs_[j]->getDirection(ttRef);
-        // get multiplier between light and surface vectors
-        ndotwi = ttRef.lDirection * ttRef.srNormal;
-        if (ndotwi > 0.0) {
-            if (lightSPtrs_[j]->castsShadows()) {
-                ttRef.sRayOrigin = ttRef.srHitPoint;
-                ttRef.sRayDirection = ttRef.lDirection;
-                // check if surface point is obscured from the light by any other object
-                shadowHitObjects(ttRef);
-            }
-
-            if ( !ttRef.sRayInShadow ) {
-                lightSPtrs_[j]->L(ttRef);
-                ttRef.srColor += ttRef.srFColor * ttRef.srLightL * ndotwi;
-            }
-        }
-    }
-}
-
 
 /*
             bool inShadow = false;

@@ -2,6 +2,7 @@
 #include "GFA.hpp"
 #include "BRDFs/LambertianBRDF.hpp"
 #include "Render/TraceThread.hpp"
+#include "Lights/Light.hpp"
 
 FaaRay::MatteMaterial::MatteMaterial()
     :   ambientBrdfPtr_(new FaaRay::LambertianBRDF),
@@ -42,32 +43,28 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
     //ttRef.srColor *= GFA::Normal(0.0,0.0,1.0) * ttRef.srNormal;
     
     // Add receiving lights.
-    ttRef.sceneSPtr->applyLights(ttRef);
-    
-    /*
-    GFA::Vector3D    wo = -sr.ray.direction;
-    // Ambient BRDF reflectance mult Ambient Light 
-    GFA::RGBColor L = ambientBrdf->rho(sr, wo) * sr.world.ambientPtr->L(sr);
-
-    int numLights = sr.world.lights.size();
-    for (int j = 0; j < numLights; j++) {
-        GFA::Vector3D wi = sr.world.lights[j]->getDirection(sr);
-        double ndotwi = wi * sr.normal;
-        
+    //ttRef.sceneSPtr->applyLights(ttRef);
+    GFA::Scalar ndotwi;
+    std::vector<FaaRay::LightSPtr> lightSPtrs(ttRef.sceneSPtr->getLightSPtrs());
+    for (GFA::Index j = 0; j < lightSPtrs.size(); j++) {
+        // get light direction vector from light to hit point
+        lightSPtrs[j]->getDirection(ttRef);
+        // get multiplier between light and surface vectors
+        ndotwi = ttRef.lDirection * ttRef.srNormal;
         if (ndotwi > 0.0) {
-            bool inShadow = false;
-            
-            if ( sr.world.lights[j]->castsShadows() ) {
-                Ray shadowRay(sr.hitPoint, wi);
-                inShadow = sr.world.lights[j]->inShadow(shadowRay, sr);
+            if (lightSPtrs[j]->castsShadows()) {
+                ttRef.sRayOrigin = ttRef.srHitPoint;
+                ttRef.sRayDirection = ttRef.lDirection;
+                // check if surface point is obscured from the light by any other object
+                ttRef.sceneSPtr->shadowHitObjects(ttRef);
             }
-            if (!inShadow) 
-                L += diffuseBrdf->f(sr, wi, wo) * sr.world.lights[j]->L(sr) * ndotwi;
+
+            if ( !ttRef.sRayInShadow ) {
+                lightSPtrs[j]->L(ttRef);
+                ttRef.srColor += ttRef.srFColor * ttRef.srLightL * ndotwi;
+            }
         }
     }
-    
-    return L;
-    */
 }
 
 void FaaRay::MatteMaterial::diffuse(FaaRay::TraceThread &ttRef) const

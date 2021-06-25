@@ -29,24 +29,24 @@ class Scene : public FaaRay::Base
         void addLight(FaaRay::LightSPtr lightSPtr);
 
         // Retrieving methods
-        FaaRay::CameraSPtr getCameraSPtr() const;
-        const FaaRay::Tracer * getTracerPtr() const;
-        FaaRay::TracerSPtr getTracerSPtr() const;
-        FaaRay::ConstTracerSPtr getConstTracerSPtr() const;
-        FaaRay::ConstLightSPtr getConstAmbientLightSPtr() const;
+        FaaRay::CameraSPtr              getCameraSPtr() const;
+        const FaaRay::Tracer            *getTracerPtr() const;
+        FaaRay::TracerSPtr              getTracerSPtr() const;
+        FaaRay::ConstTracerSPtr         getConstTracerSPtr() const;
+        FaaRay::ConstLightSPtr          getConstAmbientLightSPtr() const;
+        std::vector<FaaRay::LightSPtr>  getLightSPtrs() const;
 
         // ray trace methods
         void hitObjects(FaaRay::TraceThread &ttRef) const;
         void shadowHitObjects(FaaRay::TraceThread &ttRef) const;
-        void applyLights(FaaRay::TraceThread &ttRef) const;
     
     private:
         // NeedFix: These are not const, so they could get changed ??
         FaaRay::CameraSPtr                         cameraSPtr_;
         FaaRay::TracerSPtr                         tracerSPtr_;
         FaaRay::LightSPtr                          ambientLightSPtr_;
-        std::vector<FaaRay::GeometricObjectSPtr>   objectSPtrs_;
         std::vector<FaaRay::LightSPtr>             lightSPtrs_;
+        std::vector<FaaRay::GeometricObjectSPtr>   objectSPtrs_;
 };
 
 typedef std::shared_ptr<Scene>  SceneSPtr;
