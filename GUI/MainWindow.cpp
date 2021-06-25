@@ -100,7 +100,7 @@ void MainWindow::sceneBuild_() const
             ui_->ambient->setCurrentIndex(0);
             break;
     }
-    ambientLightSPtr->setLs(0.05);
+    ambientLightSPtr->setLs(0.0);
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
     // NeedFix: why does this not work ??
@@ -108,24 +108,25 @@ void MainWindow::sceneBuild_() const
     //pointLightASPtr = MakePointLightSPtr;
 
     FaaRay::PointLightSPtr pointLightASPtr(new FaaRay::PointLight);
-    pointLightASPtr->setCenter(60, 200, 40);
-    pointLightASPtr->setColor(GFA::RGBColor(1, 1, 0.3));
-    pointLightASPtr->setRadiance(3);
-    pointLightASPtr->castShadows(true);
+    pointLightASPtr->setCenter(200, 200, 200);
+    pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
+    pointLightASPtr->setRadiance(1);
+    pointLightASPtr->castShadows(false);
     sceneSPtr->addLight(pointLightASPtr);
     
+    /*
     pointLightASPtr.reset(new FaaRay::PointLight);
     pointLightASPtr->setCenter(40, -40, 40);
     pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
     pointLightASPtr->setRadiance(2);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
+    */
 
-    pointLightASPtr.reset(new FaaRay::PointLight);
     
     // create MatteMaterials for objects
     FaaRay::MatteMaterialSPtr matteMaterialASPtr(new FaaRay::MatteMaterial);
-    matteMaterialASPtr->setCd(1.0, 1.0, 1.0);
+    matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
     FaaRay::MatteMaterialSPtr matteMaterialBSPtr(new FaaRay::MatteMaterial);
     matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
 
@@ -147,13 +148,7 @@ void MainWindow::sceneBuild_() const
     FaaRay::SphereSPtr sphereSPtr;
     sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
-    sphereSPtr->setRadius(5);
-    sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
-    sceneSPtr->addObject(sphereSPtr);
-
-    sphereSPtr = FaaRay::MakeSphereSPtr();
-    sphereSPtr->setCenter(3, 10, 1);
-    sphereSPtr->setRadius(5);
+    sphereSPtr->setRadius(10);
     sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
 
