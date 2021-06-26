@@ -1,4 +1,5 @@
-#include "BRDFs/LambertianBRDF.hpp"
+#include "LambertianBRDF.hpp"
+#include "GFA.hpp"
 #include "Render/TraceThread.hpp"
 
 FaaRay::LambertianBRDF::LambertianBRDF()
