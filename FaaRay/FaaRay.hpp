@@ -18,6 +18,7 @@
 #include "Lights/PointLight.hpp"
 
 #include "Materials/MatteMaterial.hpp"
+#include "Materials/PhongMaterial.hpp"
 
 #include "GeometricObjects/Sphere.hpp"
 

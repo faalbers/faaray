@@ -31,9 +31,9 @@ const GFA::RGBColor & FaaRay::GlossySpecularBRDF::getCd() const
     return cd_;
 }
 
-void FaaRay::GlossySpecularBRDF::rho(FaaRay::TraceThread &ttRef) const
+GFA::RGBColor FaaRay::GlossySpecularBRDF::rho(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.srRhoColor = cd_*kd_;
+    return (cd_*kd_);
 }
 
 void FaaRay::GlossySpecularBRDF::f(FaaRay::TraceThread &ttRef) const

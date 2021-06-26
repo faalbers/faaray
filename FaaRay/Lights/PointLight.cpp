@@ -27,7 +27,6 @@ void FaaRay::PointLight::setCenter(
 void  FaaRay::PointLight::getDirection(FaaRay::TraceThread &ttRef) const
 {
     ttRef.lDirection = center_ - ttRef.srHitPoint;
-    ttRef.lDirection.normalize();
 }
 
 void  FaaRay::PointLight::inShadow(FaaRay::TraceThread &ttRef) const

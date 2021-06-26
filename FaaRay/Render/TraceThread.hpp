@@ -68,7 +68,7 @@ public:
     FaaRay::ConstMaterialSPtr     srMaterialSPtr; // gets changed per hit point
 
     // light data
-    GFA::Vector3D   lDirection;
+    GFA::Normal   lDirection;
     
 private:
     uint32_t        seedValue_;

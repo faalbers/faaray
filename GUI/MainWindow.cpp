@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <memory>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui_(new Ui::MainWindow)
@@ -100,7 +101,7 @@ void MainWindow::sceneBuild_() const
             ui_->ambient->setCurrentIndex(0);
             break;
     }
-    ambientLightSPtr->setLs(0.0);
+    ambientLightSPtr->setLs(0.05);
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
     // NeedFix: why does this not work ??
@@ -129,6 +130,8 @@ void MainWindow::sceneBuild_() const
     matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
     FaaRay::MatteMaterialSPtr matteMaterialBSPtr(new FaaRay::MatteMaterial);
     matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
+    FaaRay::PhongMaterialSPtr phongMaterialASPtr(new FaaRay::PhongMaterial);
+    phongMaterialASPtr->setCd(1.0, 1.0, 0.3);
 
     // Create sphere array and add to scene
     /*
@@ -149,7 +152,7 @@ void MainWindow::sceneBuild_() const
     sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
     sphereSPtr->setRadius(10);
-    sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+    sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
 
     /* Cover problem

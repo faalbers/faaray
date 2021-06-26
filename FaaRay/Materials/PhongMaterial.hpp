@@ -29,7 +29,7 @@ class PhongMaterial : public FaaRay::Material
     private:
         FaaRay::LambertianBRDF *ambientBrdfPtr_;
         FaaRay::LambertianBRDF *diffuseBrdfPtr_;
-        FaaRay::LambertianBRDF *specularBrdfPtr_;
+        //FaaRay::LambertianBRDF *specularBrdfPtr_;
 };
 
 typedef std::shared_ptr<PhongMaterial>  PhongMaterialSPtr;

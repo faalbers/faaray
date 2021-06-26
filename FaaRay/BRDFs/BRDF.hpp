@@ -1,6 +1,8 @@
 #ifndef __FAARAY_BRDF_H__
 #define __FAARAY_BRDF_H__
 
+#include "GFA.hpp"
+
 namespace FaaRay {
 
 class TraceThread;
@@ -11,7 +13,7 @@ class BRDF
         BRDF();
         virtual ~BRDF();
         
-        virtual void rho(FaaRay::TraceThread &ttRef) const = 0;
+        virtual GFA::RGBColor rho(FaaRay::TraceThread &ttRef) const = 0;
         virtual void f(FaaRay::TraceThread &ttRef) const = 0;
 };
 
