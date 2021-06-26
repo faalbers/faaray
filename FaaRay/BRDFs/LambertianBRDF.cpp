@@ -31,9 +31,9 @@ const GFA::RGBColor & FaaRay::LambertianBRDF::getCd() const
     return cd_;
 }
 
-void FaaRay::LambertianBRDF::rho(FaaRay::TraceThread &ttRef) const
+GFA::RGBColor FaaRay::LambertianBRDF::rho(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.srRhoColor = cd_*kd_;
+    return (cd_*kd_);
 }
 
 void FaaRay::LambertianBRDF::f(FaaRay::TraceThread &ttRef) const

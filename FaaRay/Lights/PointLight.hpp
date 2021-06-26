@@ -21,7 +21,7 @@ public:
         const GFA::Scalar &z);
 
     virtual void getDirection(FaaRay::TraceThread &ttRef) const;
-    virtual void L(FaaRay::TraceThread &ttRef) const;
+    virtual GFA::RGBColor L(FaaRay::TraceThread &ttRef) const;
     virtual void inShadow(FaaRay::TraceThread &ttRef) const;    
 
     void setRadiance(const GFA::Scalar b) { ls_ = b; }

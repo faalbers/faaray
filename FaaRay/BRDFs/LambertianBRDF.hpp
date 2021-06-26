@@ -22,7 +22,7 @@ public:
         
     const GFA::RGBColor & getCd() const;
     
-    virtual void rho(FaaRay::TraceThread &ttRef) const;
+    virtual GFA::RGBColor rho(FaaRay::TraceThread &ttRef) const;
     virtual void f(FaaRay::TraceThread &ttRef) const;
     
 private:

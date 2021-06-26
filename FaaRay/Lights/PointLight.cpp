@@ -38,9 +38,9 @@ void  FaaRay::PointLight::inShadow(FaaRay::TraceThread &ttRef) const
         ttRef.sRayInShadow = false;
 }
 
-void  FaaRay::PointLight::L(FaaRay::TraceThread &ttRef) const
+GFA::RGBColor FaaRay::PointLight::L(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.srLightL = color_ * ls_;
+    return (color_ * ls_);
 }
 
 FaaRay::PointLightSPtr FaaRay::MakePointLightSPtr()

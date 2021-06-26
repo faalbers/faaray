@@ -29,9 +29,9 @@ void  FaaRay::AmbientLight::inShadow(FaaRay::TraceThread &ttRef) const
     ttRef.sRayInShadow = false;
 }
 
-void  FaaRay::AmbientLight::L(FaaRay::TraceThread &ttRef) const
+GFA::RGBColor  FaaRay::AmbientLight::L(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.srAmbientL = color_ * ls_;
+    return (color_ * ls_);
 }
 
 FaaRay::AmbientLightSPtr FaaRay::MakeAmbientLightSPtr()

@@ -2,6 +2,7 @@
 #define __FAARAY_LIGHT_H__
 
 #include "Base/Base.hpp"
+#include "GFA.hpp"
 
 namespace FaaRay {
 
@@ -15,7 +16,7 @@ public:
     virtual ~Light();
 
     virtual void getDirection( FaaRay::TraceThread &ttRef) const = 0;
-    virtual void L( FaaRay::TraceThread &ttRef) const = 0;
+    virtual GFA::RGBColor L(FaaRay::TraceThread &ttRef) const = 0;
     virtual void inShadow( FaaRay::TraceThread &ttRef) const = 0;
 
     const bool & castsShadows() const;
