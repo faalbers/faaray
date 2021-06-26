@@ -64,6 +64,7 @@ public:
     GFA::Point3D                        srHitPoint;
     GFA::RGBColor                       srColor;
     GFA::RGBColor                       srFColor;
+    GFA::RGBColor                       srFSpecular;
     bool                                srHitAnObject;
     FaaRay::ConstMaterialSPtr     srMaterialSPtr; // gets changed per hit point
 

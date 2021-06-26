@@ -4,6 +4,8 @@
 #include <algorithm>
 
 FaaRay::TraceThread::TraceThread()
+    : srHitAnObject(false)
+    , sRayInShadow(false)
 {
     constructDebug("TraceThread");
 }
