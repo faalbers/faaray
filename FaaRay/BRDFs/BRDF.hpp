@@ -14,7 +14,7 @@ class BRDF
         virtual ~BRDF();
         
         virtual GFA::RGBColor rho(FaaRay::TraceThread &ttRef) const = 0;
-        virtual void f(FaaRay::TraceThread &ttRef) const = 0;
+        virtual GFA::RGBColor f(FaaRay::TraceThread &ttRef) const = 0;
 };
 
 }
