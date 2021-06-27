@@ -127,13 +127,16 @@ void MainWindow::sceneBuild_() const
     
     // create MatteMaterials for objects
     FaaRay::MatteMaterialSPtr matteMaterialASPtr(new FaaRay::MatteMaterial);
-    matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
+    matteMaterialASPtr->setCd(GFA::RGBColor(1.0, 1.0, 0.0));
+    matteMaterialASPtr->setKd(1.5);
+    
     FaaRay::MatteMaterialSPtr matteMaterialBSPtr(new FaaRay::MatteMaterial);
-    matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
+    matteMaterialBSPtr->setCd(GFA::RGBColor(0.5, 0.5, 1.0));
+    matteMaterialBSPtr->setKd(1.5);
     
     FaaRay::PhongMaterialSPtr phongMaterialASPtr(new FaaRay::PhongMaterial);
     phongMaterialASPtr->setCd(GFA::RGBColor(1.0, 1.0, 0.3));
-    phongMaterialASPtr->setKd(1);
+    phongMaterialASPtr->setKd(1.5);
     phongMaterialASPtr->setCs(GFA::RGBColor(1.0, 1.0, 1.0));
     phongMaterialASPtr->setKs(0.8);
     phongMaterialASPtr->setExp(20.0);
@@ -157,6 +160,7 @@ void MainWindow::sceneBuild_() const
     sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
     sphereSPtr->setRadius(10);
+    //sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
     sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
 

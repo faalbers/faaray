@@ -16,6 +16,8 @@ class MatteMaterial : public FaaRay::Material
         MatteMaterial();
         virtual ~MatteMaterial();
 
+        void setKd(const GFA::Scalar k);
+        void setCd(const GFA::RGBColor &c);
         void setCd(
             const GFA::Scalar &r,
             const GFA::Scalar &g,

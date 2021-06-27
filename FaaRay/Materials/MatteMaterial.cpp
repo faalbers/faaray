@@ -18,6 +18,17 @@ FaaRay::MatteMaterial::~MatteMaterial()
     delete diffuseBrdfPtr_;
 }
 
+void FaaRay::MatteMaterial::setKd(const GFA::Scalar k)
+{
+    diffuseBrdfPtr_->setKd(k);
+}
+
+void FaaRay::MatteMaterial::setCd(const GFA::RGBColor &c)
+{
+    ambientBrdfPtr_->setCd(c);
+    diffuseBrdfPtr_->setCd(c);
+}
+
 void FaaRay::MatteMaterial::setCd(
             const GFA::Scalar &r,
             const GFA::Scalar &g,
