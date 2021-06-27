@@ -20,6 +20,7 @@ class Vector3D
         
         Vector3D operator+ (const Vector3D &rhs) const;
         Vector3D operator- (const Vector3D &rhs) const;
+        Vector3D operator- () const;
         Vector3D operator* (const GFA::Scalar &rhs) const;
         Vector3D &operator*=(const GFA::Scalar &rhs);
         Vector3D operator/ (const GFA::Scalar &rhs) const;
