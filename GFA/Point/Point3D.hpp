@@ -21,7 +21,6 @@ class Point3D
 };
 
 std::ostream & operator<< (std::ostream &os, Point3D const &rhs);
-
 }
 
 #endif
