@@ -41,6 +41,11 @@ GFA::RGBColor GFA::RGBColor::operator* (const GFA::RGBColor& rhs) const
     return GFA::RGBColor(r * rhs.r, g * rhs.g, b * rhs.b, a * rhs.a);
 }
 
+GFA::RGBColor GFA::RGBColor::operator+ (const GFA::RGBColor& rhs) const
+{
+    return GFA::RGBColor(r + rhs.r, g + rhs.g, b + rhs.b, a + rhs.a);
+}
+
 GFA::RGBColor & GFA::RGBColor::operator= (const GFA::RGBColor &rhs)
 {
 	r = rhs.r; g = rhs.g; b = rhs.b; a = rhs.a;

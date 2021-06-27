@@ -22,6 +22,7 @@ class RGBColor
 
         RGBColor   operator* (const Scalar &rhs) const;
         RGBColor   operator* (const RGBColor &rhs) const;
+        RGBColor   operator+ (const RGBColor &rhs) const;
         RGBColor & operator= (const RGBColor &rhs);
         RGBColor & operator+= (const RGBColor &rhs);
         RGBColor & operator/= (const Scalar &rhs);
