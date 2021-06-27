@@ -14,7 +14,7 @@ FaaRay::Sphere::~Sphere(void)
     deconstructDebug("FaaRay::Sphere");
 }
 
-bool FaaRay::Sphere::hit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin, GFA::Normal &srNormal) const
+bool FaaRay::Sphere::hit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const
 {
     // page 57
     GFA::Vector3D temp = ttRef.rayOrigin - center_;
@@ -40,10 +40,9 @@ bool FaaRay::Sphere::hit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin, GFA::Nor
     return true;
 }
 
-bool FaaRay::Sphere::shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin) const
+bool FaaRay::Sphere::shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin) const
 {
     // page 57
-    GFA::Scalar t;
     GFA::Vector3D temp = ttRef.sRayOrigin - center_;
     GFA::Scalar a = ttRef.sRayDirection * ttRef.sRayDirection;
     GFA::Scalar b = 2.0 * (temp * ttRef.sRayDirection);
@@ -53,24 +52,18 @@ bool FaaRay::Sphere::shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar& tmin) co
     if (disc < 0.0)
         return false;
     else {
-        double e = sqrt(disc);
-        double denom = 2.0 * a;
-        t = (-b - e) / denom; // smaller root
+        GFA::Scalar t;
+        GFA::Scalar e = sqrt(disc);
+        t = (-b - e) / 2.0; // smaller root
+        if (t <= GFA::EPSILON)
+            t = (-b + e) / 2.0; // larger root
+            if (t <= GFA::EPSILON)
+                return false;
 
-        if (t > GFA::EPSILON) {
-            tmin = t;
-            return true;
-        }
-
-        t = (-b + e) / denom; // larger root
-
-        if (t > GFA::EPSILON) {
-            tmin = t;
-            return true;
-        }
+        tmin = t;
     }
     
-    return false;
+    return true;
 }
 
 void FaaRay::Sphere::setCenter(
