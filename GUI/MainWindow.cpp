@@ -101,7 +101,7 @@ void MainWindow::sceneBuild_() const
             ui_->ambient->setCurrentIndex(0);
             break;
     }
-    ambientLightSPtr->setLs(0.05);
+    ambientLightSPtr->setLs(0);
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
     // NeedFix: why does this not work ??
@@ -130,8 +130,13 @@ void MainWindow::sceneBuild_() const
     matteMaterialASPtr->setCd(1.0, 1.0, 0.0);
     FaaRay::MatteMaterialSPtr matteMaterialBSPtr(new FaaRay::MatteMaterial);
     matteMaterialBSPtr->setCd(0.5, 0.5, 1.0);
+    
     FaaRay::PhongMaterialSPtr phongMaterialASPtr(new FaaRay::PhongMaterial);
-    phongMaterialASPtr->setCd(1.0, 1.0, 0.3);
+    phongMaterialASPtr->setCd(GFA::RGBColor(1.0, 1.0, 0.3));
+    phongMaterialASPtr->setKd(1);
+    phongMaterialASPtr->setCs(GFA::RGBColor(1.0, 1.0, 1.0));
+    phongMaterialASPtr->setKs(0.8);
+    phongMaterialASPtr->setExp(20.0);
 
     // Create sphere array and add to scene
     /*
