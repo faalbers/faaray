@@ -5,18 +5,18 @@ int main(int argc, char *argv[])
 {
     std::cout << "Running GFA test\n";
 
-    GFA::Vector3DB vecA(5,0,0);
-    GFA::Vector3DB vecAN(1,0,0);
-    GFA::Vector3DB vecB(10,10,0);
-    GFA::Vector3DB vecBN(0.707107,0.707107,0);
-    GFA::Vector3DB vecC(0,5,0);
-    GFA::Vector3DB vecCN(0,1,0);
-    GFA::Vector3DB vecD(10,0.1,0);
+    GFA::Vector3D vecA(5,0,0);
+    GFA::Vector3D vecAN(1,0,0);
+    GFA::Vector3D vecB(10,10,0);
+    GFA::Vector3D vecBN(0.707107,0.707107,0);
+    GFA::Vector3D vecC(0,5,0);
+    GFA::Vector3D vecCN(0,1,0);
+    GFA::Vector3D vecD(10,0.1,0);
 
-    GFA::NormalB normA(5,0,0);
-    GFA::NormalB normB(10,10,0);
-    GFA::Vector3DB vecResultA, vecResultB;
-    GFA::NormalB normResultA, normResultB;
+    GFA::Normal normA(5,0,0);
+    GFA::Normal normB(10,10,0);
+    GFA::Vector3D vecResultA, vecResultB;
+    GFA::Normal normResultA, normResultB;
     GFA::Scalar scalarResultA, scalarResultB;
     GFA::Scalar multi = 2.0;
 
@@ -95,6 +95,11 @@ int main(int argc, char *argv[])
     normResultA = normB;
     std::cout << "normResultA /= multi:\t"; normResultA /= multi;
     std::cout << "normResultA:\t" << normResultA << std::endl;
+
+    vecResultA = GFA::Vector3D(5,5,5);
+    vecResultA = -vecResultA;
+
+    std::cout << "- RGBColor:\t" << vecResultA << std::endl;
 
     //std::cout << "End test\n";
     return 0;
