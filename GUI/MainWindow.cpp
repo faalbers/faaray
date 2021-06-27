@@ -109,22 +109,21 @@ void MainWindow::sceneBuild_() const
     //pointLightASPtr = MakePointLightSPtr;
 
     FaaRay::PointLightSPtr pointLightASPtr(new FaaRay::PointLight);
+    
+    pointLightASPtr->setCenter(-20, 20, 20);
+    pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
+    pointLightASPtr->setRadiance(0.5);
+    pointLightASPtr->castShadows(true);
+    sceneSPtr->addLight(pointLightASPtr);
+    
+    pointLightASPtr.reset(new FaaRay::PointLight);
+    
     pointLightASPtr->setCenter(200, 200, 200);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
     pointLightASPtr->setRadiance(1);
-    pointLightASPtr->castShadows(false);
-    sceneSPtr->addLight(pointLightASPtr);
-    
-    /*
-    pointLightASPtr.reset(new FaaRay::PointLight);
-    pointLightASPtr->setCenter(40, -40, 40);
-    pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
-    pointLightASPtr->setRadiance(2);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
-    */
 
-    
     // create MatteMaterials for objects
     FaaRay::MatteMaterialSPtr matteMaterialASPtr(new FaaRay::MatteMaterial);
     matteMaterialASPtr->setCd(GFA::RGBColor(1.0, 1.0, 0.0));
@@ -160,9 +159,20 @@ void MainWindow::sceneBuild_() const
     sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
     sphereSPtr->setRadius(10);
-    //sphereSPtr->setMaterialSPtr(matteMaterialBSPtr);
     sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
+    sphereSPtr = FaaRay::MakeSphereSPtr();
+    sphereSPtr->setCenter(5, 15, 15);
+    sphereSPtr->setRadius(4);
+    sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
+    sceneSPtr->addObject(sphereSPtr);
+
+    FaaRay::PlaneSPtr planeSPtr;
+    planeSPtr = FaaRay::MakePlaneSPtr();
+    planeSPtr->setCenter(0, 0, 0);
+    planeSPtr->setNormal(0, 1, 0);
+    planeSPtr->setMaterialSPtr(phongMaterialASPtr);
+    sceneSPtr->addObject(planeSPtr);
 
     /* Cover problem
     SphereSPtr sphereSPtr;

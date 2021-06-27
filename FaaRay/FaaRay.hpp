@@ -21,5 +21,6 @@
 #include "Materials/PhongMaterial.hpp"
 
 #include "GeometricObjects/Sphere.hpp"
+#include "GeometricObjects/Plane.hpp"
 
 #endif
