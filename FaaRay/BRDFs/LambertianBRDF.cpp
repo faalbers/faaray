@@ -13,6 +13,11 @@ FaaRay::LambertianBRDF::~LambertianBRDF()
 }
 
 // diffuse color
+void FaaRay::LambertianBRDF::setCd(const GFA::RGBColor &c)
+{
+    cd_ = c;
+}
+
 void FaaRay::LambertianBRDF::setCd(
     const GFA::Scalar &r,
     const GFA::Scalar &g,
@@ -37,7 +42,7 @@ GFA::RGBColor FaaRay::LambertianBRDF::rho(FaaRay::TraceThread &ttRef) const
     return (cd_*kd_);
 }
 
-void FaaRay::LambertianBRDF::f(FaaRay::TraceThread &ttRef) const
+GFA::RGBColor FaaRay::LambertianBRDF::f(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.srFColor = cd_ * kd_ * GFA::invPI;
+    return (cd_ * kd_ * GFA::invPI);
 }

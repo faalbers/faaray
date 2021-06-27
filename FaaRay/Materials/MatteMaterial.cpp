@@ -34,13 +34,11 @@ const GFA::RGBColor & FaaRay::MatteMaterial::getDiffuseCd() const
 
 void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
 {
-    // Ambient BRDF reflectance mult Ambient Light
-    GFA::RGBColor srRhoColor(ambientBrdfPtr_->rho(ttRef));
-    GFA::RGBColor srAmbientL(ttRef.ambientLightSPtr->L(ttRef));
-    GFA::RGBColor srLightL;
+    // Ambient BRDF reflectance mult Ambient Light 
+    GFA::RGBColor srRhoColor, srAmbientL, srFColor, srLightL;
+    srRhoColor = ambientBrdfPtr_->rho(ttRef);
+    srAmbientL = ttRef.ambientLightSPtr->L(ttRef);
     ttRef.srColor = srRhoColor * srAmbientL;
-    
-    //ttRef.srColor *= GFA::Normal(0.0,0.0,1.0) * ttRef.srNormal;
     
     // Add receiving lights.
     //ttRef.sceneSPtr->applyLights(ttRef);
@@ -50,7 +48,7 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
         // get light direction vector from light to hit point
         lightSPtrs[j]->getDirection(ttRef);
         // now that the direction is set we can run the BRDF f
-        diffuseBrdfPtr_->f(ttRef);
+        srFColor = diffuseBrdfPtr_->f(ttRef);
         srLightL = lightSPtrs[j]->L(ttRef);
         // get multiplier between light and surface vectors
         ndotwi = ttRef.lDirection * ttRef.srNormal;
@@ -63,7 +61,8 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
             }
 
             if ( !ttRef.sRayInShadow ) {
-                ttRef.srColor += ttRef.srFColor * srLightL * ndotwi;
+                lightSPtrs[j]->L(ttRef);
+                ttRef.srColor += srFColor * srLightL * ndotwi;
             }
         }
     }

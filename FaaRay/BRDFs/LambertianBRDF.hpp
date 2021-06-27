@@ -14,6 +14,7 @@ public:
     LambertianBRDF();
     virtual ~LambertianBRDF();
 
+    void setCd(const GFA::RGBColor &c);
     void setCd(
         const GFA::Scalar &r,
         const GFA::Scalar &g,
@@ -23,7 +24,7 @@ public:
     const GFA::RGBColor & getCd() const;
     
     virtual GFA::RGBColor rho(FaaRay::TraceThread &ttRef) const;
-    virtual void f(FaaRay::TraceThread &ttRef) const;
+    virtual GFA::RGBColor f(FaaRay::TraceThread &ttRef) const;
     
 private:
     GFA::RGBColor   cd_;    // diffuse color

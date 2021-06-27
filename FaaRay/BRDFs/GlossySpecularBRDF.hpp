@@ -14,20 +14,23 @@ public:
     GlossySpecularBRDF();
     virtual ~GlossySpecularBRDF();
 
-    void setCd(
+    void setCs(const GFA::RGBColor &c);
+    void setCs(
         const GFA::Scalar &r,
         const GFA::Scalar &g,
         const GFA::Scalar &b);
-    void setKd(const GFA::Scalar &kd);
+    void setKs(const GFA::Scalar &ks);
+    void setExp(const GFA::Scalar &exp);
         
     const GFA::RGBColor & getCd() const;
     
     virtual GFA::RGBColor rho(FaaRay::TraceThread &ttRef) const;
-    virtual void f(FaaRay::TraceThread &ttRef) const;
+    virtual GFA::RGBColor f(FaaRay::TraceThread &ttRef) const;
     
 private:
-    GFA::RGBColor   cd_;    // diffuse color
-    GFA::Scalar     kd_;    // Diffuse Reflection Coefficient
+    GFA::RGBColor   cs_;    // Specular color
+    GFA::Scalar     ks_;    // Diffuse Reflection Coefficient
+    GFA::Scalar     exp_;   // Specular Exponent
 };
 
 }

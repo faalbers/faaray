@@ -15,11 +15,11 @@ class Material : public FaaRay::Base
         Material();
         virtual ~Material();
 
-        virtual const GFA::RGBColor & getDiffuseCd() const { return color_; }
+        //virtual const GFA::RGBColor & getDiffuseCd() const { return color_; }
         virtual void shade(FaaRay::TraceThread &ttRef) const = 0;
         virtual void diffuse(FaaRay::TraceThread &ttRef) const = 0;
 
-        void setColor() { color_.r = 0.0;}
+        //void setColor() { color_.r = 0.0;}
     
     protected:
         GFA::RGBColor color_;

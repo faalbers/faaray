@@ -8,7 +8,7 @@
 FaaRay::PhongMaterial::PhongMaterial()
     : ambientBrdfPtr_(new FaaRay::LambertianBRDF)
     , diffuseBrdfPtr_(new FaaRay::LambertianBRDF)
-//    , specularBrdfPtr_(new FaaRay::GlossySpecularBRDF)
+    , specularBrdfPtr_(new FaaRay::GlossySpecularBRDF)
 {
     constructDebug("FaaRay::PhongMaterial");
 }
@@ -20,6 +20,22 @@ FaaRay::PhongMaterial::~PhongMaterial()
     delete diffuseBrdfPtr_;
 }
 
+void FaaRay::PhongMaterial::setKa(const GFA::Scalar k)
+{
+    ambientBrdfPtr_->setKd(k);
+}
+
+void FaaRay::PhongMaterial::setKd(const GFA::Scalar k)
+{
+    diffuseBrdfPtr_->setKd(k);
+}
+
+void FaaRay::PhongMaterial::setCd(const GFA::RGBColor &c)
+{
+    ambientBrdfPtr_->setCd(c);
+    diffuseBrdfPtr_->setCd(c);
+}
+
 void FaaRay::PhongMaterial::setCd(
             const GFA::Scalar &r,
             const GFA::Scalar &g,
@@ -29,6 +45,22 @@ void FaaRay::PhongMaterial::setCd(
     diffuseBrdfPtr_->setCd(r, g, b);
 }
 
+void FaaRay::PhongMaterial::setKs(const GFA::Scalar k)
+{
+    specularBrdfPtr_->setKs(k);
+}
+
+void FaaRay::PhongMaterial::setCs(const GFA::RGBColor &c)
+{
+    specularBrdfPtr_->setCs(c);
+}
+
+void FaaRay::PhongMaterial::setExp(const GFA::Scalar exp)
+{
+    specularBrdfPtr_->setExp(exp);
+}
+
+
 const GFA::RGBColor & FaaRay::PhongMaterial::getDiffuseCd() const
 {
     return diffuseBrdfPtr_->getCd();
@@ -37,12 +69,10 @@ const GFA::RGBColor & FaaRay::PhongMaterial::getDiffuseCd() const
 void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
 {
     // Ambient BRDF reflectance mult Ambient Light 
-    GFA::RGBColor srRhoColor(ambientBrdfPtr_->rho(ttRef));
-    GFA::RGBColor srAmbientL(ttRef.ambientLightSPtr->L(ttRef));
-    GFA::RGBColor srLightL;
+    GFA::RGBColor srRhoColor, srAmbientL, srFColor, srFSpecular, srLightL;
+    srRhoColor = ambientBrdfPtr_->rho(ttRef);
+    srAmbientL = ttRef.ambientLightSPtr->L(ttRef);
     ttRef.srColor = srRhoColor * srAmbientL;
-    
-    //ttRef.srColor *= GFA::Normal(0.0,0.0,1.0) * ttRef.srNormal;
     
     // Add receiving lights.
     //ttRef.sceneSPtr->applyLights(ttRef);
@@ -52,7 +82,9 @@ void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
         // get light direction vector from light to hit point
         lightSPtrs[j]->getDirection(ttRef);
         // now that the direction is set we can run the BRDF f
-        diffuseBrdfPtr_->f(ttRef);
+        srFColor = diffuseBrdfPtr_->f(ttRef);
+        srFSpecular = specularBrdfPtr_->f(ttRef);
+        //srFSpecular = GFA::RGBColor(1,1,1);
         srLightL = lightSPtrs[j]->L(ttRef);
         // get multiplier between light and surface vectors
         ndotwi = ttRef.lDirection * ttRef.srNormal;
@@ -66,7 +98,7 @@ void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
 
             if ( !ttRef.sRayInShadow ) {
                 lightSPtrs[j]->L(ttRef);
-                ttRef.srColor += ttRef.srFColor * srLightL * ndotwi;
+                ttRef.srColor += (srFColor + srFSpecular) * srLightL * ndotwi;
             }
         }
     }
