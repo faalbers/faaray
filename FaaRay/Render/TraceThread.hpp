@@ -24,16 +24,16 @@ public:
     GFA::Scalar rand();
 
     // shared between threads, objects need to be const
-    FaaRay::ConstViewPlaneSPtr    viewPlaneSPtr;
-    FaaRay::ConstSceneSPtr        sceneSPtr;
-    FaaRay::ConstSamplerSPtr      samplerSPtr;
-    FaaRay::ConstTracerSPtr       tracerSPtr;
-    FaaRay::ConstLightSPtr        ambientLightSPtr;
+    FaaRay::ConstViewPlaneSPtr  viewPlaneSPtr;
+    FaaRay::ConstSceneSPtr      sceneSPtr;
+    FaaRay::ConstSamplerSPtr    samplerSPtr;
+    FaaRay::ConstTracerSPtr     tracerSPtr;
+    FaaRay::ConstLightSPtr      ambientLightSPtr;
     
-    GFA::Scalar      x;
-    GFA::Scalar      y;
-    GFA::RGBColor    color;
-    uint32_t    seedVal;
+    GFA::Scalar     x;
+    GFA::Scalar     y;
+    GFA::RGBColor   color;
+    uint32_t        seedVal;
     
     // optimization variables
 
@@ -52,7 +52,7 @@ public:
     
     // ray data
     GFA::Point3D    rayOrigin;
-    GFA::Vector3D   rayDirection;
+    GFA::Normal     rayDirection;
 
     // shadow ray data
     GFA::Point3D    sRayOrigin;
@@ -60,20 +60,18 @@ public:
     bool            sRayInShadow;
 
     // ShadeRec (surface) data
-    GFA::Normal                         srNormal;
-    GFA::Point3D                        srHitPoint;
-    GFA::RGBColor                       srColor;
-    GFA::RGBColor                       srFColor;
-    GFA::RGBColor                       srFSpecular;
-    bool                                srHitAnObject;
-    FaaRay::ConstMaterialSPtr     srMaterialSPtr; // gets changed per hit point
+    GFA::Normal                 srNormal;
+    GFA::Point3D                srHitPoint;
+    GFA::RGBColor               srColor;
+    bool                        srHitAnObject;
+    FaaRay::ConstMaterialSPtr   srMaterialSPtr; // gets changed per hit point
 
     // light data
-    GFA::Normal   lDirection;
+    GFA::Normal     lDirection;
     
 private:
     uint32_t        seedValue_;
-    FaaRay::MyRNG           rng_;
+    FaaRay::MyRNG   rng_;
     std::uniform_real_distribution<GFA::Scalar> distribution;  
 };
 
