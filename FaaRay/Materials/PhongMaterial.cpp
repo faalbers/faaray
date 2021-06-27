@@ -68,6 +68,8 @@ const GFA::RGBColor & FaaRay::PhongMaterial::getDiffuseCd() const
 
 void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
 {
+    //ttRef.testBit = (ttRef.x == 256) && (ttRef.y == 256);
+
     // Ambient BRDF reflectance mult Ambient Light 
     GFA::RGBColor srRhoColor, srAmbientL, srFColor, srFSpecular, srLightL;
     srRhoColor = ambientBrdfPtr_->rho(ttRef);
@@ -75,7 +77,6 @@ void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
     ttRef.srColor = srRhoColor * srAmbientL;
     
     // Add receiving lights.
-    //ttRef.sceneSPtr->applyLights(ttRef);
     GFA::Scalar ndotwi;
     std::vector<FaaRay::LightSPtr> lightSPtrs(ttRef.sceneSPtr->getLightSPtrs());
     for (GFA::Index j = 0; j < lightSPtrs.size(); j++) {
@@ -84,7 +85,6 @@ void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
         // now that the direction is set we can run the BRDF f
         srFColor = diffuseBrdfPtr_->f(ttRef);
         srFSpecular = specularBrdfPtr_->f(ttRef);
-        //srFSpecular = GFA::RGBColor(1,1,1);
         srLightL = lightSPtrs[j]->L(ttRef);
         // get multiplier between light and surface vectors
         ndotwi = ttRef.lDirection * ttRef.srNormal;
