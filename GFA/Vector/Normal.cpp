@@ -31,6 +31,6 @@ GFA::Normal &GFA::Normal::operator/=(const GFA::Scalar &rhs)
 
 std::ostream & GFA::operator<< (std::ostream &os, const GFA::Normal &rhs)
 {
-    os << "NormalD(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
+    os << "Normal(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
     return os;
 }
