@@ -37,6 +37,9 @@ public:
     
     // optimization variables
 
+    // test variable
+    bool            testBit;
+
     // viewplane data
     GFA::Size       width;
     GFA::Size       height;

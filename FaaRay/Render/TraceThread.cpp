@@ -6,6 +6,7 @@
 FaaRay::TraceThread::TraceThread()
     : srHitAnObject(false)
     , sRayInShadow(false)
+    , testBit(false)
 {
     constructDebug("TraceThread");
 }
