@@ -110,9 +110,9 @@ void MainWindow::sceneBuild_() const
 
     FaaRay::PointLightSPtr pointLightASPtr(new FaaRay::PointLight);
     
-    pointLightASPtr->setCenter(-20, 20, 20);
-    pointLightASPtr->setColor(GFA::RGBColor(0.3, 0.3, 1));
-    pointLightASPtr->setRadiance(0.5);
+    pointLightASPtr->setCenter(-10, 10, 10);
+    pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
+    pointLightASPtr->setRadiance(1);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
     
@@ -137,7 +137,7 @@ void MainWindow::sceneBuild_() const
     phongMaterialASPtr->setCd(GFA::RGBColor(1.0, 1.0, 0.3));
     phongMaterialASPtr->setKd(1.5);
     phongMaterialASPtr->setCs(GFA::RGBColor(1.0, 1.0, 1.0));
-    phongMaterialASPtr->setKs(0.8);
+    phongMaterialASPtr->setKs(0.5);
     phongMaterialASPtr->setExp(20.0);
 
     // Create sphere array and add to scene
