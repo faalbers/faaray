@@ -5,6 +5,7 @@
 #include "Render/TraceThread.hpp"
 //#include <stdlib.h>
 //#include <time.h>
+#include <thread>
 
 FaaRay::RenderJob::RenderJob()
     : viewPlaneSPtr_(nullptr)
@@ -51,76 +52,66 @@ void  FaaRay::RenderJob::render() const
         renderOneThread_();
 }
 
-void FaaRay::RenderJob::setupTraceThread_(FaaRay::TraceThread &ttRef) const
+void FaaRay::RenderJob::setupTraceThread_(FaaRay::TraceThreadSPtr ttRef) const
 {
     //NOTE: Should be shared pointers ?
-    ttRef.viewPlaneSPtr = viewPlaneSPtr_;
-    ttRef.sceneSPtr = sceneSPtr_;
-    ttRef.samplerSPtr = ttRef.viewPlaneSPtr->getConstSamplerSPtr();
-    ttRef.tracerSPtr = ttRef.sceneSPtr->getConstTracerSPtr();
-    ttRef.ambientLightSPtr = ttRef.sceneSPtr->getConstAmbientLightSPtr();
+    ttRef->viewPlaneSPtr = viewPlaneSPtr_;
+    ttRef->sceneSPtr = sceneSPtr_;
+    ttRef->samplerSPtr = ttRef->viewPlaneSPtr->getConstSamplerSPtr();
+    ttRef->tracerSPtr = ttRef->sceneSPtr->getConstTracerSPtr();
+    ttRef->ambientLightSPtr = ttRef->sceneSPtr->getConstAmbientLightSPtr();
     
     // NeedFix: All following could be added to a TraceThread init method
     
     // Optimization variables
-    ttRef.width = ttRef.viewPlaneSPtr->width();
-    ttRef.height = ttRef.viewPlaneSPtr->height();
-    ttRef.halfWidth = ttRef.width * 0.5;
-    ttRef.halfHeight = ttRef.height * 0.5;
-    ttRef.pixelSize = ttRef.viewPlaneSPtr->pixelSize();
+    ttRef->width = ttRef->viewPlaneSPtr->width();
+    ttRef->height = ttRef->viewPlaneSPtr->height();
+    ttRef->halfWidth = ttRef->width * 0.5;
+    ttRef->halfHeight = ttRef->height * 0.5;
+    ttRef->pixelSize = ttRef->viewPlaneSPtr->pixelSize();
 }
 
 void FaaRay::RenderJob::renderOneThread_() const
 {
+    std::cout << "\n**** RenderJob:renderOneThread ****\n";
     //NOTE: Needs warning
     if (viewPlaneSPtr_.use_count() == 0 || sceneSPtr_.use_count() == 0) return;
     
     // setup render pixel that will be refferenced through the whole thread
-    FaaRay::TraceThread tt;
+    TraceThreadSPtr tt(new FaaRay::TraceThread);
     setupTraceThread_(tt);
 
     // Init random seed
-    tt.initRandom(0);
+    tt->initRandom(0);
 
     GFA::RGBColor pixcol;
     
-    std::size_t max = tt.width * tt.height;
+    std::size_t max = tt->width * tt->height;
     for ( std::size_t i = 0; i < max; i++ ) {
-        tt.x = i % tt.width;
-        tt.y = i / tt.width;
-        tt.render();
+        tt->x = i % tt->width;
+        tt->y = i / tt->width;
+        tt->render();
     }
 }
 
 void FaaRay::RenderJob::renderMultiThread_() const
 {
+    std::cout << "\n**** RenderJob:renderOneThread ****\n";
+    
     //NOTE: Needs warning
-    if (viewPlaneSPtr_ == 0 || sceneSPtr_ == 0) return;
+    if (viewPlaneSPtr_.use_count() == 0 || sceneSPtr_.use_count() == 0) return;
 
-    // NeedFix: Multi thread implementation
-    /*
-    tbb::parallel_for(
-        tbb::blocked_range<size_t>(
-            0, viewPlaneSPtr_->width()*viewPlaneSPtr_->height()),
-        *this);
-    */
-}
-
-/*
-void RenderJob::operator() ( const tbb::blocked_range<std::size_t> &r) const
-{
-    // setup render thread that will be refferenced through the whole thread
-    TraceThread tt;
-    setupTraceThread_(tt);
-
-    // Init random seed
-    tt.initRandom(r.begin());
-
-    for ( std::size_t i = r.begin(); i != r.end(); ++i ) {
-        tt.x = i % tt.width;
-        tt.y = i / tt.width;
-        tt.render();
+    GFA::RGBColor pixcol;
+    
+    std::vector<std::thread*> tthreads;
+    GFA::Index max = viewPlaneSPtr_->width() * viewPlaneSPtr_->height();
+    GFA::Index coreBlockSize = max/std::thread::hardware_concurrency();
+    for ( GFA::Index i = 0; i < max; i +=coreBlockSize ) {
+        TraceThreadSPtr tt(new FaaRay::TraceThread);
+        setupTraceThread_(tt);
+        tt->blockStart = i;
+        tt->blockEnd = i + coreBlockSize - 1;
+        tthreads.push_back(new std::thread(&FaaRay::TraceThread::renderBlock, tt));
     }
+    for (std::thread *tthread : tthreads ) tthread->join();
 }
-*/
-

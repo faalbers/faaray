@@ -22,6 +22,16 @@ void FaaRay::TraceThread::render()
     viewPlaneSPtr->setPixel(x, y, color);
 }
 
+void FaaRay::TraceThread::renderBlock()
+{
+    for ( GFA::Index i = blockStart; i <= blockEnd; i++ ) {
+        initRandom(0);
+        x = i % width;
+        y = i / width;
+        render();
+    }
+}
+
 void FaaRay::TraceThread::initRandom(const uint32_t &s)
 {
     seedValue_ = s;

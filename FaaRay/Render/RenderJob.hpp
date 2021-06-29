@@ -33,7 +33,7 @@ private:
     
     void renderOneThread_() const;
     void renderMultiThread_() const;
-    void setupTraceThread_(FaaRay::TraceThread &rt) const;
+    void setupTraceThread_(FaaRay::TraceThreadSPtr ttRef) const;
 };
 
 typedef std::shared_ptr<RenderJob> RenderJobSPtr;

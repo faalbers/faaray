@@ -19,6 +19,7 @@ public:
     ~TraceThread();
 
     void render();
+    void renderBlock();
     
     void        initRandom(const uint32_t &s);
     GFA::Scalar rand();
@@ -30,8 +31,11 @@ public:
     FaaRay::ConstTracerSPtr     tracerSPtr;
     FaaRay::ConstLightSPtr      ambientLightSPtr;
     
-    GFA::Scalar     x;
-    GFA::Scalar     y;
+    GFA::Index      x;
+    GFA::Index      y;
+    GFA::Index      blockStart;
+    GFA::Index      blockEnd;
+
     GFA::RGBColor   color;
     uint32_t        seedVal;
     
@@ -77,6 +81,9 @@ private:
     FaaRay::MyRNG   rng_;
     std::uniform_real_distribution<GFA::Scalar> distribution;  
 };
+
+typedef std::shared_ptr<TraceThread> TraceThreadSPtr;
+typedef std::shared_ptr<const TraceThread> ConstTraceThreadSPtr;
 
 }
 

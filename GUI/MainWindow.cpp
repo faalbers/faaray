@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <memory>
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui_(new Ui::MainWindow)
@@ -142,14 +141,14 @@ void MainWindow::sceneBuild_() const
 
     // Create sphere array and add to scene
     /*
-    SphereSPtr sphereSPtr;
-    for (Index x = 0; x < 20; x ++) {
-        for (Index y = 0; y < 20; y ++) {
+    FaaRay::SphereSPtr sphereSPtr;
+    for (GFA::Index x = 0; x < 20; x ++) {
+        for (GFA::Index y = 0; y < 20; y ++) {
             // No need to reset pointer, does it automatically
-            sphereSPtr = MakeSphereSPtr();
+            sphereSPtr = FaaRay::MakeSphereSPtr();
             sphereSPtr->setCenter((x*1.5)-14.25, (y*1.5)-14.25, 0.0);
             sphereSPtr->setRadius(((0.75/20) * (x+1)) * ((y+1)/20.0));
-            sphereSPtr->setMaterialSPtr(matteMaterialASPtr);
+            sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
             sceneSPtr->addObject(sphereSPtr);
         }
     }
@@ -173,7 +172,6 @@ void MainWindow::sceneBuild_() const
     planeSPtr->setNormal(0, 1, 0);
     planeSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(planeSPtr);
-
     /* Cover problem
     SphereSPtr sphereSPtr;
 
@@ -275,7 +273,6 @@ void MainWindow::render()
     sceneBuild_();
 
     if (ui_->cpus->currentIndex() == 1) renderJobSPtr->setMultiThread();
-    std::cout << "\nRender Job Creation SEC: " << rjTimer.msecsSinceStartOfDay()/1000.0 << std::endl;
 
     updateOGL();
 
