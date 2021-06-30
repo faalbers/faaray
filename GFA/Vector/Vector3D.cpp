@@ -18,6 +18,11 @@ GFA::Vector3D::Vector3D(const GFA::Scalar &x_, const GFA::Scalar &y_, const GFA:
 {
 }
 
+GFA::Scalar GFA::Vector3D::length()
+{
+    return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
+}
+
 void GFA::Vector3D::normalize()
 {
     GFA::Scalar dom = 1.0 / sqrt(x*x + y*y + z*z);

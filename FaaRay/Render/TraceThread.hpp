@@ -75,6 +75,7 @@ public:
 
     // light data
     GFA::Normal     lDirection;
+    GFA::Scalar     lDistance;
     
 private:
     uint32_t        seedValue_;

@@ -19,7 +19,7 @@ void FaaRay::AmbientLight::setLs(const GFA::Scalar &ls)
     ls_ = ls;
 }
 
-void  FaaRay::AmbientLight::getDirection(FaaRay::TraceThread &ttRef) const
+void  FaaRay::AmbientLight::getLightInfo(FaaRay::TraceThread &ttRef) const
 {
     ttRef.lDirection = GFA::Vector3D(0.0, 0.0, 0.0);
 }

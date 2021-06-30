@@ -15,6 +15,7 @@ class Vector3D
 
         GFA::Scalar x, y, z;
         
+        GFA::Scalar length();
         void normalize();
         Vector3D normal();
         

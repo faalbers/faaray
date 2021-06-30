@@ -15,7 +15,7 @@ public:
     Light();
     virtual ~Light();
 
-    virtual void getDirection( FaaRay::TraceThread &ttRef) const = 0;
+    virtual void getLightInfo( FaaRay::TraceThread &ttRef) const = 0;
     virtual GFA::RGBColor L(FaaRay::TraceThread &ttRef) const = 0;
     virtual void inShadow( FaaRay::TraceThread &ttRef) const = 0;
 

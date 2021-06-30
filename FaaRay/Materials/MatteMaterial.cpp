@@ -57,7 +57,7 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
     std::vector<FaaRay::LightSPtr> lightSPtrs(ttRef.sceneSPtr->getLightSPtrs());
     for (GFA::Index j = 0; j < lightSPtrs.size(); j++) {
         // get light direction vector from light to hit point
-        lightSPtrs[j]->getDirection(ttRef);
+        lightSPtrs[j]->getLightInfo(ttRef);
         // now that the direction is set we can run the BRDF f
         srFColor = diffuseBrdfPtr_->f(ttRef);
         srLightL = lightSPtrs[j]->L(ttRef);
@@ -77,6 +77,8 @@ void FaaRay::MatteMaterial::shade(FaaRay::TraceThread &ttRef) const
             }
         }
     }
+    if (ttRef.testBit) ttRef.srColor = GFA::RGBColor(1,1,1);
+    ttRef.testBit = false;
 }
 
 void FaaRay::MatteMaterial::diffuse(FaaRay::TraceThread &ttRef) const

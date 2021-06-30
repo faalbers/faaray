@@ -81,7 +81,7 @@ void FaaRay::PhongMaterial::shade(FaaRay::TraceThread &ttRef) const
     std::vector<FaaRay::LightSPtr> lightSPtrs(ttRef.sceneSPtr->getLightSPtrs());
     for (GFA::Index j = 0; j < lightSPtrs.size(); j++) {
         // get light direction vector from light to hit point
-        lightSPtrs[j]->getDirection(ttRef);
+        lightSPtrs[j]->getLightInfo(ttRef);
         // now that the direction is set we can run the BRDF f
         srFColor = diffuseBrdfPtr_->f(ttRef);
         srFSpecular = specularBrdfPtr_->f(ttRef);

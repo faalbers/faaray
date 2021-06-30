@@ -115,8 +115,10 @@ void FaaRay::Scene::shadowHitObjects(FaaRay::TraceThread &ttRef) const
 
     for (GFA::Index j = 0; j < objectSPtrs_.size(); j++) {
         if ( objectSPtrs_[j]->shadowHit(ttRef, t) ) {
-            ttRef.sRayInShadow = true;
-            return;
+            if ( t <= ttRef.lDistance ) {
+                ttRef.sRayInShadow = true;
+                return;
+            }
         }
     }
     ttRef.sRayInShadow = false;

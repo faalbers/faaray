@@ -24,10 +24,12 @@ void FaaRay::PointLight::setCenter(
     center_.z = z;
 }
 
-void  FaaRay::PointLight::getDirection(FaaRay::TraceThread &ttRef) const
+void  FaaRay::PointLight::getLightInfo(FaaRay::TraceThread &ttRef) const
 {
-    ttRef.lDirection = center_ - ttRef.srHitPoint;
-}
+    GFA::Vector3D lVector = center_ - ttRef.srHitPoint;
+    ttRef.lDirection = lVector;
+    ttRef.lDistance = lVector.length();
+} 
 
 void  FaaRay::PointLight::inShadow(FaaRay::TraceThread &ttRef) const
 {
