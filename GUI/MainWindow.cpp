@@ -111,7 +111,7 @@ void MainWindow::sceneBuild_() const
     
     pointLightASPtr->setCenter(-10, 10, 10);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
-    pointLightASPtr->setRadiance(1);
+    pointLightASPtr->setRadiance(1.0);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
     
@@ -119,7 +119,7 @@ void MainWindow::sceneBuild_() const
     
     pointLightASPtr->setCenter(200, 200, 200);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
-    pointLightASPtr->setRadiance(1);
+    pointLightASPtr->setRadiance(1.0);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
 
@@ -138,6 +138,13 @@ void MainWindow::sceneBuild_() const
     phongMaterialASPtr->setCs(GFA::RGBColor(1.0, 1.0, 1.0));
     phongMaterialASPtr->setKs(0.5);
     phongMaterialASPtr->setExp(20.0);
+    
+    FaaRay::PhongMaterialSPtr phongMaterialBSPtr(new FaaRay::PhongMaterial);
+    phongMaterialBSPtr->setCd(GFA::RGBColor(0.3, 0.3, 1.0));
+    phongMaterialBSPtr->setKd(1.5);
+    phongMaterialBSPtr->setCs(GFA::RGBColor(1.0, 1.0, 0.3));
+    phongMaterialBSPtr->setKs(0.5);
+    phongMaterialBSPtr->setExp(20.0);
 
     // Create sphere array and add to scene
     /*
@@ -157,7 +164,7 @@ void MainWindow::sceneBuild_() const
     FaaRay::SphereSPtr sphereSPtr;
     sphereSPtr = FaaRay::MakeSphereSPtr();
     sphereSPtr->setCenter(0, 0, 0);
-    sphereSPtr->setRadius(10);
+    sphereSPtr->setRadius(6);
     sphereSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(sphereSPtr);
     sphereSPtr = FaaRay::MakeSphereSPtr();
@@ -172,6 +179,15 @@ void MainWindow::sceneBuild_() const
     planeSPtr->setNormal(0, 1, 0);
     planeSPtr->setMaterialSPtr(phongMaterialASPtr);
     sceneSPtr->addObject(planeSPtr);
+
+    FaaRay::OpenCylinderSPtr openCylinderSPtr;
+    openCylinderSPtr = FaaRay::MakeOpenCylinderSPtr();
+    openCylinderSPtr->setBottom(6);
+    openCylinderSPtr->setTop(12);
+    openCylinderSPtr->setRadius(4);
+    openCylinderSPtr->setMaterialSPtr(phongMaterialBSPtr);
+    sceneSPtr->addObject(openCylinderSPtr);
+
     /* Cover problem
     SphereSPtr sphereSPtr;
 
