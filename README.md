@@ -20,10 +20,10 @@ https://www.youtube.com/watch?v=-dREJCf2ve4
 
 sp.use_count() to get usage counter of shared pointer
 
-ultiThreading:
+MultiThreading:
 https://youtu.be/dcSsjxhazu0
 https://youtu.be/Hx0BcXd86iA
-Figure out what all this thread() thread.join() is about !!!!!
+https://youtu.be/ZROGScvpGrs
 
 subclass (base class) method overriding:
 https://en.wikipedia.org/wiki/Method_overriding
