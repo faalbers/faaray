@@ -100,7 +100,7 @@ void MainWindow::sceneBuild_() const
             ui_->ambient->setCurrentIndex(0);
             break;
     }
-    ambientLightSPtr->setLs(0);
+    ambientLightSPtr->setLs(ui_->ambientRadiance->value());
     sceneSPtr->setAmbientLight(ambientLightSPtr);
 
     // NeedFix: why does this not work ??
@@ -111,7 +111,7 @@ void MainWindow::sceneBuild_() const
     
     pointLightASPtr->setCenter(-10, 10, 10);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
-    pointLightASPtr->setRadiance(1.0);
+    pointLightASPtr->setRadiance(0.7);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
     
@@ -119,7 +119,7 @@ void MainWindow::sceneBuild_() const
     
     pointLightASPtr->setCenter(200, 200, 200);
     pointLightASPtr->setColor(GFA::RGBColor(1, 1, 1));
-    pointLightASPtr->setRadiance(1.0);
+    pointLightASPtr->setRadiance(0.7);
     pointLightASPtr->castShadows(true);
     sceneSPtr->addLight(pointLightASPtr);
 
@@ -182,11 +182,19 @@ void MainWindow::sceneBuild_() const
 
     FaaRay::OpenCylinderSPtr openCylinderSPtr;
     openCylinderSPtr = FaaRay::MakeOpenCylinderSPtr();
-    openCylinderSPtr->setBottom(6);
-    openCylinderSPtr->setTop(12);
+    openCylinderSPtr->setCenter(0, 7, 0);
+    openCylinderSPtr->setBottom(0);
+    openCylinderSPtr->setTop(6);
     openCylinderSPtr->setRadius(4);
     openCylinderSPtr->setMaterialSPtr(phongMaterialBSPtr);
     sceneSPtr->addObject(openCylinderSPtr);
+
+    FaaRay::DiscSPtr discSPtr;
+    discSPtr = FaaRay::MakeDiscSPtr();
+    discSPtr->setCenter(0, 4, 0);
+    discSPtr->setRadius(6);
+    discSPtr->setMaterialSPtr(phongMaterialASPtr);
+    sceneSPtr->addObject(discSPtr);
 
     /* Cover problem
     SphereSPtr sphereSPtr;

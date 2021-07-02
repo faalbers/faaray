@@ -23,5 +23,6 @@
 #include "GeometricObjects/Sphere.hpp"
 #include "GeometricObjects/Plane.hpp"
 #include "GeometricObjects/OpenCylinder.hpp"
+#include "GeometricObjects/Disc.hpp"
 
 #endif
