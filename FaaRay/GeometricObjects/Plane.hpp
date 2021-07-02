@@ -13,7 +13,7 @@ class Plane : public GeometricObject
 {
 public:
     Plane(void);
-    Plane(const GFA::Point3D& point, const GFA::Normal& normal);
+    Plane(const GFA::Point3D& center, const GFA::Normal& normal);
     ~Plane();
 
     void setCenter(const GFA::Scalar &x, const GFA::Scalar &y, const GFA::Scalar &z);

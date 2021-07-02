@@ -8,9 +8,9 @@ FaaRay::Plane::Plane(void)
 {
 }
 
-FaaRay::Plane::Plane(const GFA::Point3D& point, const GFA::Normal& normal)
+FaaRay::Plane::Plane(const GFA::Point3D& center, const GFA::Normal& normal)
     :   GeometricObject(),
-        center_(point),
+        center_(center),
         normal_(normal)
 {
 }
