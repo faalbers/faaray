@@ -17,6 +17,16 @@ FaaRay::OpenCylinder::~OpenCylinder(void)
     deconstructDebug("FaaRay::OpenCylinder");
 }
 
+void FaaRay::OpenCylinder::setCenter(
+    const GFA::Scalar &x,
+    const GFA::Scalar &y,
+    const GFA::Scalar &z)
+{
+    center_.x = x;
+    center_.y = y;
+    center_.z = z;
+}
+
 void FaaRay::OpenCylinder::setRadius(const GFA::Scalar &radius)
 {
     radius_ = radius;
@@ -36,9 +46,9 @@ void FaaRay::OpenCylinder::setTop(const GFA::Scalar &top)
 bool FaaRay::OpenCylinder::hit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin, GFA::Normal &srNormal) const
 {
 	GFA::Scalar t;
-	GFA::Scalar ox = ttRef.rayOrigin.x;
-	GFA::Scalar oy = ttRef.rayOrigin.y;
-	GFA::Scalar oz = ttRef.rayOrigin.z;
+	GFA::Scalar ox = ttRef.rayOrigin.x-center_.x;
+	GFA::Scalar oy = ttRef.rayOrigin.y-center_.y;
+	GFA::Scalar oz = ttRef.rayOrigin.z-center_.z;
 	GFA::Scalar dx = ttRef.rayDirection.x;
 	GFA::Scalar dy = ttRef.rayDirection.y;
 	GFA::Scalar dz = ttRef.rayDirection.z;
@@ -101,9 +111,9 @@ bool FaaRay::OpenCylinder::shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar &tm
 {
     // page 57
 	GFA::Scalar t;
-	GFA::Scalar ox = ttRef.sRayOrigin.x;
-	GFA::Scalar oy = ttRef.sRayOrigin.y;
-	GFA::Scalar oz = ttRef.sRayOrigin.z;
+	GFA::Scalar ox = ttRef.sRayOrigin.x-center_.x;
+	GFA::Scalar oy = ttRef.sRayOrigin.y-center_.y;
+	GFA::Scalar oz = ttRef.sRayOrigin.z-center_.z;
 	GFA::Scalar dx = ttRef.sRayDirection.x;
 	GFA::Scalar dy = ttRef.sRayDirection.y;
 	GFA::Scalar dz = ttRef.sRayDirection.z;

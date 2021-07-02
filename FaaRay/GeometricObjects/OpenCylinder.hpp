@@ -15,6 +15,10 @@ public:
     OpenCylinder();
     ~OpenCylinder(void);     // destructor
 
+    void setCenter(
+        const GFA::Scalar &x,
+        const GFA::Scalar &y,
+        const GFA::Scalar &z);
     void setRadius(const GFA::Scalar &radius);
     void setBottom(const GFA::Scalar &bottom);
     void setTop(const GFA::Scalar &top);
@@ -23,6 +27,7 @@ public:
     virtual bool shadowHit(FaaRay::TraceThread &ttRef, GFA::Scalar &tmin) const;
 
 private:
+    GFA::Point3D    center_;    // center point
     GFA::Scalar     radius_;     // OpenCylinder radius
     GFA::Scalar     bottom_;
     GFA::Scalar     top_;
